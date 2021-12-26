@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
     state = {
-        authedUser: ''
+        authedUser: '',
+        toHome: false
     }
 
     handleChange = event => {
         this.setState(() => ({
-            authedUser: event.target.value
+            authedUser: event.target.value,
         }))
     }
 
@@ -19,14 +21,24 @@ class Login extends Component {
         const { authedUser } = this.state
 
         dispatch(setAuthedUser(authedUser))
+
+        this.setState(() => ({
+            toHome: true
+        }))  
     }
 
     render() {
         const { users } = this.props
+        const { toHome } = this.state
+
+        if (toHome === true) {
+            return <Redirect to='/' />
+        }
+
         return (
             <div>
                 <select onChange={this.handleChange}>
-                    <option  value="select" >Select user...</option>
+                    <option  value="select">Select user...</option>
                     {(Object.values(users) || []).map((user) => {
                         return (
                             <option value={user.id} key={user.id}>{ user.name }</option>
