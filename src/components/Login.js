@@ -5,7 +5,7 @@ import { setAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
     state = {
-        authedUser: '',
+        authedUser: null,
         toHome: false
     }
 
@@ -45,7 +45,7 @@ class Login extends Component {
                         )
                     })}
                 </select>
-                <button onClick={this.handleLogin} disabled={authedUser === ''}>Login</button>
+                <button onClick={this.handleLogin} disabled={authedUser === null}>Login</button>
             </div>
         )
     }

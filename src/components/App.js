@@ -17,9 +17,9 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
-                    {this.props.authedUser !== '' && <Navbar />}
+                    {this.props.authedUser !== null && <Navbar />}
                     <Switch>
-                      {this.props.authedUser === '' && <Route component={Login} />}
+                      {this.props.authedUser === null && <Route component={Login} />}
                       <Route path='/' exact component={Dashboard} />
                       <Route path='/add' component={AddQuestion} />
                       <Route path='/leaderboard' component={Leaderboard} />
