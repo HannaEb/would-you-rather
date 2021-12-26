@@ -29,7 +29,7 @@ class Login extends Component {
 
     render() {
         const { users } = this.props
-        const { toHome } = this.state
+        const { toHome, authedUser } = this.state
 
         if (toHome === true) {
             return <Redirect to='/' />
@@ -45,7 +45,7 @@ class Login extends Component {
                         )
                     })}
                 </select>
-                <button onClick={this.handleLogin}>Login</button>
+                <button onClick={this.handleLogin} disabled={authedUser === ''}>Login</button>
             </div>
         )
     }
