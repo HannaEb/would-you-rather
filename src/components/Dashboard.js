@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Question from './Question';
 
 class Dashboard extends Component {
     render() {
@@ -21,7 +22,7 @@ class Dashboard extends Component {
                     <ul>
                         {answeredQuestions.map(question => (
                             <li key={question.id}>
-                                <div>{question.id}</div>
+                                <Question id={question.id} />
                             </li>
                         ))}
                     </ul>
@@ -31,7 +32,7 @@ class Dashboard extends Component {
                     <ul>
                     {unansweredQuestions.map(question => (
                             <li key={question.id}>
-                                <div>{question.id}</div>
+                                <Question id={question.id} />
                             </li>
                         ))}
                     </ul>
