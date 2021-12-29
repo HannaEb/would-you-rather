@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { resetAuthedUser } from '../actions/authedUser';
 
 class Navbar extends Component {
+    state = {
+        toHome: false
+    }
+
+    handleLogout = () => {
+        const { dispatch } = this.props
+
+        dispatch(resetAuthedUser())
+
+        this.setState({
+            toHome: true
+        })
+    } 
+
     render() {
 
         const { authedUser } = this.props
+        const { toHome } = this.state
+
+        if (toHome === true) {
+            return <Redirect to='/' />
+        }
 
         return (
             <nav>
@@ -29,7 +50,7 @@ class Navbar extends Component {
                         Hello, {authedUser}!
                     </li>
                     <li>
-                        <button>
+                        <button onClick={this.handleLogout}>
                             Logout
                         </button>
                     </li>
