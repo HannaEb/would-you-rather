@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import QuestionDetails from './QuestionDetails';
 
 class QuestionPage extends Component {
     render() {
@@ -8,7 +9,7 @@ class QuestionPage extends Component {
 
         return (
             <div>
-                <p>{id}</p>
+                <QuestionDetails id={id} />
             </div>
         )
     }
