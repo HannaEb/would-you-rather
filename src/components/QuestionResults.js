@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { calculatePercentage } from '../utils/helpers';
 
 class QuestionResults extends Component {
-    render(){
+    render() {
 
         const { question, authedUser } = this.props
         const { author, optionOne, optionTwo } = question

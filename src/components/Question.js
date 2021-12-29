@@ -6,7 +6,6 @@ class Question extends Component {
     render() {
 
         const { question } = this.props
-
         const { id, author, optionOne, optionTwo } = question
 
         return (

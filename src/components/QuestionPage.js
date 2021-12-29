@@ -6,22 +6,26 @@ import QuestionResults from './QuestionResults';
 class QuestionPage extends Component {
     render() {
 
-        const { id } = this.props
+        const { id, user } = this.props
+        const answered = (user.answers).hasOwnProperty(id)
 
         return (
             <div>
-                <QuestionDetails id={id} />
-                <QuestionResults id={id} />
+                {answered === false
+                    ? <QuestionDetails id={id} />
+                    : <QuestionResults id={id} />
+                }    
             </div>
         )
     }
 }
 
-function mapStateToProps({ questions }, props) {
+function mapStateToProps({ users, authedUser }, props) {
     const { id } = props.match.params
-    
+    const user = users[authedUser]
     return {
-        id
+        id,
+        user
     }
 }
 
