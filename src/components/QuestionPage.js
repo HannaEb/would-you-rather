@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionDetails from './QuestionDetails';
+import QuestionResults from './QuestionResults';
 
 class QuestionPage extends Component {
     render() {
@@ -10,6 +11,7 @@ class QuestionPage extends Component {
         return (
             <div>
                 <QuestionDetails id={id} />
+                <QuestionResults id={id} />
             </div>
         )
     }
