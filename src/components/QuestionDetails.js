@@ -28,11 +28,12 @@ class QuestionDetails extends Component {
     render() {
         
         const { answer } = this.state
-        const { question } = this.props
+        const { question, avatar } = this.props
         const { author, optionOne, optionTwo } = question
 
         return (
             <div>
+                <img src={avatar} alt='Avatar' width='50'></img>
                 <h3>{author} asks:</h3>
                 <h2>Would you rather...</h2>
                 <form>
@@ -61,12 +62,14 @@ class QuestionDetails extends Component {
     }
 }
 
-function mapStateToProps({ questions, authedUser }, { id })  {
+function mapStateToProps({ questions, authedUser, users }, { id })  {
     const question = questions[id]
+    const avatar = users[question.author].avatarURL
     
     return {
         question,
-        authedUser
+        authedUser,
+        avatar
     }
 }
 

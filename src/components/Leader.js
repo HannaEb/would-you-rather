@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class Leader extends Component {
     render() {
 
-        const { leader } = this.props
+        const { leader, avatar } = this.props
 
         const answeredQuestions = Object.keys(leader.answers).length
         const createdQuestions = leader.questions.length
@@ -13,7 +13,7 @@ class Leader extends Component {
         return (
             <div>
                 <h4>{leader.name}</h4>
-                <p>Test</p>
+                <img src={avatar} alt='Avatar' width='50'></img>
                 <p>Answered questions: {answeredQuestions}</p>
                 <p>Created questions: {createdQuestions}</p>
                 <p>Score: {score}</p>
@@ -24,7 +24,10 @@ class Leader extends Component {
 
 function mapStateToProps({ users }, { id }) {
     const leader = users[id]
+    const avatar = leader.avatarURL
+
     return {
+        avatar,
         leaders: users,
         leader: leader
             ? leader

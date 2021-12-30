@@ -21,7 +21,7 @@ class Navbar extends Component {
 
     render() {
 
-        const { authedUser } = this.props
+        const { authedUser, avatar } = this.props
         const { toHome } = this.state
 
         if (toHome === true) {
@@ -47,7 +47,8 @@ class Navbar extends Component {
                         </NavLink>
                     </li>
                     <li>
-                        Hello, {authedUser}!
+                        <p>Hello, {authedUser}!</p>
+                        <img src={avatar} alt='Avatar' width='50'></img>
                     </li>
                     <li>
                         <button onClick={this.handleLogout}>
@@ -60,9 +61,12 @@ class Navbar extends Component {
     }
 }
 
-function mapStateToProps({ authedUser }){
+function mapStateToProps({ authedUser, users }){
+    const avatar = users[authedUser].avatarURL
+
     return {
-        authedUser
+        authedUser,
+        avatar
     }
 }
 
