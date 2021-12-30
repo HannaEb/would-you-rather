@@ -1,8 +1,9 @@
-import { saveQuestion } from '../utils/api';
-import { updateUserQuestions } from './users';
+import { saveQuestion, saveQuestionAnswer } from '../utils/api';
+import { updateUserQuestions, updateUserAnswers } from './users';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
+export const UPDATE_QUESTION = 'UPDATE_QUESTION'
 
 export function receiveQuestions(questions) {
     return {
@@ -31,5 +32,24 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
                 dispatch(addQuestion(question))
                 dispatch(updateUserQuestions(question))
             })
+    }
+}
+
+function updateQuestion({ authedUser, qid, answer }) {
+    return {
+        type: UPDATE_QUESTION,
+        authedUser,
+        qid,
+        answer
+    }
+}
+
+export function handleUpdateQuestion(authedUser, qid, answer) {
+    return (dispatch) => {
+
+        dispatch(updateQuestion(authedUser, qid, answer))
+        dispatch(updateUserAnswers(authedUser, qid, answer))
+
+        return saveQuestionAnswer(authedUser, qid, answer)   
     }
 }
