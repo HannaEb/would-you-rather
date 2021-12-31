@@ -25,18 +25,17 @@ class App extends Component {
                     {this.props.loading === true
                         ? null
                         : <div>
-                        {this.props.authedUser !== null && <Navbar />}
-                        <Switch>
-                          {this.props.authedUser === null && <Route component={Login} />}
-                          <Route path='/' exact component={Dashboard} />
-                          <Route path='/add' component={AddQuestion} />
-                          <Route path='/leaderboard' component={Leaderboard} />
-                          <Route path='/questions/:id' component={QuestionPage} />
-                          <Route Path='*' component={Error} />
-                        </Switch>  
+                            {this.props.authedUser !== null && <Navbar />}
+                            <Switch>
+                                {this.props.authedUser === null && <Route component={Login} />}
+                                <Route path='/' exact component={Dashboard} />
+                                <Route path='/add' component={AddQuestion} />
+                                <Route path='/leaderboard' component={Leaderboard} />
+                                <Route path='/questions/:id' component={QuestionPage} />
+                                <Route Path='*' component={Error} />
+                            </Switch>  
                         </div>
-                        }
-                    
+                    }   
                 </Fragment>  
             </Router>
             
