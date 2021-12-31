@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { resetAuthedUser } from '../actions/authedUser';
 
 class Navbar extends Component {
-    state = {
-        toHome: false
-    }
-
-    handleLogout = () => {
-        const { dispatch } = this.props
-
-        dispatch(resetAuthedUser())
-
-        this.setState({
-            toHome: true
-        })
-    } 
-
     render() {
 
         const { authedUser, avatar } = this.props
-        const { toHome } = this.state
-
-        if (toHome === true) {
-            return <Redirect to='/' />
-        }
-
+    
         return (
             <nav>
                 <ul>
@@ -51,9 +31,9 @@ class Navbar extends Component {
                         <img src={avatar} alt='Avatar' width='50'></img>
                     </li>
                     <li>
-                        <button onClick={this.handleLogout}>
+                        <NavLink to='/' onClick={() => this.props.dispatch(resetAuthedUser())}>
                             Logout
-                        </button>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
