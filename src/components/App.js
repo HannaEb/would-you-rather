@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import AddQuestion from './AddQuestion';
 import Leaderboard from './Leaderboard';
 import QuestionPage from './QuestionPage';
+import Error from './Error';
 
 class App extends Component {
     componentDidMount() {
@@ -25,6 +26,7 @@ class App extends Component {
                       <Route path='/add' component={AddQuestion} />
                       <Route path='/leaderboard' component={Leaderboard} />
                       <Route path='/questions/:id' component={QuestionPage} />
+                      <Route Path='*' component={Error} />
                     </Switch>  
                 </Fragment>  
             </Router>
