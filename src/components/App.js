@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
 import Login from './Login';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 import Dashboard from './Dashboard';
 import AddQuestion from './AddQuestion';
 import Leaderboard from './Leaderboard';
@@ -25,7 +25,7 @@ class App extends Component {
                     {this.props.loading === true
                         ? null
                         : <div>
-                            {this.props.authedUser !== null && <Navbar />}
+                            {this.props.authedUser !== null && <Navigation />}
                             <Switch>
                                 {this.props.authedUser === null && <Route component={Login} />}
                                 <Route path='/' exact component={Dashboard} />
