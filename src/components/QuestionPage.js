@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'reactstrap';
 import QuestionDetails from './QuestionDetails';
 import QuestionResults from './QuestionResults';
 import Error from './Error';
@@ -14,11 +15,15 @@ class QuestionPage extends Component {
             return <Error />
         } else {
             return (
-                <div>
-                    {answered === false 
-                        ? <QuestionDetails id={id} />
-                        : <QuestionResults id={id} />
-                    }    
+                <div className='container'>
+                    <Row className='justify-content-center'>
+                        <Col md='auto'>
+                        {answered === false 
+                            ? <QuestionDetails id={id} />
+                            : <QuestionResults id={id} />
+                        }   
+                        </Col>
+                    </Row>
                 </div>
             )
         }  
