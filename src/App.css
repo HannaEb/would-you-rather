@@ -10,3 +10,8 @@ img {
 .navbar {
     margin-bottom: 30px;
 }
+
+.score-badge {
+    font-size: 20px;
+    border-radius: 50%;
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import ScoreCard from './ScoreCard';
 
 class Leader extends Component {
     render() {
@@ -11,13 +13,23 @@ class Leader extends Component {
         const score = answeredQuestions + createdQuestions
 
         return (
-            <div>
-                <h4>{leader.name}</h4>
-                <img src={avatar} alt='Avatar' width='50'></img>
-                <p>Answered questions: {answeredQuestions}</p>
-                <p>Created questions: {createdQuestions}</p>
-                <p>Score: {score}</p>
-            </div>
+            <Card className='mt-4'>
+                <CardBody>
+                    <div className='row h-100'>
+                        <div className='col-4'>
+                            <CardImg width='100%' className='d-block m-auto card-avatar' src={avatar} alt='Avatar'></CardImg>
+                        </div>
+                        <div className='col-auto'>
+                            <CardTitle tag='h5'>{leader.name}</CardTitle>
+                            <CardText>Answered questions: {answeredQuestions}</CardText>
+                            <CardText>Created questions: {createdQuestions}</CardText>
+                        </div>
+                        <div className='col-3 m-auto'>
+                            <ScoreCard score={score} />
+                        </div>
+                    </div>
+                </CardBody>
+            </Card>
         )
     }
 }
