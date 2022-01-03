@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Row, Col, Card, CardHeader, CardTitle, CardText, CardBody, CardImg, Form, FormGroup, Input, Button } from 'reactstrap';
 import { setAuthedUser } from '../actions/authedUser';
+import logo from '../images/logo.png';
 
 class Login extends Component {
     state = {
@@ -36,16 +38,42 @@ class Login extends Component {
         }
 
         return (
-            <div>
-                <select onChange={this.handleChange}>
-                    <option  value="select">Select user...</option>
-                    {(Object.values(users) || []).map((user) => {
-                        return (
-                            <option value={user.id} key={user.id}>{ user.name }</option>
-                        )
-                    })}
-                </select>
-                <button onClick={this.handleLogin} disabled={authedUser === null}>Login</button>
+            <div className='container mt-4'>
+                <Row className='justify-content-center'>
+                    <Col md='auto'>
+                        <Card>
+                            <CardHeader className='text-center'>
+                                <CardTitle tag='h5'>Welcome to the Would You Rather App!</CardTitle>
+                                <CardText>Please sign in to continue</CardText>
+                            </CardHeader>
+                            <CardBody>
+                                <CardImg width='80%' className='d-block m-auto' src={logo}></CardImg>
+                                <CardText className='text-center' tag='h5' color='info'>Sign in</CardText>
+                                <Form>
+                                    <FormGroup>
+                                        <Input type='select' onChange={this.handleChange}>
+                                            <option selected disabled>Select user...</option>
+                                            {(Object.values(users) || []).map((user) => {
+                                                return (
+                                                    <option value={user.id} key={user.id}>{ user.name }</option>
+                                                )
+                                             })}
+                                        </Input>
+                                    </FormGroup>
+                                    <Button
+                                        block
+                                        color='info' 
+                                        onClick={this.handleLogin}  
+                                        disabled={authedUser === null}
+                                    >
+                                        Login
+                                    </Button>
+                                </Form>
+                            </CardBody>
+
+                        </Card>
+                    </Col>
+                </Row>
             </div>
         )
     }
