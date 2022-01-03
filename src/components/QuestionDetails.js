@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader, CardBody, CardImg, CardTitle, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { handleUpdateQuestion } from '../actions/questions';
 
 class QuestionDetails extends Component {
@@ -32,32 +33,44 @@ class QuestionDetails extends Component {
         const { author, optionOne, optionTwo } = question
 
         return (
-            <div>
-                <img src={avatar} alt='Avatar' width='50'></img>
-                <h3>{author} asks:</h3>
-                <h2>Would you rather...</h2>
-                <form>
-                    <div>
-                        <input 
-                            type='radio'
-                            value='optionOne'
-                            checked={this.state.answer === 'optionOne'}
-                            onChange={this.handleChange}
-                        />
-                        <label htmlFor='optionOne'>{optionOne.text}</label>
+            <Card className='mt-4'>
+                <CardHeader>{author} asks:</CardHeader>
+                <CardBody>
+                    <div className='row'>
+                        <div className='col my-auto'>
+                            <CardImg width='100%' className='d-block m-auto card-avatar' src={avatar} alt='Avatar'></CardImg>
+                        </div>
+                        <div className='col-auto my-auto'>
+                            <CardTitle tag='h5'>Would you rather...</CardTitle>
+                            <Form>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input 
+                                            type='radio' 
+                                            value='optionOne'
+                                            checked={this.state.answer === 'optionOne'}
+                                            onChange={this.handleChange}
+                                        />
+                                        {optionOne.text}
+                                    </Label>  
+                                </FormGroup>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input 
+                                            type='radio' 
+                                            value='optionTwo'
+                                            checked={this.state.answer === 'optionTwo'}
+                                            onChange={this.handleChange}
+                                        />
+                                        {optionTwo.text}
+                                    </Label>  
+                                </FormGroup>
+                                <Button className='mt-3' color='info' onClick={this.handleSubmit} disabled={answer === null}>Submit</Button>
+                            </Form>
+                        </div>
                     </div>
-                    <div>
-                        <input 
-                            type='radio'
-                            value='optionTwo'
-                            checked={this.state.answer === 'optionTwo'}
-                            onChange={this.handleChange}
-                        />
-                        <label htmlFor='optionTwo'>{optionTwo.text}</label>
-                    </div>
-                </form>
-                <button onClick={this.handleSubmit} disabled={answer === null}>Submit</button>
-            </div>
+                </CardBody>
+            </Card>
         )
     }
 }

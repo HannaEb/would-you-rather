@@ -24,7 +24,7 @@ class QuestionResults extends Component {
                         <div className='col my-auto'>
                             <CardImg width='100%' className='d-block m-auto card-avatar' src={avatar} alt='Avatar'></CardImg>
                         </div>
-                        <div className='col ms-6'>
+                        <div className='col sm-8'>
                             <CardTitle tag='h5'>Results:</CardTitle>
                             <Card className='mb-3' color='light'>
                                 {optionOneChoice && <Badge color='info'>Your choice</Badge>}
