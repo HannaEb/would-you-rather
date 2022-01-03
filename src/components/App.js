@@ -21,7 +21,7 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
-                    <LoadingBar />
+                    <LoadingBar style={{backgroundColor: '#5BC0DE'}} />
                     {this.props.loading === true
                         ? null
                         : <div>
