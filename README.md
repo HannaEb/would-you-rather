@@ -1,4 +1,4 @@
-# My Reads
+# Would You Rather?
 
 ## About
 
