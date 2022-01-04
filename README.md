@@ -4,7 +4,7 @@
 
 An online version of the popular 'Would You Rather?" game. Users are able to answer questions, see results for questions they have answered already, add new questions and see the ranking of users on the leaderboard. 
 
-![](scr/images/screenshot.png)
+![](src/images/screenshot.png)
 
 ## Motivation
 
