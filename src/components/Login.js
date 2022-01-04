@@ -52,7 +52,7 @@ class Login extends Component {
                                 <Form>
                                     <FormGroup>
                                         <Input type='select' onChange={this.handleChange}>
-                                            <option selected disabled>Select user...</option>
+                                            <option  value='default' disabled>Select user...</option>
                                             {(Object.values(users) || []).map((user) => {
                                                 return (
                                                     <option value={user.id} key={user.id}>{ user.name }</option>
@@ -70,7 +70,6 @@ class Login extends Component {
                                     </Button>
                                 </Form>
                             </CardBody>
-
                         </Card>
                     </Col>
                 </Row>
