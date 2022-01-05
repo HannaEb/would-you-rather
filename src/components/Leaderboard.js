@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, List } from 'reactstrap';
 import Leader from './Leader';
 
-class Leaderboard extends Component {
-    render() {
+const Leaderboard = props => {
 
-        const { users } = this.props
+    const { users } = props
 
-        return (
-            <div className='container'>
-                <Row className='justify-content-center'>
-                    <Col md='auto'>
-                        <List type='unstyled'>
-                            {users.map(user => (
-                                <li key={user.id}>
-                                    <Leader id={user.id} />
-                                </li>
-                            ))}
-                        </List>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+    return (
+        <div className='container'>
+            <Row className='justify-content-center'>
+                <Col md='auto'>
+                    <List type='unstyled'>
+                        {users.map(user => (
+                            <li key={user.id}>
+                                <Leader id={user.id} />
+                            </li>
+                        ))}
+                    </List>
+                </Col>
+            </Row>
+        </div>
+    )
 }
 
 function mapStateToProps({ users }) {

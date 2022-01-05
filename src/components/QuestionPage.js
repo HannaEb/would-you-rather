@@ -1,32 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import QuestionDetails from './QuestionDetails';
 import QuestionResults from './QuestionResults';
 import Error from './Error';
 
-class QuestionPage extends Component {
-    render() {
+const QuestionPage = props => {
+    
+    const { id, user, invalid } = props
+    const answered = (user.answers).hasOwnProperty(id)
 
-        const { id, user, invalid } = this.props
-        const answered = (user.answers).hasOwnProperty(id)
-
-        if (invalid) {
-            return <Error />
-        } else {
-            return (
-                <div className='container'>
-                    <Row className='justify-content-center'>
-                        <Col md='auto'>
-                        {answered === false 
-                            ? <QuestionDetails id={id} />
-                            : <QuestionResults id={id} />
-                        }   
-                        </Col>
-                    </Row>
-                </div>
-            )
-        }  
+    if (invalid) {
+        return <Error />
+    } else {
+        return (
+            <div className='container'>
+                <Row className='justify-content-center'>
+                    <Col md='auto'>
+                    {answered === false 
+                        ? <QuestionDetails id={id} />
+                        : <QuestionResults id={id} />
+                    }   
+                    </Col>
+                </Row>
+            </div>
+        )
     }
 }
 
