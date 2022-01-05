@@ -51,8 +51,8 @@ class Login extends Component {
                                 <CardText className='text-center' tag='h5' color='info'>Sign in</CardText>
                                 <Form>
                                     <FormGroup>
-                                        <Input type='select' onChange={this.handleChange}>
-                                            <option  value='default' disabled>Select user...</option>
+                                        <Input type='select' defaultValue='' onChange={this.handleChange}>
+                                            <option value='' disabled>Select user...</option>
                                             {(Object.values(users) || []).map((user) => {
                                                 return (
                                                     <option value={user.id} key={user.id}>{ user.name }</option>
