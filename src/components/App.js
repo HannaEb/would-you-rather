@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect }  from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
 import Login from './Login';
@@ -11,13 +11,15 @@ import Leaderboard from './Leaderboard';
 import QuestionPage from './QuestionPage';
 import Error from './Error';
 
-const App = props => {
-    
-    const { handleInitialData, loading, authedUser } = props
+const App = () => {
+
+    const authedUser = useSelector(state => state.authedUser)
+    const loading = useSelector(state => Object.keys(state.users).length === 0)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        handleInitialData()
-    }, [handleInitialData])
+        dispatch(handleInitialData())
+    }, [dispatch])
 
     return (
         <Router>
@@ -28,7 +30,7 @@ const App = props => {
                     : <div>
                         {authedUser !== null && <Navigation />}
                         <Switch>
-                            {props.authedUser === null && <Route component={Login} />}
+                            {authedUser === null && <Route component={Login} />}
                             <Route path='/' exact component={Dashboard} />
                             <Route path='/add' component={AddQuestion} />
                             <Route path='/leaderboard' component={Leaderboard} />
@@ -42,17 +44,4 @@ const App = props => {
     )
 }
 
-function mapStateToProps({ authedUser, users }) {
-    return {
-      authedUser,
-      loading: Object.keys(users).length === 0
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        handleInitialData: () => dispatch(handleInitialData())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
