@@ -1,23 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Card, CardHeader, CardBody, CardImg, CardTitle, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { handleUpdateQuestion } from '../actions/questions';
 
-class QuestionDetails extends Component {
-    state = {
-        answer: null
+const QuestionDetails = props => {
+    
+    const [answer, setAnswer] = useState(null)
+    
+    const handleChange = (event) => {
+        setAnswer(event.target.value)
     }
 
-    handleChange = (event) => {
-        this.setState({
-            answer: event.target.value
-        })
-    }
-
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        const { dispatch, id, authedUser } = this.props
-        const { answer } = this.state
+        const { dispatch, id, authedUser } = props
 
         dispatch(handleUpdateQuestion({
             authedUser,
@@ -26,53 +22,49 @@ class QuestionDetails extends Component {
         }))  
     }
 
-    render() {
-        
-        const { answer } = this.state
-        const { question, avatar } = this.props
-        const { author, optionOne, optionTwo } = question
+    const { question, avatar } = props
+    const { author, optionOne, optionTwo } = question
 
-        return (
-            <Card className='mt-4'>
-                <CardHeader>{author} asks:</CardHeader>
-                <CardBody>
-                    <div className='row'>
-                        <div className='col my-auto'>
-                            <CardImg width='100%' className='d-block m-auto card-avatar' src={avatar} alt='Avatar'></CardImg>
-                        </div>
-                        <div className='col-auto my-auto'>
-                            <CardTitle tag='h5'>Would you rather...</CardTitle>
-                            <Form>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input 
-                                            type='radio' 
-                                            value='optionOne'
-                                            checked={this.state.answer === 'optionOne'}
-                                            onChange={this.handleChange}
-                                        />
-                                        {optionOne.text}
-                                    </Label>  
-                                </FormGroup>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input 
-                                            type='radio' 
-                                            value='optionTwo'
-                                            checked={this.state.answer === 'optionTwo'}
-                                            onChange={this.handleChange}
-                                        />
-                                        {optionTwo.text}
-                                    </Label>  
-                                </FormGroup>
-                                <Button className='mt-3' color='info' onClick={this.handleSubmit} disabled={answer === null}>Submit</Button>
-                            </Form>
-                        </div>
+    return (
+        <Card className='mt-4'>
+            <CardHeader>{author} asks:</CardHeader>
+            <CardBody>
+                <div className='row'>
+                    <div className='col my-auto'>
+                        <CardImg width='100%' className='d-block m-auto card-avatar' src={avatar} alt='Avatar'></CardImg>
                     </div>
-                </CardBody>
-            </Card>
-        )
-    }
+                    <div className='col-auto my-auto'>
+                        <CardTitle tag='h5'>Would you rather...</CardTitle>
+                        <Form>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input 
+                                        type='radio' 
+                                        value='optionOne'
+                                        checked={answer === 'optionOne'}
+                                        onChange={handleChange}
+                                    />
+                                    {optionOne.text}
+                                </Label>  
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input 
+                                        type='radio' 
+                                        value='optionTwo'
+                                        checked={answer === 'optionTwo'}
+                                        onChange={handleChange}
+                                    />
+                                    {optionTwo.text}
+                                </Label>  
+                            </FormGroup>
+                            <Button className='mt-3' color='info' onClick={handleSubmit} disabled={answer === null}>Submit</Button>
+                        </Form>
+                    </div>
+                </div>
+            </CardBody>
+        </Card>
+    )
 }
 
 function mapStateToProps({ questions, authedUser, users }, { id })  {
