@@ -1,4 +1,4 @@
-import React, { Component, Fragment }  from 'react';
+import React, { Fragment, useEffect }  from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
@@ -11,36 +11,35 @@ import Leaderboard from './Leaderboard';
 import QuestionPage from './QuestionPage';
 import Error from './Error';
 
+const App = props => {
+    
+    const { handleInitialData, loading, authedUser } = props
 
-class App extends Component {
-    componentDidMount() {
-        this.props.dispatch(handleInitialData())
-    }
+    useEffect(() => {
+        handleInitialData()
+    }, [handleInitialData])
 
-    render() {
-        return (
-            <Router>
-                <Fragment>
-                    <LoadingBar style={{backgroundColor: '#5BC0DE'}} />
-                    {this.props.loading === true
-                        ? null
-                        : <div>
-                            {this.props.authedUser !== null && <Navigation />}
-                            <Switch>
-                                {this.props.authedUser === null && <Route component={Login} />}
-                                <Route path='/' exact component={Dashboard} />
-                                <Route path='/add' component={AddQuestion} />
-                                <Route path='/leaderboard' component={Leaderboard} />
-                                <Route path='/questions/:id' component={QuestionPage} />
-                                <Route Path='*' component={Error} />
-                            </Switch>  
-                        </div>
-                    }   
-                </Fragment>  
-            </Router>
-            
-        )
-    }
+    return (
+        <Router>
+            <Fragment>
+                <LoadingBar style={{backgroundColor: '#5BC0DE'}} />
+                {loading === true
+                    ? null
+                    : <div>
+                        {authedUser !== null && <Navigation />}
+                        <Switch>
+                            {props.authedUser === null && <Route component={Login} />}
+                            <Route path='/' exact component={Dashboard} />
+                            <Route path='/add' component={AddQuestion} />
+                            <Route path='/leaderboard' component={Leaderboard} />
+                            <Route path='/questions/:id' component={QuestionPage} />
+                            <Route Path='*' component={Error} />
+                        </Switch>  
+                    </div>
+                }   
+            </Fragment>  
+        </Router> 
+    )
 }
 
 function mapStateToProps({ authedUser, users }) {
@@ -48,6 +47,12 @@ function mapStateToProps({ authedUser, users }) {
       authedUser,
       loading: Object.keys(users).length === 0
     }
-  }
+}
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+    return {
+        handleInitialData: () => dispatch(handleInitialData())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
