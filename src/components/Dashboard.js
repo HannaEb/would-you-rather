@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, List } from 'reactstrap';
 import Question from './Question';
 import classnames from 'classnames';
 
-const Dashboard = props => {
+const Dashboard = () => {
 
+    const authedUser = useSelector(state => state.authedUser)
+    const questions = useSelector(state => Object.values(state.questions).sort((a, b) => 
+                            b.timestamp - a.timestamp))
     const [activeTab, setActiveTab] = useState('unanswered')
 
     const handleToggle = tab => {
@@ -13,8 +16,6 @@ const Dashboard = props => {
             setActiveTab(tab)
         }
     }
-
-    const { authedUser, questions } = props
 
     const unansweredQuestions = questions.filter(
         question => !question.optionOne.votes.includes(authedUser)
@@ -78,12 +79,4 @@ const Dashboard = props => {
     )
 }
 
-function mapStateToProps({ authedUser, questions }) {
-    return {
-        authedUser,
-        questions: Object.values(questions).sort((a, b) => 
-            b.timestamp - a.timestamp)
-    }
-}
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

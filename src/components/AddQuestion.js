@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Row, Col, Card, CardHeader, CardBody, CardTitle, Form, FormGroup, FormText, Input, Button } from 'reactstrap';
 import { handleAddQuestion } from '../actions/questions';
 
-const AddQuestion = props => {
+const AddQuestion = () => {
 
     const [optionOneText, setOptionOneText] = useState('')
     const [optionTwoText, setOptionTwoText] = useState('')
     const [toHome, setToHome] = useState(false)
+    const dispatch = useDispatch()
 
     const handleOptionOneChange = event => {
         setOptionOneText(event.target.value)
@@ -20,8 +21,6 @@ const AddQuestion = props => {
 
     const handleSubmit = event => {
         event.preventDefault()
-
-        const { dispatch } = props
 
         dispatch(handleAddQuestion(optionOneText, optionTwoText))
 
@@ -77,4 +76,4 @@ const AddQuestion = props => {
     )
 }
 
-export default connect()(AddQuestion);
+export default AddQuestion;
