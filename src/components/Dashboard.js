@@ -7,23 +7,25 @@ import classnames from 'classnames';
 const Dashboard = () => {
 
     const authedUser = useSelector(state => state.authedUser)
-    const questions = useSelector(state => Object.values(state.questions).sort((a, b) => 
-                            b.timestamp - a.timestamp))
+    const questions = useSelector(state => state.questions)
     const [activeTab, setActiveTab] = useState('unanswered')
+
+    const sortedQuestions = Object.values(questions).sort((a, b) => 
+                            b.timestamp - a.timestamp)
+
+    const unansweredQuestions = sortedQuestions.filter(
+        question => !question.optionOne.votes.includes(authedUser)
+        && !question.optionTwo.votes.includes(authedUser))     
+
+    const answeredQuestions = sortedQuestions.filter(
+            question => question.optionOne.votes.includes(authedUser) 
+            || question.optionTwo.votes.includes(authedUser))
 
     const handleToggle = tab => {
         if (activeTab !== tab) {
             setActiveTab(tab)
         }
     }
-
-    const unansweredQuestions = questions.filter(
-        question => !question.optionOne.votes.includes(authedUser)
-        && !question.optionTwo.votes.includes(authedUser))     
-
-    const answeredQuestions = questions.filter(
-            question => question.optionOne.votes.includes(authedUser) 
-            || question.optionTwo.votes.includes(authedUser))
     
     return (
         <div className='container'>

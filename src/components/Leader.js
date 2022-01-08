@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 import ScoreCard from './ScoreCard';
 
 const Leader = props => {
 
-    const { leader, avatar } = props
+    const leader = useSelector(state => state.users[props.id])
 
+    const avatar = leader.avatarURL
     const answeredQuestions = Object.keys(leader.answers).length
     const createdQuestions = leader.questions.length
     const score = answeredQuestions + createdQuestions
@@ -32,17 +33,4 @@ const Leader = props => {
     )
 }
 
-function mapStateToProps({ users }, { id }) {
-    const leader = users[id]
-    const avatar = leader.avatarURL
-
-    return {
-        avatar,
-        leaders: users,
-        leader: leader
-            ? leader
-            : null
-    }
-}
-
-export default connect(mapStateToProps)(Leader);
+export default Leader;

@@ -6,11 +6,11 @@ import { handleAddQuestion } from '../actions/questions';
 
 const AddQuestion = () => {
 
+    const dispatch = useDispatch()
     const [optionOneText, setOptionOneText] = useState('')
     const [optionTwoText, setOptionTwoText] = useState('')
     const [toHome, setToHome] = useState(false)
-    const dispatch = useDispatch()
-
+    
     const handleOptionOneChange = event => {
         setOptionOneText(event.target.value)
     }

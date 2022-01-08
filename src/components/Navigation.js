@@ -1,12 +1,16 @@
 import React from 'react';
 import { Nav, Navbar, NavItem, NavbarBrand, NavbarText } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { resetAuthedUser } from '../actions/authedUser';
 
-const Navigation = props => {
+const Navigation = () => {
 
-    const { authedUser, avatar, dispatch } = props
+    const authedUser = useSelector(state => state.authedUser)
+    const users = useSelector(state => state.users)
+    const dispatch = useDispatch()
+
+    const avatar = users[authedUser].avatarURL
 
     return (
         <div>
@@ -48,13 +52,4 @@ const Navigation = props => {
     )
 }
 
-function mapStateToProps({ authedUser, users }){
-    const avatar = users[authedUser].avatarURL
-
-    return {
-        authedUser,
-        avatar
-    }
-}
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;

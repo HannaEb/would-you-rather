@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Row, Col, Card, CardHeader, CardTitle, CardText, CardBody, CardImg, Form, FormGroup, Input, Button } from 'reactstrap';
 import { setAuthedUser } from '../actions/authedUser';
 import logo from '../images/logo.png';
 
-const Login = props => {
+const Login = () => {
 
+    const users = useSelector(state => state.users)
+    const dispatch = useDispatch()
     const [selectedUser, setSelectedUser] = useState(null)
     const [toHome, setToHome] = useState(false)
    
@@ -16,14 +18,11 @@ const Login = props => {
 
     const handleLogin = event => {
         event.preventDefault()
-        const { dispatch } = props
 
         dispatch(setAuthedUser(selectedUser))
 
         setToHome(true)
     }
-
-    const { users } = props
 
     if (toHome === true) {
         return <Redirect to='/' />
@@ -69,10 +68,4 @@ const Login = props => {
     )
 }
 
-function mapStateToProps({ users }) {
-    return {
-      users
-    };
-  }
-
-export default connect(mapStateToProps)(Login);
+export default Login;
