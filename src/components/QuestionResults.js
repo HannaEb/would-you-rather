@@ -1,11 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Card, CardHeader, CardBody, CardImg, CardTitle, CardText, Progress, Badge } from 'reactstrap';
 import { calculatePercentage } from '../utils/helpers';
 
 const QuestionResults = props => {
-    
-    const { question, authedUser, avatar } = props
+
+    const question = useSelector(state => state.questions[props.id])
+    const users = useSelector(state => state.users)
+    const authedUser = useSelector(state => state.authedUser)
+
+    const avatar = users[question.author].avatarURL
     const { author, optionOne, optionTwo } = question
     const optionOneVotes = (optionOne.votes).length
     const optionTwoVotes = (optionTwo.votes).length
@@ -48,15 +52,4 @@ const QuestionResults = props => {
     )
 }
 
-function mapStateToProps({ questions, authedUser, users }, { id }) {
-    const question = questions[id]
-    const avatar = users[question.author].avatarURL
-
-    return {
-        question, 
-        authedUser,
-        avatar
-    }
-}
-
-export default connect(mapStateToProps)(QuestionResults);
+export default QuestionResults;
