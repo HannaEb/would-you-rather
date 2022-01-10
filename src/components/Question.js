@@ -1,11 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Card, CardHeader, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const Question = props => {
 
-    const { question, avatar } = props
+    const question = useSelector(state => state.questions[props.id])
+    const users = useSelector(state => state.users)
+
+    const avatar = users[question.author].avatarURL
     const { id, author, optionOne, optionTwo } = question
 
     return (
@@ -30,16 +33,4 @@ const Question = props => {
     )
 }
 
-function mapStateToProps({ questions, users }, { id }) {
-    const question = questions[id]
-    const avatar = users[question.author].avatarURL
-
-    return {
-        avatar,
-        question: question 
-            ? question
-            : null
-    }
-}
-
-export default connect(mapStateToProps)(Question);
+export default Question;
