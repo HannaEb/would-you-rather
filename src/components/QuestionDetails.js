@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardHeader, CardBody, CardImg, CardTitle, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { handleUpdateQuestion } from '../actions/questions';
 
 const QuestionDetails = props => {
     
+    const question = useSelector(state => state.questions[props.id])
+    const users = useSelector(state => state.users)
+    const authedUser = useSelector(state => state.authedUser)
+    const dispatch = useDispatch()
     const [answer, setAnswer] = useState(null)
+
+    const avatar = users[question.author].avatarURL
     
     const handleChange = (event) => {
         setAnswer(event.target.value)
@@ -13,7 +19,7 @@ const QuestionDetails = props => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const { dispatch, id, authedUser } = props
+        const { id } = props
 
         dispatch(handleUpdateQuestion({
             authedUser,
@@ -22,7 +28,6 @@ const QuestionDetails = props => {
         }))  
     }
 
-    const { question, avatar } = props
     const { author, optionOne, optionTwo } = question
 
     return (
@@ -67,15 +72,4 @@ const QuestionDetails = props => {
     )
 }
 
-function mapStateToProps({ questions, authedUser, users }, { id })  {
-    const question = questions[id]
-    const avatar = users[question.author].avatarURL
-    
-    return {
-        question,
-        authedUser,
-        avatar
-    }
-}
-
-export default connect(mapStateToProps)(QuestionDetails)
+export default QuestionDetails;
