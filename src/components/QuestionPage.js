@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import QuestionDetails from './QuestionDetails';
 import QuestionResults from './QuestionResults';
@@ -7,9 +7,21 @@ import Error from './Error';
 
 const QuestionPage = props => {
     
-    const { id, user, invalid } = props
+    const authedUser = useSelector(state => state.authedUser)
+    const user = useSelector(state => state.users[authedUser])
+    const questions = useSelector(state => state.questions)
+
+    const { id } = props.match.params
     const answered = (user.answers).hasOwnProperty(id)
 
+    let invalid
+
+    if (questions[id] === undefined) {
+        invalid = false
+    } else {
+        invalid = false
+    }
+    
     if (invalid) {
         return <Error />
     } else {
@@ -28,22 +40,4 @@ const QuestionPage = props => {
     }
 }
 
-function mapStateToProps({ users, authedUser, questions }, props) {
-    const { id } = props.match.params
-    const user = users[authedUser]
-    let invalid
-    
-    if (questions[id] === undefined) {
-        invalid = true
-    } else {
-        invalid = false
-    }
-
-    return {
-        id,
-        user,
-        invalid
-    }
-}
-
-export default connect(mapStateToProps)(QuestionPage);
+export default QuestionPage;
