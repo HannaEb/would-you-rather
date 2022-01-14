@@ -14,16 +14,9 @@ export default function users(state = {}, action) {
                     draft[action.question.author].questions.concat([action.question.id])
             })
         case UPDATE_USER_ANSWERS:
-            return {
-                ...state,
-                [action.authedUser]: {
-                    ...state[action.authedUser],
-                    answers: {
-                        ...state[action.authedUser].answers,
-                        [action.qid]: action.answer
-                    }
-                }
-            }
+            return produce(state, draft => {
+                draft[action.authedUser].answers[action.qid] = action.answer
+            })
         default:
             return state
     }
