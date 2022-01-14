@@ -8,26 +8,15 @@ export default function questions(state = {}, action) {
                 ...state,
                 ...action.questions,
             }
-        // case ADD_QUESTION:
-        //     return {
-        //         ...state,
-        //         [action.question.id]: action.question
-        //     }
         case ADD_QUESTION:
             return produce(state, draft => {
                 draft[action.question.id] =  action.question
             })
         case UPDATE_QUESTION:
-            return {
-                ...state,
-                [action.qid]: {
-                    ...state[action.qid],
-                    [action.answer]: {
-                        ...state[action.qid][action.answer],
-                        votes: state[action.qid][action.answer].votes.concat([action.authedUser])
-                    }
-                }
-            }
+            return produce(state, draft => {
+                draft[action.qid][action.answer].votes = 
+                    draft[action.qid][action.answer].votes.concat([action.authedUser])
+            })
         default:
             return state
     }
