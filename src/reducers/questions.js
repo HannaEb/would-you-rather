@@ -1,3 +1,4 @@
+import produce from 'immer';
 import { RECEIVE_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION } from '../actions/questions';
 
 export default function questions(state = {}, action) {
@@ -7,11 +8,15 @@ export default function questions(state = {}, action) {
                 ...state,
                 ...action.questions,
             }
+        // case ADD_QUESTION:
+        //     return {
+        //         ...state,
+        //         [action.question.id]: action.question
+        //     }
         case ADD_QUESTION:
-            return {
-                ...state,
-                [action.question.id]: action.question
-            }
+            return produce(state, draft => {
+                draft[action.question.id] =  action.question
+            })
         case UPDATE_QUESTION:
             return {
                 ...state,
