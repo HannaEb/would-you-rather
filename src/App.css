@@ -1,17 +1,23 @@
 img {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .card-avatar {
-    border-radius: 50%;
-    width: 80%;
+  border-radius: 50%;
+  width: 80%;
 }
 
 .navbar {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .score-badge {
-    font-size: 20px;
-    border-radius: 50%;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.user-options {
+  background-color: inherit;
+  margin-bottom: 10px;
+  color: inherit;
 }

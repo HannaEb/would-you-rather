@@ -8,7 +8,7 @@ An online version of the popular "Would You Rather?" game. Users are able to ans
 
 ## Motivation
 
-This project is part of [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).  
+This project is part of [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
 
 ## Technologies
 
