@@ -1,7 +1,7 @@
 import produce from "immer";
 import {
   RECEIVE_QUESTIONS,
-  ADD_QUESTION,
+  CREATE_QUESTION,
   UPDATE_QUESTION,
 } from "../actions/questions";
 
@@ -10,17 +10,22 @@ export default function questions(state = {}, action) {
     case RECEIVE_QUESTIONS:
       return {
         ...state,
-        ...action.questions,
+        ...action.payload.reduce(
+          (questions, question) => ({ ...questions, [question.id]: question }),
+          {}
+        ),
       };
-    case ADD_QUESTION:
+    case CREATE_QUESTION:
       return produce(state, (draft) => {
-        draft[action.question.id] = action.question;
+        draft[action.payload.id] = action.payload;
       });
     case UPDATE_QUESTION:
+      console.log("Reducer Payload", action.payload);
+      console.log("Reducer Action", action);
       return produce(state, (draft) => {
-        draft[action.qid][action.answer].votes = draft[action.qid][
+        draft[action.q.id][action.answer].votes = draft[action.q.id][
           action.answer
-        ].votes.concat([action.authedUser]);
+        ].votes.concat([action.autheduser]);
       });
     default:
       return state;
