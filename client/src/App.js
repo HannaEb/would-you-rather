@@ -15,12 +15,11 @@ import Error from "./components/Error";
 const App = () => {
   const authedUser = useSelector((state) => state.authedUser);
   const loading = useSelector((state) => Object.keys(state.users).length === 0);
-  // const questions = useSelector((state) => state.questions);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(handleInitialData());
     dispatch(receiveQuestions());
+    dispatch(handleInitialData());
   }, [dispatch]);
 
   return (
