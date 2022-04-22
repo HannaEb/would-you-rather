@@ -26,7 +26,8 @@ exports.create = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  // const id = req.params.id;
+  const id = req.body.id;
   Question.findById(id)
     .then((data) => {
       res.send(data);
@@ -51,10 +52,10 @@ exports.findAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // const qid = req.body.qid
+  // const qid = req.body.qid;
   const qid = req.params.id;
-  const authedUser = req.body.authedUser;
-  const answer = req.body.answer;
+  const authedUser = req.body.data.authedUser;
+  const answer = req.body.data.answer;
   let updateBlock = {};
 
   if (answer === "optionOne") {
@@ -66,8 +67,8 @@ exports.update = (req, res) => {
   Question.findByIdAndUpdate(qid, {
     $push: updateBlock,
   })
-    .then(() => {
-      res.send({ message: "Question has been answered" });
+    .then((data) => {
+      res.send(data, authedUser, answer);
     })
     .catch((error) => {
       res.status(500).send({
