@@ -14,7 +14,8 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { handleAddQuestion } from "../actions/questions";
+
+import { createQuestion } from "../actions/questions";
 
 const AddQuestion = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const AddQuestion = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(handleAddQuestion(optionOneText, optionTwoText));
+    dispatch(createQuestion(optionOneText, optionTwoText));
 
     setOptionOneText("");
     setOptionTwoText("");

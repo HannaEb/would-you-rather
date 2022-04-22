@@ -12,7 +12,9 @@ import {
 import { Link } from "react-router-dom";
 
 const Question = (props) => {
-  const question = useSelector((state) => state.questions[props.id]);
+  const question = useSelector((state) =>
+    Object.values(state.questions).find((question) => question.id === props.id)
+  );
   const users = useSelector((state) => state.users);
 
   const avatar = users[question.author].avatarURL;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Card,
@@ -12,14 +12,14 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { handleUpdateQuestion } from "../actions/questions";
+import { updateQuestion } from "../actions/questions";
 
 const QuestionDetails = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
   const users = useSelector((state) => state.users);
   const authedUser = useSelector((state) => state.authedUser);
-  const dispatch = useDispatch();
   const [answer, setAnswer] = useState(null);
+  const dispatch = useDispatch();
 
   const avatar = users[question.author].avatarURL;
 
@@ -30,14 +30,10 @@ const QuestionDetails = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const { id } = props;
+    console.log("Details", id, authedUser, answer, question);
+    dispatch(updateQuestion(id, { id, authedUser, answer, question }));
 
-    dispatch(
-      handleUpdateQuestion({
-        authedUser,
-        qid: id,
-        answer,
-      })
-    );
+    // dispatch(updateQuestion(id, { id, authedUser, answer }));
   };
 
   const { author, optionOne, optionTwo } = question;
@@ -62,6 +58,7 @@ const QuestionDetails = (props) => {
                 <Label check>
                   <Input
                     type="radio"
+                    name="optionOne"
                     value="optionOne"
                     checked={answer === "optionOne"}
                     onChange={handleChange}
@@ -73,6 +70,7 @@ const QuestionDetails = (props) => {
                 <Label check>
                   <Input
                     type="radio"
+                    name="optionTwo"
                     value="optionTwo"
                     checked={answer === "optionTwo"}
                     onChange={handleChange}
