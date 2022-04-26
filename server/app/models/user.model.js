@@ -1,10 +1,38 @@
-module.exports = (mongoose) => {
-  const schema = mongoose.Schema({
+const mongoose = require("mongoose");
+// const User = mongoose.model(
+//   "User",
+//   new mongoose.Schema({
+//     username: String,
+//     avatarURL: String,
+//     password: String,
+//     roles: [
+//       {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Role",
+//       },
+//     ],
+//     answers: {
+//       type: Map,
+//       of: String,
+//     },
+//     questions: {
+//       type: Array,
+//     },
+//   })
+// );
+
+const User = mongoose.model(
+  "User",
+  new mongoose.Schema({
     username: {
       type: String,
       required: true,
     },
     avatarURL: {
+      type: String,
+      required: true,
+    },
+    password: {
       type: String,
       required: true,
     },
@@ -15,13 +43,12 @@ module.exports = (mongoose) => {
     questions: {
       type: Array,
     },
-  });
-
-  schema.method("toJSON", function () {
-    const { _v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-  });
-  const User = mongoose.model("question", schema);
-  return User;
-};
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
+      },
+    ],
+  })
+);
+module.exports = User;
