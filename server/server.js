@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+
 var corsOptions = {
   origin: "http://localhost:3000",
 };
@@ -10,6 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
+const Role = require("./app/models/role.model");
+
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -17,6 +20,7 @@ db.mongoose
   })
   .then(() => {
     console.log("Connected to database");
+    init();
   })
   .catch((error) => {
     console.log("Cannot connect to database", error);
@@ -28,7 +32,33 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/question.routes")(app);
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+function init() {
+  Role.estimatedDocumentCount((error, count) => {
+    if (!error && count === 0) {
+      new Role({
+        name: "user",
+      }).save((error) => {
+        if (error) {
+          console.log("error", error);
+        }
+        console.log("Added 'user' to roles collection");
+      });
+      new Role({
+        name: "admin",
+      }).save((error) => {
+        if (error) {
+          console.log("error", error);
+        }
+        console.log("Added 'admin' to roles collection");
+      });
+    }
+  });
+}
