@@ -17,11 +17,11 @@ const Leaderboard = () => {
   return (
     <div className="container">
       <Row className="justify-content-center">
-        <Col md="auto">
+        <Col md={10} xl={8}>
           <List type="unstyled">
             {sortedUsers.map((user) => (
-              <li key={user.id}>
-                <Leader id={user.id} />
+              <li key={user.username}>
+                <Leader id={user.username} />
               </li>
             ))}
           </List>
