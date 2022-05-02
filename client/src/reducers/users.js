@@ -10,7 +10,10 @@ export default function users(state = {}, action) {
     case RECEIVE_USERS:
       return {
         ...state,
-        ...action.users,
+        ...action.payload.reduce(
+          (users, user) => ({ ...users, [user.username]: user }),
+          {}
+        ),
       };
     case UPDATE_USER_QUESTIONS:
       return produce(state, (draft) => {
@@ -20,7 +23,7 @@ export default function users(state = {}, action) {
       });
     case UPDATE_USER_ANSWERS:
       return produce(state, (draft) => {
-        draft[action.authedUser].answers[action.qid] = action.answer;
+        draft[action.authedUser].answers[action.id] = action.answer;
       });
     default:
       return state;
