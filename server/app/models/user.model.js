@@ -1,25 +1,4 @@
 const mongoose = require("mongoose");
-// const User = mongoose.model(
-//   "User",
-//   new mongoose.Schema({
-//     username: String,
-//     avatarURL: String,
-//     password: String,
-//     roles: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "Role",
-//       },
-//     ],
-//     answers: {
-//       type: Map,
-//       of: String,
-//     },
-//     questions: {
-//       type: Array,
-//     },
-//   })
-// );
 
 const User = mongoose.model(
   "User",
@@ -28,7 +7,7 @@ const User = mongoose.model(
       type: String,
       required: true,
     },
-    avatarURL: {
+    avatar: {
       type: String,
       required: true,
     },
@@ -37,8 +16,7 @@ const User = mongoose.model(
       required: true,
     },
     answers: {
-      type: Map,
-      of: String,
+      type: Array,
     },
     questions: {
       type: Array,

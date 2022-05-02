@@ -1,4 +1,6 @@
+const { user } = require("../models");
 const db = require("../models");
+const User = require("../models/user.model");
 const Question = db.questions;
 
 exports.create = (req, res) => {
@@ -53,7 +55,7 @@ exports.findAll = (req, res) => {
 
 exports.update = (req, res) => {
   // const qid = req.body.qid;
-  const qid = req.params.id;
+  const id = req.params.id;
   const authedUser = req.body.data.authedUser;
   const answer = req.body.data.answer;
   let updateBlock = {};
@@ -64,7 +66,7 @@ exports.update = (req, res) => {
     updateBlock = { "optionTwo.votes": authedUser };
   }
 
-  Question.findByIdAndUpdate(qid, {
+  Question.findByIdAndUpdate(id, {
     $push: updateBlock,
   })
     .then((data) => {

@@ -2,16 +2,16 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
-console.log("User", User);
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
-    avatarURL: req.body.avatarURL,
+    avatar: req.body.avatar,
     password: bcrypt.hashSync(req.body.password, 8),
   });
+
   user.save((error, user) => {
     if (error) {
       res.status(500).send({ message: error });
@@ -89,13 +89,13 @@ exports.signin = (req, res) => {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
       }
       res.status(200).send({
-        id: user._id,
+        id: user.id,
         username: user.username,
-        avatarURL: user.avatarURL,
-        roles: authorities,
-        accessToken: token,
+        avatar: user.avatar,
         answers: user.answers,
         questions: user.questions,
+        roles: authorities,
+        accessToken: token,
       });
     });
 };
