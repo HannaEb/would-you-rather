@@ -4,6 +4,8 @@ const User = require("../models/user.model");
 const Question = db.questions;
 
 exports.create = (req, res) => {
+  const userId = req.body.userId;
+
   const question = new Question({
     author: req.body.author,
     optionOne: {
@@ -14,17 +16,23 @@ exports.create = (req, res) => {
     },
   });
 
-  question
-    .save(question)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message:
-          error.message || "Sorry, an error has occured. Please try again!",
+  return User.findByIdAndUpdate(
+    userId,
+    { $push: { questions: question.id } },
+    { new: true, useFindAndModify: false }
+  ).then(() => {
+    question
+      .save(question)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message:
+            error.message || "Sorry, an error has occured. Please try again!",
+        });
       });
-    });
+  });
 };
 
 exports.findOne = (req, res) => {
@@ -58,24 +66,29 @@ exports.update = (req, res) => {
   const id = req.params.id;
   const authedUser = req.body.data.authedUser;
   const answer = req.body.data.answer;
-  let updateBlock = {};
+  let questionUpdateBlock = {};
+  const userUpdateBlock = { id: answer };
 
   if (answer === "optionOne") {
-    updateBlock = { "optionOne.votes": authedUser };
+    questionUpdateBlock = { "optionOne.votes": authedUser };
   } else if (answer === "optionTwo") {
-    updateBlock = { "optionTwo.votes": authedUser };
+    questionUpdateBlock = { "optionTwo.votes": authedUser };
   }
 
-  Question.findByIdAndUpdate(id, {
-    $push: updateBlock,
-  })
-    .then((data) => {
-      res.send(data, authedUser, answer);
+  return User.findByIdAndUpdate(authedUser, {
+    $push: { answers: userUpdateBlock },
+  }).then(() => {
+    Question.findByIdAndUpdate(id, {
+      $push: questionUpdateBlock,
     })
-    .catch((error) => {
-      res.status(500).send({
-        message:
-          error.message || "Sorry, an error has occured. Please try again!",
+      .then((data) => {
+        res.send(data, authedUser, answer);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message:
+            error.message || "Sorry, an error has occured. Please try again!",
+        });
       });
-    });
+  });
 };

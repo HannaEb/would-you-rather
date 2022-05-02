@@ -18,9 +18,12 @@ const User = mongoose.model(
     answers: {
       type: Array,
     },
-    questions: {
-      type: Array,
-    },
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

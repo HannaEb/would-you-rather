@@ -2,7 +2,7 @@ module.exports = (mongoose) => {
   const schema = mongoose.Schema(
     {
       timestamp: {
-        type: Date,
+        type: Number,
         default: Date.now,
       },
       author: {

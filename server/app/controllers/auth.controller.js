@@ -44,9 +44,9 @@ exports.signup = (req, res) => {
           return;
         }
         user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
+        user.save((error) => {
+          if (error) {
+            res.status(500).send({ message: error });
             return;
           }
           res.send({ message: "Registered successfully!" });

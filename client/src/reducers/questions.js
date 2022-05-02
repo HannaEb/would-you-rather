@@ -20,12 +20,10 @@ export default function questions(state = {}, action) {
         draft[action.payload.id] = action.payload;
       });
     case UPDATE_QUESTION:
-      console.log("Reducer Payload", action.payload);
-      console.log("Reducer Action", action);
       return produce(state, (draft) => {
-        draft[action.q.id][action.answer].votes = draft[action.q.id][
-          action.answer
-        ].votes.concat([action.autheduser]);
+        draft[action.question.id][action.answer].votes = draft[
+          action.question.id
+        ][action.answer].votes.concat([action.authedUser]);
       });
     default:
       return state;
