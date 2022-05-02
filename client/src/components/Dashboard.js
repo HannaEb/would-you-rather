@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  Container,
   Nav,
   NavItem,
   NavLink,
@@ -14,7 +15,7 @@ import Question from "./Question";
 import classnames from "classnames";
 
 const Dashboard = () => {
-  const authedUser = useSelector((state) => state.authedUser);
+  const authedUser = useSelector((state) => state.auth.user);
   const questions = useSelector((state) => state.questions);
   const [activeTab, setActiveTab] = useState("unanswered");
 
@@ -24,14 +25,14 @@ const Dashboard = () => {
 
   const unansweredQuestions = sortedQuestions.filter(
     (question) =>
-      !question.optionOne.votes.includes(authedUser) &&
-      !question.optionTwo.votes.includes(authedUser)
+      !question.optionOne.votes.includes(authedUser.id) &&
+      !question.optionTwo.votes.includes(authedUser.id)
   );
 
   const answeredQuestions = sortedQuestions.filter(
     (question) =>
-      question.optionOne.votes.includes(authedUser) ||
-      question.optionTwo.votes.includes(authedUser)
+      question.optionOne.votes.includes(authedUser.id) ||
+      question.optionTwo.votes.includes(authedUser.id)
   );
 
   const handleToggle = (tab) => {
@@ -41,10 +42,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container">
+    <Container>
       <Row className="justify-content-center">
-        <Col md="auto">
-          <Nav tabs>
+        <Col md={8} lg={6}>
+          <Nav fill tabs>
             <NavItem>
               <NavLink
                 className={classnames({ active: activeTab === "unanswered" })}
@@ -92,7 +93,7 @@ const Dashboard = () => {
           </TabContent>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };
 

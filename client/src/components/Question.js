@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
+  Row,
+  Col,
   Card,
   CardHeader,
   CardImg,
@@ -10,30 +12,29 @@ import {
   Button,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { avatars } from "../utils/avatars.js";
 
 const Question = (props) => {
   const question = useSelector((state) =>
     Object.values(state.questions).find((question) => question.id === props.id)
   );
   const users = useSelector((state) => state.users);
-
-  const avatar = users[question.author].avatarURL;
+  const index = users[question.author].avatar;
   const { id, author, optionOne, optionTwo } = question;
 
   return (
     <Card className="mt-4">
       <CardHeader>{author} asks:</CardHeader>
       <CardBody>
-        <div className="row">
-          <div className="col">
+        <Row>
+          <Col sm={6}>
             <CardImg
-              width="100%"
               className="d-block m-auto card-avatar"
-              src={avatar}
+              src={avatars[index]}
               alt="Avatar"
             ></CardImg>
-          </div>
-          <div className="col">
+          </Col>
+          <Col sm={6} className="mx-auto my-4 m-sm-auto text-center">
             <CardTitle tag="h5">Would you rather...</CardTitle>
             <CardText>...{optionOne.text.substring(0, 20)}...</CardText>
             <CardText>...{optionTwo.text.substring(0, 20)}...</CardText>
@@ -42,8 +43,8 @@ const Question = (props) => {
                 View Details
               </Button>
             </Link>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </CardBody>
     </Card>
   );

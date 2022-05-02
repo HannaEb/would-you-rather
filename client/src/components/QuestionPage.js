@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import QuestionDetails from "./QuestionDetails";
 import QuestionResults from "./QuestionResults";
 import Error from "./Error";
 
 const QuestionPage = (props) => {
-  const authedUser = useSelector((state) => state.authedUser);
-  const user = useSelector((state) => state.users[authedUser]);
+  const authedUser = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
   const questions = useSelector((state) => state.questions);
 
   const { id } = props.match.params;
@@ -25,9 +25,9 @@ const QuestionPage = (props) => {
     return <Error />;
   } else {
     return (
-      <div className="container">
+      <Container>
         <Row className="justify-content-center">
-          <Col md="auto">
+          <Col md={10} lg={7}>
             {answered === false ? (
               <QuestionDetails id={id} />
             ) : (
@@ -35,7 +35,7 @@ const QuestionPage = (props) => {
             )}
           </Col>
         </Row>
-      </div>
+      </Container>
     );
   }
 };

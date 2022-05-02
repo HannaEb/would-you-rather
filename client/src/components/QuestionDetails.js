@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  Row,
+  Col,
   Card,
   CardHeader,
   CardBody,
@@ -13,15 +15,15 @@ import {
   Button,
 } from "reactstrap";
 import { updateQuestion } from "../actions/questions";
+import { avatars } from "../utils/avatars.js";
 
 const QuestionDetails = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
   const users = useSelector((state) => state.users);
-  const authedUser = useSelector((state) => state.authedUser);
+  const index = users[question.author].avatar;
+  const authedUser = useSelector((state) => state.auth.user.id);
   const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
-
-  const avatar = users[question.author].avatarURL;
 
   const handleChange = (event) => {
     setAnswer(event.target.value);
@@ -30,10 +32,8 @@ const QuestionDetails = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const { id } = props;
-    console.log("Details", id, authedUser, answer, question);
-    dispatch(updateQuestion(id, { id, authedUser, answer, question }));
 
-    // dispatch(updateQuestion(id, { id, authedUser, answer }));
+    dispatch(updateQuestion(id, { id, authedUser, answer, question }));
   };
 
   const { author, optionOne, optionTwo } = question;
@@ -42,16 +42,15 @@ const QuestionDetails = (props) => {
     <Card className="mt-4">
       <CardHeader>{author} asks:</CardHeader>
       <CardBody>
-        <div className="row">
-          <div className="col my-auto">
+        <Row>
+          <Col sm={6}>
             <CardImg
-              width="100%"
               className="d-block m-auto card-avatar"
-              src={avatar}
+              src={avatars[index]}
               alt="Avatar"
             ></CardImg>
-          </div>
-          <div className="col-auto my-auto">
+          </Col>
+          <Col sm={6} className="mx-auto my-4 m-sm-auto">
             <CardTitle tag="h5">Would you rather...</CardTitle>
             <Form>
               <FormGroup check>
@@ -87,8 +86,8 @@ const QuestionDetails = (props) => {
                 Submit
               </Button>
             </Form>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </CardBody>
     </Card>
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
+  Container,
   Row,
   Col,
   Card,
@@ -46,10 +47,10 @@ const AddQuestion = () => {
   }
 
   return (
-    <div className="container">
+    <Container>
       <Row className="justify-content-center">
-        <Col md="auto">
-          <Card>
+        <Col md={8} lg={6}>
+          <Card className="text-center">
             <CardHeader tag="h3">Create New Question</CardHeader>
             <CardBody>
               <CardTitle tag="h5">Would you rather...</CardTitle>
@@ -59,18 +60,16 @@ const AddQuestion = () => {
                     type="text"
                     value={optionOneText}
                     onChange={handleOptionOneChange}
-                    maxLength={100}
+                    maxLength={30}
                   />
                 </FormGroup>
-                <FormText tag="p" className="text-center">
-                  or
-                </FormText>
+                <FormText tag="p">or</FormText>
                 <FormGroup>
                   <Input
                     type="text"
                     value={optionTwoText}
                     onChange={handleOptionTwoChange}
-                    maxLength={100}
+                    maxLength={30}
                   />
                 </FormGroup>
                 <Button
@@ -86,7 +85,7 @@ const AddQuestion = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };
 

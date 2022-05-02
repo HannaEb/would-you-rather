@@ -1,55 +1,59 @@
 import React from "react";
-import { Nav, Navbar, NavItem, NavbarBrand, NavbarText } from "reactstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  NavItem,
+  NavbarBrand,
+  NavbarText,
+} from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { resetAuthedUser } from "../actions/authedUser";
+import { logout } from "../actions/auth";
+import { avatars } from "../utils/avatars.js";
 
 const Navigation = () => {
-  const authedUser = useSelector((state) => state.authedUser);
-  const users = useSelector((state) => state.users);
+  const authedUser = useSelector((state) => state.auth.user);
+  const index = authedUser.avatar;
   const dispatch = useDispatch();
 
-  const avatar = users[authedUser].avatarURL;
-
   return (
-    <div>
-      <Navbar color="light" light expand="md">
-        <div className="container">
-          <Nav navbar>
-            <NavItem>
-              <NavLink className="nav-link" to="/" exact>
-                Home
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="nav-link" to="/add">
-                Add Question
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="nav-link" to="/leaderboard">
-                Leaderboard
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <NavbarBrand className="ml-auto">
-            <img src={avatar} alt="Avatar" width="50"></img>
-          </NavbarBrand>
-          <Nav className="ml" navbar>
-            <NavbarText>Hello, {authedUser}!</NavbarText>
-            <NavItem>
-              <NavLink
-                className="nav-link"
-                to="/"
-                onClick={() => dispatch(resetAuthedUser())}
-              >
-                Logout
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </div>
-      </Navbar>
-    </div>
+    <Navbar color="light" light expand="md">
+      <Container>
+        <Nav navbar>
+          <NavItem>
+            <NavLink className="nav-link" to="/" exact>
+              Home
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink className="nav-link" to="/add">
+              Add Question
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink className="nav-link" to="/leaderboard">
+              Leaderboard
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <NavbarBrand className="ml-auto">
+          <img src={avatars[index]} alt="Avatar" width="50"></img>
+        </NavbarBrand>
+        <Nav navbar>
+          <NavbarText>Hello, {authedUser.username}!</NavbarText>
+          <NavItem>
+            <NavLink
+              className="nav-link"
+              to="/"
+              onClick={() => dispatch(logout())}
+            >
+              Logout
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Container>
+    </Navbar>
   );
 };
 
