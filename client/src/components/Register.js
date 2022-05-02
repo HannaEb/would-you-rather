@@ -6,17 +6,17 @@ import { Redirect } from "react-router-dom";
 // import CheckButton from "react-validation/build/button";
 import logo from "../images/logo.png";
 import avatar0 from "../images/avatar0.png";
-// import avatar1 from "../images/avatar1.png";
-// import avatar2 from "../images/avatar2.png";
-// import avatar3 from "../images/avatar3.png";
-// import avatar4 from "../images/avatar4.png";
-// import avatar5 from "../images/avatar5.png";
-// import avatar6 from "../images/avatar6.png";
-// import avatar7 from "../images/avatar7.png";
-// import avatar8 from "../images/avatar8.png";
-// import avatar9 from "../images/avatar9.png";
-// import avatar10 from "../images/avatar10.png";
-// import avatar11 from "../images/avatar11.png";
+import avatar1 from "../images/avatar1.png";
+import avatar2 from "../images/avatar2.png";
+import avatar3 from "../images/avatar3.png";
+import avatar4 from "../images/avatar4.png";
+import avatar5 from "../images/avatar5.png";
+import avatar6 from "../images/avatar6.png";
+import avatar7 from "../images/avatar7.png";
+import avatar8 from "../images/avatar8.png";
+import avatar9 from "../images/avatar9.png";
+import avatar10 from "../images/avatar10.png";
+import avatar11 from "../images/avatar11.png";
 
 import { register } from "../actions/auth";
 import {
@@ -79,7 +79,6 @@ const Register = () => {
   }
 
   return (
-    // <div className="container mt-4">
     <Container className="mt-4">
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
@@ -134,7 +133,7 @@ const Register = () => {
                             />
                           </Label>
                         </Col>
-                        {/* <Col xs={4} className="mb-2">
+                        <Col xs={4} className="mb-2">
                           <Label check>
                             <Input
                               type="radio"
@@ -298,7 +297,7 @@ const Register = () => {
                               src={avatar11}
                             />
                           </Label>
-                        </Col> */}
+                        </Col>
                       </Row>
                     </FormGroup>
                     <FormGroup>
@@ -327,7 +326,6 @@ const Register = () => {
         </Col>
       </Row>
     </Container>
-    // </div>
   );
 };
 
