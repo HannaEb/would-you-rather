@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
-const Role = require("./app/models/role.model");
+const Role = db.role;
 
 db.mongoose
   .connect(db.url, {
