@@ -1,7 +1,6 @@
-const { user } = require("../models");
 const db = require("../models");
-const User = require("../models/user.model");
-const Question = db.questions;
+const User = db.user;
+const Question = db.question;
 
 exports.create = (req, res) => {
   const userId = req.body.userId;
