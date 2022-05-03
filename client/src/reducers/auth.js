@@ -12,8 +12,7 @@ const initialState = user
   : { isLoggedIn: false, user: null };
 
 export default function auth(state = initialState, action) {
-  const { type, payload } = action;
-  switch (type) {
+  switch (action.type) {
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -28,7 +27,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         isLoggedIn: true,
-        user: payload.user,
+        user: action.payload.user,
       };
     case LOGIN_FAIL:
       return {

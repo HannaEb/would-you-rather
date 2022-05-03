@@ -5,7 +5,9 @@ import {
   UPDATE_QUESTION,
 } from "../actions/questions";
 
-export default function questions(state = {}, action) {
+const initialState = {};
+
+export default function questions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
       return {
