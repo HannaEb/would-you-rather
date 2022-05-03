@@ -1,33 +1,29 @@
-import axios from "axios";
-const API_URL = "http://localhost:8080/api/auth/";
-const register = (username, avatar, password) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    avatar,
-    password,
-  });
-};
-const login = (username, password) => {
-  return axios
-    .post(API_URL + "signin", {
+import http from "../http-common";
+
+class AuthDataService {
+  register = (username, avatar, password) => {
+    return http.post("/auth/signup", {
       username,
+      avatar,
       password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-      return response.data;
     });
-};
+  };
+  login = (username, password) => {
+    return http
+      .post("/auth/signin", {
+        username,
+        password,
+      })
+      .then((response) => {
+        if (response.data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
+        return response.data;
+      });
+  };
+  logout = () => {
+    localStorage.removeItem("user");
+  };
+}
 
-const logout = () => {
-  localStorage.removeItem("user");
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-  register,
-  login,
-  logout,
-};
+export default new AuthDataService();
