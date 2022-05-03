@@ -62,12 +62,10 @@ exports.findAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // const qid = req.body.qid;
   const id = req.params.id;
   const authedUser = req.body.data.authedUser;
   const answer = req.body.data.answer;
   let questionUpdateBlock = {};
-  const userUpdateBlock = { id: answer };
 
   if (answer === "optionOne") {
     questionUpdateBlock = { "optionOne.votes": authedUser };
@@ -76,7 +74,7 @@ exports.update = (req, res) => {
   }
 
   return User.findByIdAndUpdate(authedUser, {
-    $push: { answers: userUpdateBlock },
+    $push: { answers: { id: id, answer: answer } },
   }).then(() => {
     Question.findByIdAndUpdate(id, {
       $push: questionUpdateBlock,

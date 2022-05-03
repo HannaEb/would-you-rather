@@ -23,7 +23,9 @@ export default function users(state = {}, action) {
       });
     case UPDATE_USER_ANSWERS:
       return produce(state, (draft) => {
-        draft[action.authedUser].answers[action.id] = action.answer;
+        draft[action.authedUser].answers = draft[
+          action.authedUser
+        ].answers.concat({ id: action.id, answer: action.answer });
       });
     default:
       return state;

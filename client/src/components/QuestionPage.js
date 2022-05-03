@@ -6,17 +6,18 @@ import QuestionResults from "./QuestionResults";
 import Error from "./Error";
 
 const QuestionPage = (props) => {
-  const authedUser = useSelector((state) => state.auth.user);
-  const user = useSelector((state) => state.auth.user);
+  const username = useSelector((state) => state.auth.user.username);
+  const user = useSelector((state) => state.users[username]);
   const questions = useSelector((state) => state.questions);
-
   const { id } = props.match.params;
-  const answered = user.answers.hasOwnProperty(id);
+  const answered = user.answers.some((answer) => answer.id === id);
+
+  console.log("Answered", answered);
 
   let invalid;
 
   if (questions[id] === undefined) {
-    invalid = false;
+    invalid = true;
   } else {
     invalid = false;
   }
