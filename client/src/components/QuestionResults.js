@@ -34,15 +34,14 @@ const QuestionResults = (props) => {
       <CardHeader>Asked by {author}</CardHeader>
       <CardBody>
         <Row>
-          <Col className="md-auto">
+          <Col className="m-auto">
             <CardImg
-              width="100%"
               className="d-block m-auto card-avatar"
               src={avatars[index]}
               alt="Avatar"
             ></CardImg>
           </Col>
-          <Col className="sm-8">
+          <Col sm={8}>
             <CardTitle tag="h5">Results:</CardTitle>
             <Card className="mb-3" color="light">
               {optionOneChoice && <Badge color="info">Your choice</Badge>}
