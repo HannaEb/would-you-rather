@@ -1,6 +1,7 @@
+const questions = require("../controllers/question.controller.js");
+const router = require("express").Router();
+
 module.exports = (app) => {
-  const questions = require("../controllers/question.controller.js");
-  var router = require("express").Router();
   router.post("/questions/", questions.create);
   router.get("/questions/", questions.findAll);
   router.get("/questions/:id", questions.findOne);
