@@ -34,14 +34,14 @@ exports.signup = (req, res) => {
               res.status(500).send({ message: error });
               return;
             }
-            res.send({ message: "Registered successfully!" });
+            res.send(user);
           });
         }
       );
     } else {
       Role.findOne({ name: "user" }, (error, role) => {
         if (error) {
-          res.status(500).send({ message: err });
+          res.status(500).send({ message: error });
           return;
         }
         user.roles = [role.id];
@@ -50,7 +50,7 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: error });
             return;
           }
-          res.send({ message: "Registered successfully!" });
+          res.send(user);
         });
       });
     }
@@ -68,7 +68,7 @@ exports.signin = (req, res) => {
         return;
       }
       if (!user) {
-        return res.status(404).send({ message: "User not found." });
+        return res.status(404).send({ message: "User not found" });
       }
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
@@ -77,7 +77,7 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid password!",
+          message: "Invalid password",
         });
       }
       var token = jwt.sign({ id: user.id }, config.secret, {

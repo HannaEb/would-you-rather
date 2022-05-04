@@ -1,4 +1,4 @@
-import AuthService from "../services/auth.service";
+import AuthDataService from "../services/auth.service";
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
@@ -6,16 +6,17 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const SET_MESSAGE = "SET_MESSAGE";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const register = (username, avatar, password) => (dispatch) => {
-  return AuthService.register(username, avatar, password).then(
+  return AuthDataService.register(username, avatar, password).then(
     (response) => {
       dispatch({
         type: REGISTER_SUCCESS,
+        payload: response.data,
       });
       dispatch({
-        type: SET_MESSAGE,
-        payload: response.data.message,
+        type: CLEAR_MESSAGE,
       });
       return Promise.resolve();
     },
@@ -39,11 +40,14 @@ export const register = (username, avatar, password) => (dispatch) => {
 };
 
 export const login = (username, password) => (dispatch) => {
-  return AuthService.login(username, password).then(
+  return AuthDataService.login(username, password).then(
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: { user: data },
+      });
+      dispatch({
+        type: CLEAR_MESSAGE,
       });
       return Promise.resolve();
     },
@@ -67,7 +71,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  AuthService.logout();
+  AuthDataService.logout();
   dispatch({
     type: LOGOUT,
   });
