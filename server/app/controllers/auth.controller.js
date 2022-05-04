@@ -92,10 +92,6 @@ exports.signin = (req, res) => {
       res.status(200).send({
         id: user.id,
         username: user.username,
-        avatar: user.avatar,
-        answers: user.answers,
-        questions: user.questions,
-        roles: authorities,
         accessToken: token,
       });
     });

@@ -13,8 +13,8 @@ import { logout } from "../actions/auth";
 import { avatars } from "../utils/avatars.js";
 
 const Navigation = () => {
-  const authedUser = useSelector((state) => state.auth.user);
-  const index = authedUser.avatar;
+  const authedUser = useSelector((state) => state.auth.user.username);
+  const index = useSelector((state) => state.users[authedUser].avatar);
   const dispatch = useDispatch();
 
   return (
@@ -41,7 +41,7 @@ const Navigation = () => {
           <img src={avatars[index]} alt="Avatar" width="50"></img>
         </NavbarBrand>
         <Nav navbar>
-          <NavbarText>Hello, {authedUser.username}!</NavbarText>
+          <NavbarText>Hello, {authedUser}!</NavbarText>
           <NavItem>
             <NavLink
               className="nav-link"
