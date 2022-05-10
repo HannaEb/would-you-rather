@@ -25,7 +25,7 @@ export default function questions(state = initialState, action) {
       return produce(state, (draft) => {
         draft[action.question.id][action.answer].votes = draft[
           action.question.id
-        ][action.answer].votes.concat([action.authedUser]);
+        ][action.answer].votes.concat([action.authedUserId]);
       });
     default:
       return state;
