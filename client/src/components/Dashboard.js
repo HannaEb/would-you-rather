@@ -14,16 +14,18 @@ import {
 import Question from "./Question";
 import classnames from "classnames";
 import { receiveQuestions } from "../actions/questions";
+import { receiveUsers } from "../actions/users";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.auth.user);
   const questions = useSelector((state) => state.questions);
   const [activeTab, setActiveTab] = useState("unanswered");
+  const dispatch = useDispatch();
 
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(receiveQuestions());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(receiveUsers());
+    dispatch(receiveQuestions());
+  }, [dispatch]);
 
   const sortedQuestions = Object.values(questions).sort(
     (a, b) => b.timestamp - a.timestamp

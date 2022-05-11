@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
@@ -20,6 +20,7 @@ import {
 import { NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import { login } from "../actions/auth";
+import { receiveUsers } from "../actions/users";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -27,6 +28,10 @@ const Login = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(receiveUsers());
+  }, [dispatch]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
