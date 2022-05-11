@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Row,
   Col,
@@ -13,18 +13,29 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";
+import { deleteQuestion } from "../actions/questions";
 
 const Question = (props) => {
   const question = useSelector((state) =>
     Object.values(state.questions).find((question) => question.id === props.id)
   );
+  const { id, author, optionOne, optionTwo } = question;
   const users = useSelector((state) => state.users);
   const index = users[question.author].avatar;
-  const { id, author, optionOne, optionTwo } = question;
+  const authedUser = useSelector((state) => state.auth.user);
+  const isAdmin = authedUser.roles.some((role) => role.name === "admin");
+  const dispatch = useDispatch();
 
   return (
     <Card className="mt-4">
-      <CardHeader>{author} asks:</CardHeader>
+      <CardHeader>
+        <CardText>{author} asks:</CardText>
+        {isAdmin && (
+          <Link to="/" onClick={() => dispatch(deleteQuestion(id))}>
+            Delete
+          </Link>
+        )}
+      </CardHeader>
       <CardBody>
         <Row>
           <Col sm={6}>

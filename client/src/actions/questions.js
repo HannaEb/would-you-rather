@@ -4,6 +4,7 @@ import QuestionDataService from "../services/question.service";
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const CREATE_QUESTION = "ADD_QUESTION";
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
+export const DELETE_QUESTION = "DELETE_QUESTION";
 
 export const receiveQuestions = () => async (dispatch) => {
   try {
@@ -51,7 +52,6 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
 
     dispatch({
       type: UPDATE_QUESTION,
-      // payload: res.data
       question,
       authedUserId,
       answer,
@@ -61,5 +61,18 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
     return Promise.resolve(res.data);
   } catch (error) {
     return Promise.reject(error);
+  }
+};
+
+export const deleteQuestion = (id) => async (dispatch) => {
+  try {
+    await QuestionDataService.delete(id);
+
+    dispatch({
+      type: DELETE_QUESTION,
+      payload: id,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

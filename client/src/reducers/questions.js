@@ -3,6 +3,7 @@ import {
   RECEIVE_QUESTIONS,
   CREATE_QUESTION,
   UPDATE_QUESTION,
+  DELETE_QUESTION,
 } from "../actions/questions";
 
 const initialState = {};
@@ -26,6 +27,10 @@ export default function questions(state = initialState, action) {
         draft[action.question.id][action.answer].votes = draft[
           action.question.id
         ][action.answer].votes.concat([action.authedUserId]);
+      });
+    case DELETE_QUESTION:
+      return produce(state, (draft) => {
+        delete draft[action.payload];
       });
     default:
       return state;

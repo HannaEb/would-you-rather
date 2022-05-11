@@ -12,8 +12,6 @@ const QuestionPage = (props) => {
   const { id } = props.match.params;
   const answered = user.answers.some((answer) => answer.id === id);
 
-  console.log("Answered", answered);
-
   let invalid;
 
   if (questions[id] === undefined) {
