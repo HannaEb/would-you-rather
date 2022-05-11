@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+  CardText,
   Form,
   FormGroup,
   FormText,
@@ -51,7 +52,9 @@ const AddQuestion = () => {
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
           <Card className="text-center">
-            <CardHeader tag="h3">Create New Question</CardHeader>
+            <CardHeader>
+              <CardText tag="h4">Create New Question</CardText>
+            </CardHeader>
             <CardBody>
               <CardTitle tag="h5">Would you rather...</CardTitle>
               <Form>

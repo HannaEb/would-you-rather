@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Nav,
@@ -13,11 +13,17 @@ import {
 } from "reactstrap";
 import Question from "./Question";
 import classnames from "classnames";
+import { receiveQuestions } from "../actions/questions";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.auth.user);
   const questions = useSelector((state) => state.questions);
   const [activeTab, setActiveTab] = useState("unanswered");
+
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(receiveQuestions());
+  // }, [dispatch]);
 
   const sortedQuestions = Object.values(questions).sort(
     (a, b) => b.timestamp - a.timestamp

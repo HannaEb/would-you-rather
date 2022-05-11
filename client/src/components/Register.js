@@ -24,6 +24,7 @@ import {
   Card,
   CardHeader,
   CardTitle,
+  CardSubtitle,
   CardText,
   CardBody,
   CardImg,
@@ -75,8 +76,8 @@ const Register = () => {
         <Col md={8} lg={6}>
           <Card>
             <CardHeader className="text-center">
-              <CardTitle tag="h5">Would You Rather...?</CardTitle>
-              <CardText>Please sign up to continue</CardText>
+              <CardTitle tag="h3">Would You Rather...?</CardTitle>
+              <CardSubtitle>Please sign up to continue</CardSubtitle>
             </CardHeader>
             <CardBody>
               <CardImg

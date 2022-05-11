@@ -8,7 +8,7 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardText,
+  CardSubtitle,
   CardBody,
   CardImg,
   Form,
@@ -21,7 +21,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import { login } from "../actions/auth";
 
-const Login = (props) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -52,8 +52,8 @@ const Login = (props) => {
         <Col md={8} lg={6}>
           <Card>
             <CardHeader className="text-center">
-              <CardTitle tag="h5">Would You Rather...?</CardTitle>
-              <CardText>Please sign in to continue</CardText>
+              <CardTitle tag="h3">Would You Rather...?</CardTitle>
+              <CardSubtitle>Please sign in to continue</CardSubtitle>
             </CardHeader>
             <CardBody>
               <CardImg
