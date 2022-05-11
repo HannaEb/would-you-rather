@@ -46,7 +46,7 @@ const QuestionResults = (props) => {
             <Card className="mb-3" color="light">
               {optionOneChoice && <Badge color="info">Your choice</Badge>}
               <CardBody>
-                <CardText>Would you rather {optionOne.text}?</CardText>
+                <CardText>Would rather {optionOne.text}:</CardText>
                 <Progress className="mb-3" value={optionOnePerc} color="info">
                   {optionOnePerc}%
                 </Progress>
@@ -58,7 +58,7 @@ const QuestionResults = (props) => {
             <Card color="light">
               {optionTwoChoice && <Badge color="info">Your choice</Badge>}
               <CardBody>
-                <CardText>Would you rather {optionTwo.text}?</CardText>
+                <CardText>Would rather {optionTwo.text}:</CardText>
                 <Progress className="mb-3" value={optionTwoPerc} color="info">
                   {optionTwoPerc}%
                 </Progress>
