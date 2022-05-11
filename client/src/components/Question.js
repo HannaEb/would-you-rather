@@ -5,11 +5,13 @@ import {
   Col,
   Card,
   CardHeader,
+  CardFooter,
   CardImg,
   CardBody,
   CardTitle,
   CardText,
   Button,
+  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";
@@ -30,11 +32,6 @@ const Question = (props) => {
     <Card className="mt-4">
       <CardHeader>
         <CardText>{author} asks:</CardText>
-        {isAdmin && (
-          <Link to="/" onClick={() => dispatch(deleteQuestion(id))}>
-            Delete
-          </Link>
-        )}
       </CardHeader>
       <CardBody>
         <Row>
@@ -57,6 +54,18 @@ const Question = (props) => {
           </Col>
         </Row>
       </CardBody>
+      {isAdmin && (
+        <CardFooter className="text-center">
+          <Button
+            className="delete-button"
+            color="link"
+            size="sm"
+            onClick={() => dispatch(deleteQuestion(id))}
+          >
+            Delete Question
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 };
