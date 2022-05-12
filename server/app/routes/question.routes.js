@@ -7,7 +7,7 @@ module.exports = (app) => {
   router.get("/questions/", questions.findAll);
   router.get("/questions/:id", questions.findOne);
   router.put("/questions/:id", questions.update);
-  router.delete("/questions/:id", questions.delete);
+  router.delete("/questions/:id", [authJwt.isAdmin], questions.delete);
 
   app.use("/api", router);
 };

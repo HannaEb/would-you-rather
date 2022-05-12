@@ -11,7 +11,6 @@ import {
   CardTitle,
   CardText,
   Button,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";

@@ -64,9 +64,12 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
   }
 };
 
-export const deleteQuestion = (id) => async (dispatch) => {
+export const deleteQuestion = (id) => async (dispatch, getState) => {
+  const { auth } = getState();
+  const authedUserId = auth.user.id;
+
   try {
-    await QuestionDataService.delete(id);
+    await QuestionDataService.delete(id, { authedUserId });
 
     dispatch({
       type: DELETE_QUESTION,

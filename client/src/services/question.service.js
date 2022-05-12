@@ -13,8 +13,8 @@ class QuestionDataService {
   update = (id, data) => {
     return http.put(`/questions/${id}`, { data });
   };
-  delete = (id) => {
-    return http.delete(`/questions/${id}`);
+  delete = (id, data) => {
+    return http.delete(`/questions/${id}`, { data });
   };
 }
 

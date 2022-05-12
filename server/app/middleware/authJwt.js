@@ -19,7 +19,7 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-  User.findById(req.userId).exec((error, user) => {
+  User.findById(req.body.authedUserId).exec((error, user) => {
     if (error) {
       res.status(500).send({ message: error });
       return;
