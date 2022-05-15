@@ -8,7 +8,7 @@ import {
 
 const initialState = {};
 
-export default function questions(state = initialState, action) {
+const questions = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
       return {
@@ -35,4 +35,6 @@ export default function questions(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default questions;

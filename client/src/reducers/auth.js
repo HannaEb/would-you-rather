@@ -11,7 +11,7 @@ const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: null };
 
-export default function auth(state = initialState, action) {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
       return {
@@ -44,4 +44,6 @@ export default function auth(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default auth;

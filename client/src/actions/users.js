@@ -16,18 +16,18 @@ export const receiveUsers = () => async (dispatch) => {
   }
 };
 
-export function updateUserQuestions(question) {
+export const updateUserQuestions = (question) => {
   return {
     type: UPDATE_USER_QUESTIONS,
     question,
   };
-}
+};
 
-export function updateUserAnswers(id, authedUser, answer) {
+export const updateUserAnswers = (id, authedUser, answer) => {
   return {
     type: UPDATE_USER_ANSWERS,
     id,
     authedUser,
     answer,
   };
-}
+};
