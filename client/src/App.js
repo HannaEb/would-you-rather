@@ -9,7 +9,7 @@ import AddQuestion from "./components/AddQuestion";
 import Leaderboard from "./components/Leaderboard";
 import QuestionPage from "./components/QuestionPage";
 import Error from "./components/Error";
-import LoadingBar from "react-redux-loading";
+import LoadingBar from "react-redux-loading-bar";
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

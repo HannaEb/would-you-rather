@@ -1,0 +1,19 @@
+{
+  "name": "would-you-rather",
+  "version": "1.0.0",
+  "description": "## About",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HannaEb/would-you-rather.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HannaEb/would-you-rather/issues"
+  },
+  "homepage": "https://github.com/HannaEb/would-you-rather#readme"
+}
