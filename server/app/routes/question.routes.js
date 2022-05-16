@@ -7,12 +7,7 @@ module.exports = (app) => {
   router.get("/questions/", [authJwt.verifyToken], questions.findAll);
   router.get("/questions/:id", [authJwt.verifyToken], questions.findOne);
   router.put("/questions/:id", [authJwt.verifyToken], questions.update);
-  router.delete(
-    "/questions/:id",
-    [authJwt.verifyToken],
-    [authJwt.isAdmin],
-    questions.delete
-  );
+  router.delete("/questions/:id", [authJwt.isAdmin], questions.delete);
 
   app.use((req, res, next) => {
     res.header(

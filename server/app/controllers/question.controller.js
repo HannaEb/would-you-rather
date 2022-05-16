@@ -92,7 +92,6 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
-
   Question.findByIdAndRemove(id, { useFindAndModify: false })
     .then((data) => {
       res.send(data);

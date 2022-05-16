@@ -15,12 +15,9 @@ module.exports = (mongoose) => {
     answers: {
       type: Array,
     },
-    questions: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Question",
-      },
-    ],
+    questions: {
+      type: Array,
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +30,7 @@ module.exports = (mongoose) => {
     object.id = _id;
     return object;
   });
+
   const User = mongoose.model("user", schema);
   return User;
 };
