@@ -36,7 +36,9 @@ const AddQuestion = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(createQuestion(optionOneText, optionTwoText));
+    dispatch(
+      createQuestion(optionOneText.toLowerCase(), optionTwoText.toLowerCase())
+    );
 
     setOptionOneText("");
     setOptionTwoText("");
