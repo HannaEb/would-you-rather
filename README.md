@@ -2,9 +2,9 @@
 
 ## About
 
-An online version of the popular "Would You Rather?" game. Users are able to answer questions, see results for questions they have answered already, add new questions, and see the ranking of users on the leaderboard.
+An online version of the popular "Would You Rather?" game. Users are able to create and answer questions, see results for questions they have answered already, and see the ranking of users on the leaderboard. Admins are also able to delete questions.
 
-![](./src/images/screenshot.png)
+![](public/screenshot.png)
 
 ## Motivation
 
