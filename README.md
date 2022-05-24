@@ -8,22 +8,39 @@ An online version of the popular "Would You Rather?" game. Users are able to cre
 
 ## Motivation
 
-This project is part of [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
+The frontend part of the project is part of [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019). The backend was added to persist data.
 
 ## Technologies
 
-React, Redux, Bootstrap, Reactstrap.
+MERN. MongoDB, Express, Node, React, Redux, Reactstrap.
 
 ## Installation Instructions
 
 ```
 $ git clone https://github.com/HannaEb/would-you-rather.git
+```
+
+Open 3 different tabs, in the first tab:
+
+```
+$ brew services start mongodb-community
+```
+
+Second tab:
+
+```
 $ cd would-you-rather
 $ npm install
 $ npm start
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) to view the application in the browser.
+Third tab:
+
+```
+$ cd would-you-rather
+$ npm install
+$ node server.js
+```
 
 ## Author
 
