@@ -30,6 +30,7 @@ Second tab:
 
 ```
 $ cd would-you-rather
+$ cd client
 $ npm install
 $ npm start
 ```
@@ -38,6 +39,7 @@ Third tab:
 
 ```
 $ cd would-you-rather
+$ cd server
 $ npm install
 $ node server.js
 ```
