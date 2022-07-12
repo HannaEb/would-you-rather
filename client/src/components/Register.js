@@ -25,7 +25,6 @@ import {
   CardHeader,
   CardTitle,
   CardSubtitle,
-  CardText,
   CardBody,
   CardImg,
   Form,
@@ -88,6 +87,7 @@ const Register = () => {
                 <FormGroup>
                   <Input
                     type="text"
+                    maxLength={20}
                     name="username"
                     value={username}
                     placeholder="Username"
