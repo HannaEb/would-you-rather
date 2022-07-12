@@ -1,14 +1,19 @@
+// Require Express
 const express = require("express");
-const cors = require("cors");
-const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-};
-app.use(cors(corsOptions));
+// Start up an instance of the app
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Cors for cross origin allowance
+const cors = require("cors");
+app.use(cors());
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+// };
+// app.use(cors(corsOptions));
 
 const db = require("./app/models");
 const Role = db.role;
@@ -35,11 +40,6 @@ require("./app/routes/question.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
 const init = () => {
   Role.estimatedDocumentCount((error, count) => {
     if (!error && count === 0) {
@@ -62,3 +62,5 @@ const init = () => {
     }
   });
 };
+
+module.exports = app;
