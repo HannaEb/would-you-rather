@@ -87,7 +87,7 @@ const Register = () => {
                 <FormGroup>
                   <Input
                     type="text"
-                    maxLength={20}
+                    maxLength={15}
                     name="username"
                     value={username}
                     placeholder="Username"
