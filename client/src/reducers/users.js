@@ -10,13 +10,11 @@ const initialState = {};
 const users = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
-      return {
-        ...state,
-        ...action.payload.reduce(
-          (users, user) => ({ ...users, [user.username]: user }),
-          {}
-        ),
-      };
+      return produce(state, (draft) => {
+        action.payload.forEach((user) => {
+          draft[user.username] = user;
+        });
+      });
     case UPDATE_USER_QUESTIONS:
       return produce(state, (draft) => {
         draft[action.question.author].questions = draft[

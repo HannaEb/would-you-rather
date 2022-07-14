@@ -11,13 +11,11 @@ const initialState = {};
 const questions = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      return {
-        ...state,
-        ...action.payload.reduce(
-          (questions, question) => ({ ...questions, [question.id]: question }),
-          {}
-        ),
-      };
+      return produce(state, (draft) => {
+        action.payload.forEach((question) => {
+          draft[question.id] = question;
+        });
+      });
     case CREATE_QUESTION:
       return produce(state, (draft) => {
         draft[action.payload.id] = action.payload;
