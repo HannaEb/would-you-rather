@@ -1,3 +1,3 @@
 module.exports = {
-  secret: "wouldyourather-secret-key",
+  secret: process.env.SECRET,
 };

@@ -1,3 +1,7 @@
+// Set up dotenv
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Require Express
 const express = require("express");
 
