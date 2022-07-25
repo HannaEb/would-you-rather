@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/HannaEb/would-you-rather/issues"
   },
-  "homepage": "https://github.com/HannaEb/would-you-rather#readme"
+  "homepage": "https://github.com/HannaEb/would-you-rather#readme",
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
 }
