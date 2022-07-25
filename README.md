@@ -16,33 +16,22 @@ MERN. MongoDB, Express, Node, React, Redux, Reactstrap.
 
 ## Installation Instructions
 
-```
-$ git clone https://github.com/HannaEb/would-you-rather.git
-```
-
-Open 3 different tabs, in the first tab:
+Ensure you have MongoDB installed locally and run:
 
 ```
 $ brew services start mongodb-community
 ```
 
-Second tab:
+In a separate terminal tab:
 
 ```
+$ git clone https://github.com/HannaEb/would-you-rather.git
 $ cd would-you-rather
-$ cd client
 $ npm install
-$ npm start
+$ npm run dev
 ```
 
-Third tab:
-
-```
-$ cd would-you-rather
-$ cd server
-$ npm install
-$ node server.js
-```
+You can now see the app in your browser.
 
 ## Author
 
