@@ -14,16 +14,21 @@ app.use(express.urlencoded({ extended: true }));
 // Cors for cross origin allowance
 const cors = require("cors");
 app.use(cors());
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-// };
-// app.use(cors(corsOptions));
+
+// Serve the client build directory for production
+const path = require("path");
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/", "build")));
+}
+
+// Connect to database
 
 const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect(db.url, {
+  .connect(process.env.MONGODB_URI || db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
