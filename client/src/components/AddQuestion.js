@@ -59,7 +59,7 @@ const AddQuestion = () => {
             </CardHeader>
             <CardBody>
               <CardTitle tag="h5">Would you rather...</CardTitle>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Input
                     type="text"
@@ -78,9 +78,9 @@ const AddQuestion = () => {
                   />
                 </FormGroup>
                 <Button
+                  type="submit"
                   block
                   color="info"
-                  onClick={handleSubmit}
                   disabled={optionOneText === "" || optionTwoText === ""}
                 >
                   Add

@@ -41,7 +41,7 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     dispatch(login(username, password));
@@ -65,7 +65,7 @@ const Login = () => {
                 className="d-block mx-auto my-4 logo"
                 src={logo}
               ></CardImg>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Input
                     type="text"
@@ -86,9 +86,9 @@ const Login = () => {
                 </FormGroup>
                 <FormGroup>
                   <Button
+                    type="submit"
                     block
                     color="info"
-                    onClick={handleLogin}
                     disabled={username === "" || password === ""}
                   >
                     Login

@@ -52,7 +52,7 @@ const QuestionDetails = (props) => {
           </Col>
           <Col sm={6} className="mx-auto my-4 m-sm-auto">
             <CardTitle tag="h5">Would you rather...</CardTitle>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormGroup check>
                 <Label check>
                   <Input
@@ -78,9 +78,9 @@ const QuestionDetails = (props) => {
                 </Label>
               </FormGroup>
               <Button
+                type="submit"
                 className="mt-3"
                 color="info"
-                onClick={handleSubmit}
                 disabled={answer === null}
               >
                 Submit

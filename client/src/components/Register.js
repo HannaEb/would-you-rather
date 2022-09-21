@@ -57,7 +57,7 @@ const Register = () => {
     setPassword(event.target.value);
   };
 
-  const handleRegister = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     dispatch(register(username, avatar, password)).then(() => {
@@ -83,7 +83,7 @@ const Register = () => {
                 className="d-block mx-auto my-4 logo"
                 src={logo}
               ></CardImg>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Input
                     type="text"
@@ -292,9 +292,9 @@ const Register = () => {
                 </FormGroup>
                 <FormGroup>
                   <Button
+                    type="submit"
                     block
                     color="info"
-                    onClick={handleRegister}
                     disabled={
                       username === "" || password === "" || avatar === ""
                     }
