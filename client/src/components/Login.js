@@ -17,7 +17,7 @@ import {
   Button,
   Alert,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import { login } from "../actions/auth";
 import { receiveUsers } from "../actions/users";
@@ -100,9 +100,9 @@ const Login = () => {
                   </FormGroup>
                 )}
                 <FormGroup className="text-center">
-                  <NavLink className="nav-link text-secondary" to="register">
+                  <Link className="nav-link text-secondary" to="register">
                     Or Register Here
-                  </NavLink>
+                  </Link>
                 </FormGroup>
               </Form>
             </CardBody>

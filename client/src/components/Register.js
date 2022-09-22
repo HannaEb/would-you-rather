@@ -35,7 +35,7 @@ import {
   Label,
   Alert,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -308,9 +308,9 @@ const Register = () => {
                   </FormGroup>
                 )}
                 <FormGroup className="text-center">
-                  <NavLink className="nav-link text-secondary" to="/">
+                  <Link className="nav-link text-secondary" to="/">
                     Or Sign In Here
-                  </NavLink>
+                  </Link>
                 </FormGroup>
               </Form>
             </CardBody>
