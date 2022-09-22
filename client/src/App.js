@@ -13,7 +13,6 @@ import LoadingBar from "react-redux-loading-bar";
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   return (
     <Router>
       <Fragment>
@@ -31,10 +30,10 @@ const App = () => {
               {isLoggedIn && <Navigation />}
               <Switch>
                 <Route exact path={["/", "/questions"]} component={Dashboard} />
-                <Route exact path="/add" component={AddQuestion} />
+                <Route path="/add" component={AddQuestion} />
                 <Route path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:id" component={QuestionPage} />
-                <Route Path="*" component={Error} />
+                <Route path="*" component={Error} />
               </Switch>
             </div>
           )}
