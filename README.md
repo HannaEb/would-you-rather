@@ -28,7 +28,7 @@ In a separate terminal tab:
 $ git clone https://github.com/HannaEb/would-you-rather.git
 $ cd would-you-rather
 $ npm install
-$ npm run dev
+$ npm start
 ```
 
 You can now see the app in your browser.
