@@ -25,7 +25,6 @@ if (process.env.NODE_ENV === "production") {
 // Connect to database
 
 const db = require("./app/models");
-const Role = db.role;
 
 db.mongoose
   .connect(process.env.MONGODB_URI || db.url, {
@@ -34,7 +33,6 @@ db.mongoose
   })
   .then(() => {
     console.log("Connected to database");
-    init();
   })
   .catch((error) => {
     console.log("Cannot connect to database", error);
@@ -48,28 +46,5 @@ app.get("/", (req, res) => {
 require("./app/routes/question.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-
-const init = () => {
-  Role.estimatedDocumentCount((error, count) => {
-    if (!error && count === 0) {
-      new Role({
-        name: "user",
-      }).save((error) => {
-        if (error) {
-          console.log("error", error);
-        }
-        console.log("Added 'user' to roles collection");
-      });
-      new Role({
-        name: "admin",
-      }).save((error) => {
-        if (error) {
-          console.log("error", error);
-        }
-        console.log("Added 'admin' to roles collection");
-      });
-    }
-  });
-};
 
 module.exports = app;

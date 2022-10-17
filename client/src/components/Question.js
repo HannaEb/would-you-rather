@@ -24,7 +24,7 @@ const Question = (props) => {
   const users = useSelector((state) => state.users);
   const index = users[question.author].avatar;
   const authedUser = useSelector((state) => state.auth.user);
-  const isAdmin = authedUser.roles.some((role) => role.name === "admin");
+  const isAdmin = authedUser.role === "admin";
   const dispatch = useDispatch();
 
   return (

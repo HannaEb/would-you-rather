@@ -21,12 +21,11 @@ const userSchema = new mongoose.Schema({
   questions: {
     type: Array,
   },
-  roles: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
-    },
-  ],
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
 schema.method("toJSON", function () {
