@@ -1,16 +1,8 @@
+const express = require("express");
 const users = require("../controllers/user.controller.js");
-const router = require("express").Router();
 
-module.exports = (app) => {
-  router.get("/users/", users.findAll);
+const router = express.Router();
 
-  app.use((req, res, next) => {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+router.route("/").get(users.getAllUsers);
 
-  app.use("/api", router);
-};
+module.exports = router;

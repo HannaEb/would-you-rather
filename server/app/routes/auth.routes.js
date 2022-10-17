@@ -1,11 +1,10 @@
-const { verifySignUp } = require("../middleware");
+const express = require("express");
 const auth = require("../controllers/auth.controller");
-const router = require("express").Router();
 
-module.exports = (app) => {
-  router.post("/auth/signup", [verifySignUp.checkRoleExists], auth.signup);
+const router = express.Router();
 
-  router.post("/auth/signin", auth.signin);
+router.post("/signup", auth.signup);
 
-  app.use("/api", router);
-};
+router.post("/signin", auth.signin);
+
+module.exports = router;

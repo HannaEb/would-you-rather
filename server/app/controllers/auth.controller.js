@@ -3,11 +3,6 @@ const { promisify } = require("util");
 const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
-const db = require("../models");
-
-const config = require("../config/auth.config");
-const bcrypt = require("bcryptjs");
-
 exports.signup = catchAsync(async (req, res, next) => {
   const user = await User.create({
     username: req.body.username,
@@ -21,47 +16,34 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.signin = (req, res) => {
-  User.findOne({
-    username: req.body.username,
-  })
-    .populate("roles", "-__v")
-    .exec((error, user) => {
-      if (error) {
-        res.status(500).send({ message: error });
-        return;
-      }
-      if (!user) {
-        return res.status(404).send({ message: "User not found" });
-      }
-      const passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid password",
-        });
-      }
-      const token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400,
-      });
+exports.signin = catchAsync(async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-      let authorities = [];
+  if (!username || !password) {
+    return next(
+      res.status(400).send({ message: "Missing username or password" })
+    );
+  }
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
-      res.status(200).send({
-        id: user.id,
-        username: user.username,
-        avatar: user.avatar,
-        roles: user.roles,
-        accessToken: token,
-      });
-    });
-};
+  const user = await User.findOne({ username }).select("+password");
+
+  if (!user || !(await user.isCorrectPassword(password, user.password))) {
+    return next(
+      res.status(401).send({ message: "Incorrect username or password" })
+    );
+  }
+
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+
+  res.status(200).json({
+    status: "success",
+    user,
+    accessToken: token,
+  });
+});
 
 exports.verifyToken = catchAsync(async (req, res, next) => {
   let token;
