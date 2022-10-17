@@ -1,5 +1,5 @@
 // Require app
-const app = require("./server");
+const app = require("./app");
 
 // Set up server
 const PORT = process.env.PORT || 8080;
