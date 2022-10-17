@@ -1,15 +1,11 @@
-const db = require("../models");
-const User = db.user;
+const User = require("../models/user.model");
+const catchAsync = require("../utils/catchAsync");
 
-exports.findAll = (req, res) => {
-  User.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message:
-          error.message || "Sorry, an error has occured. Please try again!",
-      });
-    });
-};
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find({});
+
+  res.status(200).json({
+    status: "success",
+    users,
+  });
+});

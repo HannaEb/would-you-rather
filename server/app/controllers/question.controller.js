@@ -1,11 +1,11 @@
-const db = require("../models");
-const User = db.user;
-const Question = db.question;
+const Question = require("../models/question.model");
+const User = require("../models/user.model");
+const catchAsync = require("../utils/catchAsync");
 
-exports.create = (req, res) => {
+exports.createQuestion = catchAsync(async (req, res, next) => {
   const userId = req.body.userId;
 
-  const question = new Question({
+  const question = await Question.create({
     author: req.body.author,
     optionOne: {
       text: req.body.optionOneText,
@@ -15,52 +15,39 @@ exports.create = (req, res) => {
     },
   });
 
-  return User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     userId,
     { $push: { questions: question.id } },
     { new: true, useFindAndModify: false }
-  ).then(() => {
-    question
-      .save(question)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message:
-            error.message || "Sorry, an error has occured. Please try again!",
-        });
-      });
-  });
-};
+  );
 
-exports.findOne = (req, res) => {
+  res.status(201).json({
+    status: "success",
+    question,
+  });
+});
+
+exports.getQuestion = catchAsync(async (req, res, next) => {
   // const id = req.params.id;
   const id = req.body.id;
-  Question.findById(id)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message: error.message || "Question not found!",
-      });
-    });
-};
+  const question = await Question.findById(id);
 
-exports.findAll = (req, res) => {
-  Question.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message: error.message || "Sorry, an error has occured!",
-      });
-    });
-};
+  res.status(200).json({
+    status: "success",
+    question,
+  });
+});
 
-exports.update = (req, res) => {
+exports.getAllQuestions = catchAsync(async (req, res, next) => {
+  const questions = await Question.find({});
+
+  res.status(200).json({
+    status: "success",
+    questions,
+  });
+});
+
+exports.updateQuestion = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const authedUser = req.body.data.authedUser;
   const answer = req.body.data.answer;
@@ -72,33 +59,31 @@ exports.update = (req, res) => {
     questionUpdateBlock = { "optionTwo.votes": authedUser };
   }
 
-  return User.findByIdAndUpdate(authedUser, {
-    $push: { answers: { id: id, answer: answer } },
-  }).then(() => {
-    Question.findByIdAndUpdate(id, {
-      $push: questionUpdateBlock,
-    })
-      .then((data) => {
-        res.send(data, authedUser, answer);
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message:
-            error.message || "Sorry, an error has occured. Please try again!",
-        });
-      });
+  const question = await Question.findByIdAndUpdate(id, {
+    $push: questionUpdateBlock,
   });
-};
 
-exports.delete = (req, res) => {
+  await User.findByIdAndUpdate(authedUser, {
+    $push: { answers: { id, answer } },
+  });
+
+  res.status(200).json({
+    status: "success",
+    question,
+    authedUser,
+    answer,
+  });
+});
+
+exports.deleteQuestion = catchAsync(async (req, res, next) => {
   const id = req.params.id;
-  Question.findByIdAndRemove(id, { useFindAndModify: false })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message: error.message || "Unable to delete question.",
-      });
-    });
-};
+
+  await Question.findByIdAndRemove(id, {
+    useFindAndModify: false,
+  });
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
