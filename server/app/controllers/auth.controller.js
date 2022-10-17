@@ -4,61 +4,22 @@ const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
 const db = require("../models");
-const Role = db.role;
 
 const config = require("../config/auth.config");
 const bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
-  const user = new User({
+exports.signup = catchAsync(async (req, res, next) => {
+  const user = await User.create({
     username: req.body.username,
     avatar: req.body.avatar,
-    password: bcrypt.hashSync(req.body.password, 8),
+    password: req.body.password,
   });
 
-  user.save((error, user) => {
-    if (error) {
-      res.status(500).send({ message: error });
-      return;
-    }
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (error, roles) => {
-          if (error) {
-            res.status(500).send({ message: error });
-            return;
-          }
-          user.roles = roles.map((role) => role.id);
-          user.save((error) => {
-            if (error) {
-              res.status(500).send({ message: error });
-              return;
-            }
-            res.send(user);
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (error, role) => {
-        if (error) {
-          res.status(500).send({ message: error });
-          return;
-        }
-        user.roles = [role.id];
-        user.save((error) => {
-          if (error) {
-            res.status(500).send({ message: error });
-            return;
-          }
-          res.send(user);
-        });
-      });
-    }
+  res.status(201).json({
+    status: "success",
+    user,
   });
-};
+});
 
 exports.signin = (req, res) => {
   User.findOne({
@@ -130,3 +91,17 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
   req.user = user;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // User data comes from verifyToken middleware
+    if (!roles.includes(req.user.role)) {
+      return next(
+        res
+          .status(403)
+          .send({ message: "Not authorized to perform this action." })
+      );
+    }
+    next();
+  };
+};
