@@ -1,9 +1,12 @@
+const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+const User = require("../models/user.model");
+const catchAsync = require("../utils/catchAsync");
+
 const db = require("../models");
-const User = db.user;
 const Role = db.role;
 
 const config = require("../config/auth.config");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
@@ -98,3 +101,32 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+exports.verifyToken = catchAsync(async (req, res, next) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    // Get second half of authorization string
+    token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token) {
+    return next(
+      res.status(401).send({ message: "Please log in to continue." })
+    );
+  }
+
+  // Use Node's build-in promisify to return promise from jwt.verify
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  const user = await User.findById(decoded.id);
+  if (!user) {
+    return next(res.status(401).send({ message: "User no longer exists." }));
+  }
+
+  // Allow access to route
+  req.user = user;
+  next();
+});

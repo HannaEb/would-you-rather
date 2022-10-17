@@ -1,21 +1,20 @@
+const express = require("express");
+const questions = require("../controllers/question.controller");
+const auth = require("../controllers/auth.controller");
+
+const router = express.Router();
+
 const { authJwt } = require("../middleware");
-const questions = require("../controllers/question.controller.js");
-const router = require("express").Router();
 
-module.exports = (app) => {
-  router.post("/questions/", [authJwt.verifyToken], questions.create);
-  router.get("/questions/", [authJwt.verifyToken], questions.findAll);
-  router.get("/questions/:id", [authJwt.verifyToken], questions.findOne);
-  router.put("/questions/:id", [authJwt.verifyToken], questions.update);
-  router.delete("/questions/:id", [authJwt.isAdmin], questions.delete);
+router
+  .route("/")
+  .get(auth.verifyToken, questions.getAllQuestions)
+  .post(auth.verifyToken, questions.createQuestion);
 
-  app.use((req, res, next) => {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+router
+  .route("/:id")
+  .get(auth.verifyToken, questions.getQuestion)
+  .put(auth.verifyToken, questions.updateQuestion)
+  .delete(auth.verifyToken, authJwt.isAdmin, questions.deleteQuestion);
 
-  app.use("/api", router);
-};
+module.exports = router;
