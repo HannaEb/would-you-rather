@@ -24,10 +24,10 @@ if (process.env.NODE_ENV === "production") {
 
 // Connect to database
 
-const db = require("./app/models");
+const mongoose = require("mongoose");
 
-db.mongoose
-  .connect(process.env.MONGODB_URI || db.url, {
+mongoose
+  .connect(process.env.MONGODB_URI || process.env.URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -43,8 +43,12 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the app!" });
 });
 
-require("./app/routes/question.routes")(app);
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+const authRouter = require("./app/routes/auth.routes");
+const userRouter = require("./app/routes/user.routes");
+const questionRouter = require("./app/routes/question.routes");
+
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/questions", questionRouter);
 
 module.exports = app;
