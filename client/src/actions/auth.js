@@ -24,71 +24,26 @@ export const register = (username, avatar, password) => async (dispatch) => {
   }
 };
 
-// export const register = (username, avatar, password) => (dispatch) => {
-//   return AuthDataService.register(username, avatar, password).then(
-//     (response) => {
-//       dispatch({
-//         type: REGISTER_SUCCESS,
-//         payload: response.data,
-//       });
-//       dispatch({
-//         type: CLEAR_MESSAGE,
-//       });
-//       return Promise.resolve();
-//     },
-//     (error) => {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       dispatch({
-//         type: REGISTER_FAIL,
-//       });
-//       dispatch({
-//         type: SET_MESSAGE,
-//         payload: message,
-//       });
-//       return Promise.reject();
-//     }
-//   );
-// };
-
-export const login = (username, password) => (dispatch) => {
-  return AuthDataService.login(username, password).then(
-    (data) => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { user: data },
-      });
-      dispatch({
-        type: CLEAR_MESSAGE,
-      });
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      dispatch({
-        type: LOGIN_FAIL,
-      });
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-      return Promise.reject();
-    }
-  );
+export const login = (username, password) => async (dispatch) => {
+  try {
+    const res = await AuthDataService.login(username, password);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: { user: res },
+    });
+    return Promise.resolve(res.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
-export const logout = () => (dispatch) => {
-  AuthDataService.logout();
-  dispatch({
-    type: LOGOUT,
-  });
+export const logout = () => async (dispatch) => {
+  try {
+    await AuthDataService.logout();
+    dispatch({
+      type: LOGOUT,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
