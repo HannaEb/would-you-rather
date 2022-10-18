@@ -11,15 +11,15 @@ const users = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_USERS:
       return produce(state, (draft) => {
-        action.payload.forEach((user) => {
+        action.payload.users.forEach((user) => {
           draft[user.username] = user;
         });
       });
     case UPDATE_USER_QUESTIONS:
       return produce(state, (draft) => {
-        draft[action.question.author].questions = draft[
-          action.question.author
-        ].questions.concat([action.question.id]);
+        draft[action.question.question.author].questions = draft[
+          action.question.question.author
+        ].questions.concat([action.question.question.id]);
       });
     case UPDATE_USER_ANSWERS:
       return produce(state, (draft) => {

@@ -25,7 +25,7 @@ const auth = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return produce(state, (draft) => {
         draft.isLoggedIn = true;
-        draft.user = action.payload.user;
+        draft.user = action.payload.user.user;
       });
     case LOGIN_FAIL:
       return produce(state, (draft) => {

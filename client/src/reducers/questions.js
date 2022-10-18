@@ -12,7 +12,7 @@ const questions = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
       return produce(state, (draft) => {
-        action.payload.forEach((question) => {
+        action.payload.questions.forEach((question) => {
           draft[question.id] = question;
         });
       });

@@ -31,7 +31,7 @@ export const createQuestion =
       });
       dispatch({
         type: CREATE_QUESTION,
-        payload: res.data,
+        payload: res.data.question,
       });
       dispatch(updateUserQuestions(res.data));
       return Promise.resolve(res.data);
