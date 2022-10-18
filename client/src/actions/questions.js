@@ -56,7 +56,7 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
       authedUserId,
       answer,
     });
-    dispatch(updateUserAnswers(question.id, authedUserName, answer));
+    dispatch(updateUserAnswers(id, authedUserName, answer));
 
     return Promise.resolve(res.data);
   } catch (error) {
@@ -64,12 +64,9 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
   }
 };
 
-export const deleteQuestion = (id) => async (dispatch, getState) => {
-  const { auth } = getState();
-  const authedUserId = auth.user.id;
-
+export const deleteQuestion = (id) => async (dispatch) => {
   try {
-    await QuestionDataService.delete(id, { authedUserId });
+    await QuestionDataService.delete(id);
 
     dispatch({
       type: DELETE_QUESTION,

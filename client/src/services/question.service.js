@@ -14,8 +14,8 @@ class QuestionDataService {
   update = (id, data) => {
     return http.put(`/questions/${id}`, { data }, { headers: authHeader() });
   };
-  delete = (id, data) => {
-    return http.delete(`/questions/${id}`, { data }, { headers: authHeader() });
+  delete = (id) => {
+    return http.delete(`/questions/${id}`, { headers: authHeader() });
   };
 }
 
