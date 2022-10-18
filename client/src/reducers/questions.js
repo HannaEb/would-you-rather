@@ -22,8 +22,8 @@ const questions = (state = initialState, action) => {
       });
     case UPDATE_QUESTION:
       return produce(state, (draft) => {
-        draft[action.question.id][action.answer].votes = draft[
-          action.question.id
+        draft[action.question.question.id][action.answer].votes = draft[
+          action.question.question.id
         ][action.answer].votes.concat([action.authedUserId]);
       });
     case DELETE_QUESTION:
