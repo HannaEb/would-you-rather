@@ -1,5 +1,13 @@
 import { updateUserQuestions, updateUserAnswers } from "./users";
-import QuestionDataService from "../services/question.service";
+// import {
+//   createQuestion,
+//   getQuestion,
+//   getAllQuestions,
+//   updateQuestion,
+//   deleteQuestion,
+// } from "../services/question.service";
+
+import QuestionService from "../services/question.service";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const CREATE_QUESTION = "ADD_QUESTION";
@@ -8,7 +16,7 @@ export const DELETE_QUESTION = "DELETE_QUESTION";
 
 export const receiveQuestions = () => async (dispatch) => {
   try {
-    const res = await QuestionDataService.getAll();
+    const res = await QuestionService.getAll();
     dispatch({
       type: RECEIVE_QUESTIONS,
       payload: res.data,
@@ -21,19 +29,19 @@ export const receiveQuestions = () => async (dispatch) => {
 export const createQuestion =
   (optionOneText, optionTwoText) => async (dispatch, getState) => {
     const { auth } = getState();
-
     try {
-      const res = await QuestionDataService.create({
+      const res = await QuestionService.create({
         optionOneText,
         optionTwoText,
         author: auth.user.username,
         userId: auth.user.id,
       });
+      const question = res.data.question;
       dispatch({
         type: CREATE_QUESTION,
-        payload: res.data.question,
+        payload: question,
       });
-      dispatch(updateUserQuestions(res.data));
+      dispatch(updateUserQuestions(question.id, question.author));
       return Promise.resolve(res.data);
     } catch (error) {
       return Promise.reject(error);
@@ -45,19 +53,17 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
   const answer = data.answer;
   const authedUserId = auth.user.id;
   const authedUserName = auth.user.username;
-
   try {
-    const res = await QuestionDataService.update(id, data);
-    const question = res.data;
-
+    const res = await QuestionService.update(id, { data });
     dispatch({
       type: UPDATE_QUESTION,
-      question,
-      authedUserId,
-      answer,
+      payload: {
+        id,
+        authedUserId,
+        answer,
+      },
     });
     dispatch(updateUserAnswers(id, authedUserName, answer));
-
     return Promise.resolve(res.data);
   } catch (error) {
     return Promise.reject(error);
@@ -66,8 +72,7 @@ export const updateQuestion = (id, data) => async (dispatch, getState) => {
 
 export const deleteQuestion = (id) => async (dispatch) => {
   try {
-    await QuestionDataService.delete(id);
-
+    await QuestionService.deleteOne(id);
     dispatch({
       type: DELETE_QUESTION,
       payload: id,

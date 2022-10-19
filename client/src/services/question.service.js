@@ -1,22 +1,39 @@
 import http from "../http-common";
 import authHeader from "./auth-header";
 
-class QuestionDataService {
-  create = (data) => {
-    return http.post("/questions", data, { headers: authHeader() });
-  };
-  get = (id) => {
-    return http.get(`/questions/${id}`, { headers: authHeader() });
-  };
-  getAll = () => {
-    return http.get("/questions", { headers: authHeader() });
-  };
-  update = (id, data) => {
-    return http.put(`/questions/${id}`, { data }, { headers: authHeader() });
-  };
-  delete = (id) => {
-    return http.delete(`/questions/${id}`, { headers: authHeader() });
-  };
-}
+const create = async (data) => {
+  const res = await http.post("/questions", data, { headers: authHeader() });
+  return res;
+};
 
-export default new QuestionDataService();
+const get = async (id) => {
+  const res = await http.get(`/questions/${id}`, { headers: authHeader() });
+  return res;
+};
+
+const getAll = async () => {
+  const res = await http.get("/questions", { headers: authHeader() });
+  return res;
+};
+
+const update = async (id, data) => {
+  const res = await http.put(`/questions/${id}`, data, {
+    headers: authHeader(),
+  });
+  return res;
+};
+
+const deleteOne = async (id) => {
+  const res = await http.delete(`/questions/${id}`, { headers: authHeader() });
+  return res;
+};
+
+const QuestionService = {
+  create,
+  get,
+  getAll,
+  update,
+  deleteOne,
+};
+
+export default QuestionService;
