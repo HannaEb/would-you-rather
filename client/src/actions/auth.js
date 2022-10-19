@@ -1,4 +1,4 @@
-import AuthDataService from "../services/auth.service";
+import AuthService from "../services/auth.service";
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
@@ -10,7 +10,7 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const register = (username, avatar, password) => async (dispatch) => {
   try {
-    const res = await AuthDataService.register(username, avatar, password);
+    const res = await AuthService.register({ username, avatar, password });
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
@@ -26,10 +26,11 @@ export const register = (username, avatar, password) => async (dispatch) => {
 
 export const login = (username, password) => async (dispatch) => {
   try {
-    const res = await AuthDataService.login(username, password);
+    const res = await AuthService.login({ username, password });
+    console.log("Res", res);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: { user: res },
+      payload: res.data.user,
     });
     return Promise.resolve(res.data);
   } catch (error) {
@@ -39,7 +40,7 @@ export const login = (username, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    await AuthDataService.logout();
+    await AuthService.logout();
     dispatch({
       type: LOGOUT,
     });
