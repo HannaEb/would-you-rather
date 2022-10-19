@@ -50,7 +50,7 @@ const QuestionDetails = (props) => {
               alt="Avatar"
             ></CardImg>
           </Col>
-          <Col sm={6} className="mx-auto my-4 m-sm-auto">
+          <Col sm={6} className="mx-auto my-4 m-sm-auto text-center">
             <CardTitle tag="h5">Would you rather...</CardTitle>
             <Form onSubmit={handleSubmit}>
               <FormGroup check>
