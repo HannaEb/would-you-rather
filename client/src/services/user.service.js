@@ -1,9 +1,10 @@
 import http from "../http-common";
 
-class UserDataService {
-  getAll = () => {
-    return http.get("/users");
-  };
-}
+const getAll = async () => {
+  const res = await http.get("/users");
+  return res;
+};
 
-export default new UserDataService();
+const UserService = { getAll };
+
+export default UserService;

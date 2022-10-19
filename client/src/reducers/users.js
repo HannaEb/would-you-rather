@@ -17,15 +17,18 @@ const users = (state = initialState, action) => {
       });
     case UPDATE_USER_QUESTIONS:
       return produce(state, (draft) => {
-        draft[action.question.question.author].questions = draft[
-          action.question.question.author
-        ].questions.concat([action.question.question.id]);
+        draft[action.payload.author].questions = draft[
+          action.payload.author
+        ].questions.concat([action.payload.id]);
       });
     case UPDATE_USER_ANSWERS:
       return produce(state, (draft) => {
-        draft[action.authedUser].answers = draft[
-          action.authedUser
-        ].answers.concat({ id: action.id, answer: action.answer });
+        draft[action.payload.authedUser].answers = draft[
+          action.payload.authedUser
+        ].answers.concat({
+          id: action.payload.id,
+          answer: action.payload.answer,
+        });
       });
     default:
       return state;
