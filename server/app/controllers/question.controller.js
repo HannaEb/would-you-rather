@@ -3,10 +3,10 @@ const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
 exports.createQuestion = catchAsync(async (req, res, next) => {
-  const userId = req.body.userId;
+  const { userId, author } = req.body;
 
   const question = await Question.create({
-    author: req.body.author,
+    author,
     optionOne: {
       text: req.body.optionOneText,
     },
@@ -29,7 +29,7 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
 
 exports.getQuestion = catchAsync(async (req, res, next) => {
   // const id = req.params.id;
-  const id = req.body.id;
+  const { id } = req.body;
   const question = await Question.findById(id);
 
   res.status(200).json({
@@ -48,9 +48,9 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
 });
 
 exports.updateQuestion = catchAsync(async (req, res, next) => {
-  const id = req.params.id;
-  const authedUser = req.body.data.authedUser;
-  const answer = req.body.data.answer;
+  const { id } = req.params;
+  const { authedUser, answer } = req.body.data;
+
   let questionUpdateBlock = {};
 
   if (answer === "optionOne") {
@@ -76,7 +76,7 @@ exports.updateQuestion = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteQuestion = catchAsync(async (req, res, next) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   await Question.findByIdAndRemove(id, {
     useFindAndModify: false,

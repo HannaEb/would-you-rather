@@ -4,10 +4,11 @@ const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
 exports.signup = catchAsync(async (req, res, next) => {
+  const { username, avatar, password } = req.body;
   const user = await User.create({
-    username: req.body.username,
-    avatar: req.body.avatar,
-    password: req.body.password,
+    username,
+    avatar,
+    password,
   });
 
   res.status(201).json({
@@ -17,8 +18,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.signin = catchAsync(async (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password } = req.body;
 
   if (!username || !password) {
     return next(
