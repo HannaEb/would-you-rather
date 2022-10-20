@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 const cors = require("cors");
 app.use(cors());
 
+// Set security HTTP headers
+const helmet = require("helmet");
+app.use(helmet());
+
 // Serve the client build directory for production
 const path = require("path");
 
