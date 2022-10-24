@@ -15,10 +15,17 @@ export const register = (username, avatar, password) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+    dispatch({
+      type: CLEAR_MESSAGE,
+    });
     return Promise.resolve(res.data);
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
+    });
+    dispatch({
+      type: SET_MESSAGE,
+      payload: error.message,
     });
     return Promise.reject(error);
   }
@@ -32,8 +39,19 @@ export const login = (username, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data.user,
     });
+    dispatch({
+      type: CLEAR_MESSAGE,
+    });
     return Promise.resolve(res.data);
   } catch (error) {
+    console.log("Action Error", error);
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+    dispatch({
+      type: SET_MESSAGE,
+      payload: error.response.data.message,
+    });
     return Promise.reject(error);
   }
 };
