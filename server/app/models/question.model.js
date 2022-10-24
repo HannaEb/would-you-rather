@@ -11,11 +11,11 @@ const questionSchema = new mongoose.Schema({
   },
   optionOne: {
     votes: { type: Array },
-    text: { type: String, required: true },
+    text: { type: String, required: true, trim: true },
   },
   optionTwo: {
     votes: { type: Array },
-    text: { type: String, required: true },
+    text: { type: String, required: true, trim: true },
   },
 });
 
