@@ -16,7 +16,6 @@ import {
   Input,
   Button,
 } from "reactstrap";
-
 import { createQuestion } from "../actions/questions";
 
 const AddQuestion = () => {
