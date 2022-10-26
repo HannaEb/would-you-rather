@@ -77,14 +77,16 @@ const AddQuestion = () => {
                     maxLength={30}
                   />
                 </FormGroup>
-                <Button
-                  type="submit"
-                  block
-                  color="info"
-                  disabled={optionOneText === "" || optionTwoText === ""}
-                >
-                  Add
-                </Button>
+                <FormGroup>
+                  <Button
+                    type="submit"
+                    block
+                    color="info"
+                    disabled={optionOneText === "" || optionTwoText === ""}
+                  >
+                    Add
+                  </Button>
+                </FormGroup>
               </Form>
             </CardBody>
           </Card>
