@@ -13,7 +13,7 @@ const questionSchema = new mongoose.Schema({
     votes: { type: Array },
     text: {
       type: String,
-      required: [true, "Please enter first question."],
+      required: [true, "Please enter first question"],
       trim: true,
     },
   },
@@ -21,7 +21,7 @@ const questionSchema = new mongoose.Schema({
     votes: { type: Array },
     text: {
       type: String,
-      required: [true, "Please enter second question."],
+      required: [true, "Please enter second question"],
       trim: true,
     },
   },
