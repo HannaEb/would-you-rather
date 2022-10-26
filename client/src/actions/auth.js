@@ -25,7 +25,7 @@ export const register = (username, avatar, password) => async (dispatch) => {
     });
     dispatch({
       type: SET_MESSAGE,
-      payload: error.message,
+      payload: error.response.data.message,
     });
     return Promise.reject(error);
   }
@@ -34,7 +34,6 @@ export const register = (username, avatar, password) => async (dispatch) => {
 export const login = (username, password) => async (dispatch) => {
   try {
     const res = await AuthService.login({ username, password });
-    console.log("Res", res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.user,
@@ -44,7 +43,6 @@ export const login = (username, password) => async (dispatch) => {
     });
     return Promise.resolve(res.data);
   } catch (error) {
-    console.log("Action Error", error);
     dispatch({
       type: LOGIN_FAIL,
     });

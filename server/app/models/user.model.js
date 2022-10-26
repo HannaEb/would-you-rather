@@ -4,17 +4,17 @@ const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, "Please enter a username."],
-    unique: true,
+    required: [true, "Please enter a username"],
+    unique: [true, "Username unavailable"],
     maxlength: 15,
   },
   avatar: {
     type: String,
-    required: [true, "Please select an avatar."],
+    required: [true, "Please select an avatar"],
   },
   password: {
     type: String,
-    required: [true, "Please enter a password."],
+    required: [true, "Please enter a password"],
     select: false,
   },
   answers: {

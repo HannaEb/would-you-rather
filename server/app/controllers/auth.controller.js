@@ -5,6 +5,23 @@ const catchAsync = require("../utils/catchAsync");
 
 exports.signup = catchAsync(async (req, res, next) => {
   const { username, avatar, password } = req.body;
+
+  if (!username || !password) {
+    return next(
+      res.status(400).send({ message: "Missing username or password" })
+    );
+  }
+
+  if (!avatar) {
+    return next(res.status(400).send({ message: "Please select avatar" }));
+  }
+
+  const existingUser = await User.findOne({ username });
+
+  if (existingUser) {
+    return next(res.status(400).send({ message: "Username unavailable" }));
+  }
+
   const user = await User.create({
     username,
     avatar,
@@ -56,9 +73,7 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(
-      res.status(401).send({ message: "Please log in to continue." })
-    );
+    return next(res.status(401).send({ message: "Please log in to continue" }));
   }
 
   // Use Node's build-in promisify to return promise from jwt.verify
@@ -66,7 +81,7 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(decoded.id);
   if (!user) {
-    return next(res.status(401).send({ message: "User no longer exists." }));
+    return next(res.status(401).send({ message: "User no longer exists" }));
   }
 
   // Allow access to route
@@ -81,7 +96,7 @@ exports.restrictTo = (...roles) => {
       return next(
         res
           .status(403)
-          .send({ message: "Not authorized to perform this action." })
+          .send({ message: "Not authorized to perform this action" })
       );
     }
     next();
