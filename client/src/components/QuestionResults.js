@@ -19,8 +19,8 @@ const QuestionResults = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
   const users = useSelector((state) => state.users);
   const authedUser = useSelector((state) => state.auth.user);
-  const index = users[question.author].avatar;
   const { author, optionOne, optionTwo } = question;
+  const index = users[author.id].avatar;
   const optionOneVotes = optionOne.votes.length;
   const optionTwoVotes = optionTwo.votes.length;
   const totalVotes = optionOneVotes + optionTwoVotes;
@@ -31,7 +31,7 @@ const QuestionResults = (props) => {
 
   return (
     <Card className="mt-4">
-      <CardHeader>Asked by {author}</CardHeader>
+      <CardHeader>Asked by {author.username}</CardHeader>
       <CardBody>
         <Row>
           <Col className="m-auto">

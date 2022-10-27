@@ -1,16 +1,8 @@
 import { updateUserQuestions, updateUserAnswers } from "./users";
-// import {
-//   createQuestion,
-//   getQuestion,
-//   getAllQuestions,
-//   updateQuestion,
-//   deleteQuestion,
-// } from "../services/question.service";
-
 import QuestionService from "../services/question.service";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
-export const CREATE_QUESTION = "ADD_QUESTION";
+export const CREATE_QUESTION = "CREATE_QUESTION";
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
 
@@ -33,10 +25,11 @@ export const createQuestion =
       const res = await QuestionService.create({
         optionOneText,
         optionTwoText,
-        author: auth.user.username,
         userId: auth.user.id,
       });
       const question = res.data.question;
+      console.log("QuestionTest", question);
+      console.log("QuestionActions", question);
       dispatch({
         type: CREATE_QUESTION,
         payload: question,

@@ -6,8 +6,8 @@ import QuestionResults from "./QuestionResults";
 import Error from "./Error";
 
 const QuestionPage = (props) => {
-  const username = useSelector((state) => state.auth.user.username);
-  const user = useSelector((state) => state.users[username]);
+  const userId = useSelector((state) => state.auth.user.id);
+  const user = useSelector((state) => state.users[userId]);
   const questions = useSelector((state) => state.questions);
   const { id } = props.match.params;
   const answered = user.answers.some((answer) => answer.id === id);

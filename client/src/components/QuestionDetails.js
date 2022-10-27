@@ -20,7 +20,7 @@ import { avatars } from "../utils/avatars.js";
 const QuestionDetails = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
   const users = useSelector((state) => state.users);
-  const index = users[question.author].avatar;
+  const index = users[question.author.id].avatar;
   const authedUser = useSelector((state) => state.auth.user.id);
   const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const QuestionDetails = (props) => {
 
   return (
     <Card className="mt-4">
-      <CardHeader>{author} asks:</CardHeader>
+      <CardHeader>{author.username} asks:</CardHeader>
       <CardBody>
         <Row>
           <Col sm={6}>
