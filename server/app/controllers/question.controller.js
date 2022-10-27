@@ -3,15 +3,16 @@ const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
 exports.createQuestion = catchAsync(async (req, res, next) => {
-  const { userId, author } = req.body;
+  const { userId, optionOneText, optionTwoText } = req.body;
+  const author = req.user.id;
 
   const question = await Question.create({
     author,
     optionOne: {
-      text: req.body.optionOneText,
+      text: optionOneText,
     },
     optionTwo: {
-      text: req.body.optionTwoText,
+      text: optionTwoText,
     },
   });
 

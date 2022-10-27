@@ -6,8 +6,9 @@ const questionSchema = new mongoose.Schema({
     default: Date.now,
   },
   author: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Question must belong to an author"],
   },
   optionOne: {
     votes: { type: Array },
@@ -31,6 +32,14 @@ questionSchema.method("toJSON", function () {
   const { __v, _id, ...object } = this.toObject();
   object.id = _id;
   return object;
+});
+
+questionSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "author",
+    select: "id username",
+  });
+  next();
 });
 
 const Question = mongoose.model("Question", questionSchema);
