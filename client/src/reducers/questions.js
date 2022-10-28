@@ -2,6 +2,7 @@ import produce from "immer";
 import {
   RECEIVE_QUESTIONS,
   CREATE_QUESTION,
+  GET_QUESTION,
   UPDATE_QUESTION,
   DELETE_QUESTION,
 } from "../actions/questions";
@@ -20,11 +21,15 @@ const questions = (state = initialState, action) => {
       return produce(state, (draft) => {
         draft[action.payload.id] = action.payload;
       });
+    case GET_QUESTION:
+      return produce(state, (draft) => {
+        draft[action.payload.id] = action.payload;
+      });
     case UPDATE_QUESTION:
       return produce(state, (draft) => {
         draft[action.payload.id][action.payload.answer].votes = draft[
           action.payload.id
-        ][action.payload.answer].votes.concat([action.payload.authedUserId]);
+        ][action.payload.answer].votes.concat([action.payload.authedUser]);
       });
     case DELETE_QUESTION:
       return produce(state, (draft) => {

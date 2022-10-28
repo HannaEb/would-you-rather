@@ -28,8 +28,8 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
 });
 
 exports.getQuestion = catchAsync(async (req, res, next) => {
-  // const id = req.params.id;
-  const { id } = req.body;
+  const { id } = req.params;
+
   const question = await Question.findById(id);
 
   res.status(200).json({
