@@ -21,20 +21,19 @@ export const receiveQuestions = () => async (dispatch) => {
 export const createQuestion =
   (optionOneText, optionTwoText) => async (dispatch, getState) => {
     const { auth } = getState();
+    const authorId = auth.user.id;
     try {
       const res = await QuestionService.create({
+        authorId,
         optionOneText,
         optionTwoText,
-        userId: auth.user.id,
       });
       const question = res.data.question;
-      console.log("QuestionTest", question);
-      console.log("QuestionActions", question);
       dispatch({
         type: CREATE_QUESTION,
         payload: question,
       });
-      dispatch(updateUserQuestions(question.id, question.author));
+      dispatch(updateUserQuestions(question.id, authorId));
       return Promise.resolve(res.data);
     } catch (error) {
       return Promise.reject(error);

@@ -22,7 +22,7 @@ const Question = (props) => {
   );
   const { id, author, optionOne, optionTwo } = question;
   const users = useSelector((state) => state.users);
-  const index = users[question.author].avatar;
+  const index = users[author.id].avatar;
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Question = (props) => {
   return (
     <Card className="mt-4">
       <CardHeader>
-        <CardText>{author} asks:</CardText>
+        <CardText>{author.username} asks:</CardText>
       </CardHeader>
       <CardBody>
         <Row>

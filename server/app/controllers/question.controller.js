@@ -3,11 +3,10 @@ const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
 
 exports.createQuestion = catchAsync(async (req, res, next) => {
-  const { userId, optionOneText, optionTwoText } = req.body;
-  const author = req.user.id;
+  const { authorId, optionOneText, optionTwoText } = req.body;
 
   const question = await Question.create({
-    author,
+    author: authorId,
     optionOne: {
       text: optionOneText,
     },
@@ -17,7 +16,7 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
   });
 
   await User.findByIdAndUpdate(
-    userId,
+    authorId,
     { $push: { questions: question.id } },
     { new: true, useFindAndModify: false }
   );
