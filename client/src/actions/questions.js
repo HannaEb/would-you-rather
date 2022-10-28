@@ -43,19 +43,18 @@ export const createQuestion =
 export const updateQuestion = (id, data) => async (dispatch, getState) => {
   const { auth } = getState();
   const answer = data.answer;
-  const authedUserId = auth.user.id;
-  const authedUserName = auth.user.username;
+  const authedUser = auth.user.id;
   try {
     const res = await QuestionService.update(id, { data });
     dispatch({
       type: UPDATE_QUESTION,
       payload: {
         id,
-        authedUserId,
+        authedUser,
         answer,
       },
     });
-    dispatch(updateUserAnswers(id, authedUserName, answer));
+    dispatch(updateUserAnswers(id, authedUser, answer));
     return Promise.resolve(res.data);
   } catch (error) {
     return Promise.reject(error);

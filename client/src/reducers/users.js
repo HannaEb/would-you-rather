@@ -12,7 +12,7 @@ const users = (state = initialState, action) => {
     case RECEIVE_USERS:
       return produce(state, (draft) => {
         action.payload.users.forEach((user) => {
-          draft[user.username] = user;
+          draft[user.id] = user;
         });
       });
     case UPDATE_USER_QUESTIONS:
