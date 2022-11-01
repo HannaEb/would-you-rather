@@ -15,12 +15,6 @@ exports.createQuestion = catchAsync(async (req, res, next) => {
     },
   });
 
-  await User.findByIdAndUpdate(
-    authorId,
-    { $push: { questions: question.id } },
-    { new: true, useFindAndModify: false }
-  );
-
   res.status(201).json({
     status: "success",
     question,

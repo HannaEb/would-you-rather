@@ -23,12 +23,7 @@ const Question = (props) => {
   const { id, author, optionOne, optionTwo } = question;
   const users = useSelector((state) => state.users);
   // const index = users[author.id].avatar
-  let index;
-
-  author.id
-    ? (index = users[author.id].avatar)
-    : (index = users[author].avatar);
-
+  const index = author.id ? users[author.id].avatar : users[author].avatar;
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";
   const dispatch = useDispatch();

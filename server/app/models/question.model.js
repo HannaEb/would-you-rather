@@ -37,7 +37,7 @@ const questionSchema = new mongoose.Schema(
 questionSchema.pre(["save", /^find/], function (next) {
   this.populate({
     path: "author",
-    select: "id username",
+    select: "username",
   });
   next();
 });

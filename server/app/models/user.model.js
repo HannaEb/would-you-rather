@@ -21,9 +21,6 @@ const userSchema = new mongoose.Schema(
     answers: {
       type: Array,
     },
-    questions: {
-      type: Array,
-    },
     role: {
       type: String,
       enum: ["user", "admin"],
@@ -35,6 +32,13 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+// Virtual populate
+userSchema.virtual("questions", {
+  ref: "Question",
+  foreignField: "author",
+  localField: "_id",
+});
 
 // Hash password asynchronously with cost of 10 (security level)
 userSchema.pre("save", async function (next) {
