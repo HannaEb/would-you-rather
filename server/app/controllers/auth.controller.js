@@ -2,24 +2,23 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const User = require("../models/user.model");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 exports.signup = catchAsync(async (req, res, next) => {
   const { username, avatar, password } = req.body;
 
   if (!username || !password) {
-    return next(
-      res.status(400).send({ message: "Missing username or password" })
-    );
+    return next(new AppError("Missing username or password", 400));
   }
 
   if (!avatar) {
-    return next(res.status(400).send({ message: "Please select avatar" }));
+    return next(new AppError("Please select avatar", 400));
   }
 
   const existingUser = await User.findOne({ username });
 
   if (existingUser) {
-    return next(res.status(400).send({ message: "Username unavailable" }));
+    return next(new AppError("Username unavailable", 400));
   }
 
   const user = await User.create({
@@ -38,17 +37,13 @@ exports.signin = catchAsync(async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return next(
-      res.status(400).send({ message: "Missing username or password" })
-    );
+    return next(new AppError("Missing username or password", 400));
   }
 
   const user = await User.findOne({ username }).select("+password");
 
   if (!user || !(await user.isCorrectPassword(password, user.password))) {
-    return next(
-      res.status(401).send({ message: "Incorrect username or password" })
-    );
+    return next(new AppError("Incorrect username or password test", 401));
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
@@ -73,15 +68,16 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(res.status(401).send({ message: "Please log in to continue" }));
+    return next(new AppError("Please log in to continue", 401));
   }
 
   // Use Node's build-in promisify to return promise from jwt.verify
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const user = await User.findById(decoded.id);
+
   if (!user) {
-    return next(res.status(401).send({ message: "User no longer exists" }));
+    return next(new AppError("User does not exist", 401));
   }
 
   // Allow access to route
@@ -93,11 +89,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // User data comes from verifyToken middleware
     if (!roles.includes(req.user.role)) {
-      return next(
-        res
-          .status(403)
-          .send({ message: "Not authorized to perform this action" })
-      );
+      return next(new AppError("Not authorized to perform this action", 403));
     }
     next();
   };
