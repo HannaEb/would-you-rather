@@ -43,7 +43,7 @@ exports.signin = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ username }).select("+password");
 
   if (!user || !(await user.isCorrectPassword(password, user.password))) {
-    return next(new AppError("Incorrect username or password test", 401));
+    return next(new AppError("Incorrect username or password", 401));
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

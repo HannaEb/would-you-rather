@@ -6,8 +6,8 @@ const handleCastError = (err) => {
 };
 
 const handleDuplicateFields = (err) => {
-  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  const message = `Duplicate value: ${value}. Please use a different value`;
+  const value = Object.values(err.keyValue)[0];
+  const message = `Duplicate value: ${value}. Please choose another value`;
   return new AppError(message, 400);
 };
 
@@ -28,21 +28,22 @@ module.exports = (err, req, res, next) => {
       message: err.message,
       stack: err.stack,
     });
-  } else if (process.env.NODE_ENV === "production") {
-    let error = { ...err };
+  } else if (process.env.NODE_ENV === "production" || "development") {
+    let error = { ...err, message: err.message };
+
     if (error.name === "CastError") error = handleCastError(error);
     if (error.code === 11000) error = handleDuplicateFields(error);
     if (error.name === "ValidationError") error = handleValidationError(error);
 
-    if (err.isOperational) {
-      res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message,
+    if (error.isOperational) {
+      res.status(error.statusCode).json({
+        status: error.status,
+        message: error.message,
       });
     } else {
-      console.error("ERROR", err);
+      console.error("ERROR", error);
       res.status(500).json({
-        staus: "error",
+        status: "error",
         message: "Oops, something went wrong",
       });
     }
