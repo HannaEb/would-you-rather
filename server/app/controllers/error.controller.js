@@ -31,9 +31,9 @@ module.exports = (err, req, res, next) => {
   } else if (process.env.NODE_ENV === "production" || "development") {
     let error = { ...err, message: err.message };
 
-    if (error.name === "CastError") error = handleCastError(error);
-    if (error.code === 11000) error = handleDuplicateFields(error);
-    if (error.name === "ValidationError") error = handleValidationError(error);
+    if (err.name === "CastError") error = handleCastError(err);
+    if (err.code === 11000) error = handleDuplicateFields(err);
+    if (err.name === "ValidationError") error = handleValidationError(err);
 
     if (error.isOperational) {
       res.status(error.statusCode).json({
