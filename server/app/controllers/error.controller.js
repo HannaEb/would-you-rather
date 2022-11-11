@@ -28,7 +28,7 @@ module.exports = (err, req, res, next) => {
       message: err.message,
       stack: err.stack,
     });
-  } else if (process.env.NODE_ENV === "production" || "development") {
+  } else if (process.env.NODE_ENV === "production") {
     let error = { ...err, message: err.message };
 
     if (err.name === "CastError") error = handleCastError(err);
