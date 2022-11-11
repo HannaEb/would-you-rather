@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter a username"],
       unique: [true, "Username unavailable"],
-      maxlength: 15,
+      maxlength: [15, "Username must be less than 16 characters"],
     },
     avatar: {
       type: String,
