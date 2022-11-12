@@ -27,6 +27,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     password,
   });
 
+  // Remove password from output
+  user.password = undefined;
+
   res.status(201).json({
     status: "success",
     user,
@@ -45,6 +48,9 @@ exports.signin = catchAsync(async (req, res, next) => {
   if (!user || !(await user.isCorrectPassword(password, user.password))) {
     return next(new AppError("Incorrect username or password", 401));
   }
+
+  // Remove password from output
+  user.password = undefined;
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
