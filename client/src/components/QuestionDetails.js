@@ -19,8 +19,7 @@ import { avatars } from "../utils/avatars.js";
 
 const QuestionDetails = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
-  const users = useSelector((state) => state.users);
-  const index = users[question.author.id].avatar;
+  const { author, optionOne, optionTwo } = question;
   const authedUser = useSelector((state) => state.auth.user.id);
   const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
@@ -36,8 +35,6 @@ const QuestionDetails = (props) => {
     dispatch(updateQuestion(id, { id, authedUser, answer, question }));
   };
 
-  const { author, optionOne, optionTwo } = question;
-
   return (
     <Card className="mt-4">
       <CardHeader>{author.username} asks:</CardHeader>
@@ -46,7 +43,7 @@ const QuestionDetails = (props) => {
           <Col sm={6}>
             <CardImg
               className="d-block m-auto card-avatar"
-              src={avatars[index]}
+              src={avatars[author.avatar]}
               alt="Avatar"
             ></CardImg>
           </Col>

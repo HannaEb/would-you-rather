@@ -21,9 +21,7 @@ const Question = (props) => {
     Object.values(state.questions).find((question) => question.id === props.id)
   );
   const { id, author, optionOne, optionTwo } = question;
-  const users = useSelector((state) => state.users);
-  // const index = users[author.id].avatar
-  const index = author.id ? users[author.id].avatar : users[author].avatar;
+
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ const Question = (props) => {
           <Col sm={6}>
             <CardImg
               className="d-block m-auto card-avatar"
-              src={avatars[index]}
+              src={avatars[author.avatar]}
               alt="Avatar"
             ></CardImg>
           </Col>

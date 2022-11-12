@@ -17,11 +17,9 @@ import { avatars } from "../utils/avatars";
 import { getQuestion } from "../actions/questions";
 
 const QuestionResults = (props) => {
-  const question = useSelector((state) => state.questions[props.id]);
-  const users = useSelector((state) => state.users);
   const authedUser = useSelector((state) => state.auth.user);
+  const question = useSelector((state) => state.questions[props.id]);
   const { id, author, optionOne, optionTwo } = question;
-  const index = users[author.id].avatar;
   const optionOneVotes = optionOne.votes.length;
   const optionTwoVotes = optionTwo.votes.length;
   const totalVotes = optionOneVotes + optionTwoVotes;
@@ -43,7 +41,7 @@ const QuestionResults = (props) => {
           <Col className="m-auto">
             <CardImg
               className="d-block m-auto card-avatar"
-              src={avatars[index]}
+              src={avatars[author.avatar]}
               alt="Avatar"
             ></CardImg>
           </Col>
