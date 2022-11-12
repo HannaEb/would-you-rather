@@ -14,7 +14,6 @@ import {
 import Question from "./Question";
 import classnames from "classnames";
 import { receiveQuestions } from "../actions/questions";
-import { receiveUsers } from "../actions/users";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.auth.user);
@@ -23,7 +22,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(receiveUsers());
     dispatch(receiveQuestions());
   }, [dispatch]);
 

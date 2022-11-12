@@ -7,10 +7,13 @@ import Error from "./Error";
 
 const QuestionPage = (props) => {
   const userId = useSelector((state) => state.auth.user.id);
-  const user = useSelector((state) => state.users[userId]);
   const questions = useSelector((state) => state.questions);
   const { id } = props.match.params;
-  const answered = user.answers.some((answer) => answer.id === id);
+  const answered =
+    questions[id].optionOne.votes.includes(userId) ||
+    questions[id].optionTwo.votes.includes(userId)
+      ? true
+      : false;
 
   let invalid;
 
