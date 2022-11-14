@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -14,12 +14,11 @@ import {
 } from "reactstrap";
 import { calculatePercentage } from "../utils/helpers";
 import { avatars } from "../utils/avatars";
-import { getQuestion } from "../actions/questions";
 
 const QuestionResults = (props) => {
   const authedUser = useSelector((state) => state.auth.user);
   const question = useSelector((state) => state.questions[props.id]);
-  const { id, author, optionOne, optionTwo } = question;
+  const { author, optionOne, optionTwo } = question;
   const optionOneVotes = optionOne.votes.length;
   const optionTwoVotes = optionTwo.votes.length;
   const totalVotes = optionOneVotes + optionTwoVotes;
@@ -27,11 +26,6 @@ const QuestionResults = (props) => {
   const optionTwoPerc = calculatePercentage(optionTwoVotes, totalVotes);
   const optionOneChoice = optionOne.votes.includes(authedUser.id);
   const optionTwoChoice = optionTwo.votes.includes(authedUser.id);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getQuestion(id));
-  }, [dispatch, id]);
 
   return (
     <Card className="mt-4">
