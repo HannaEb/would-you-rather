@@ -30,8 +30,8 @@ const App = () => {
               {isLoggedIn && <Navigation />}
               <Switch>
                 <Route exact path={["/", "/questions"]} component={Dashboard} />
-                <Route path="/add" component={AddQuestion} />
-                <Route path="/leaderboard" component={Leaderboard} />
+                <Route exact path="/questions/add" component={AddQuestion} />
+                <Route exact path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:id" component={QuestionPage} />
                 <Route path="*" component={Error} />
               </Switch>
