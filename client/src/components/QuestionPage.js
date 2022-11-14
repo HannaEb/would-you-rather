@@ -6,22 +6,18 @@ import QuestionResults from "./QuestionResults";
 import Error from "./Error";
 
 const QuestionPage = (props) => {
-  const userId = useSelector((state) => state.auth.user.id);
-  const questions = useSelector((state) => state.questions);
   const { id } = props.match.params;
+  const userId = useSelector((state) => state.auth.user.id);
+  const question = useSelector((state) => state.questions[id]);
+
   const answered =
-    questions[id].optionOne.votes.includes(userId) ||
-    questions[id].optionTwo.votes.includes(userId)
+    question &&
+    (question.optionOne.votes.includes(userId) ||
+      question.optionTwo.votes.includes(userId))
       ? true
       : false;
 
-  let invalid;
-
-  if (questions[id] === undefined) {
-    invalid = true;
-  } else {
-    invalid = false;
-  }
+  const invalid = !question ? true : false;
 
   if (invalid) {
     return <Error />;

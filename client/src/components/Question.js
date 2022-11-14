@@ -21,7 +21,6 @@ const Question = (props) => {
     Object.values(state.questions).find((question) => question.id === props.id)
   );
   const { id, author, optionOne, optionTwo } = question;
-
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";
   const dispatch = useDispatch();
