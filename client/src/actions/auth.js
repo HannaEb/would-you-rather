@@ -34,6 +34,7 @@ export const register = (username, avatar, password) => async (dispatch) => {
 export const login = (username, password) => async (dispatch) => {
   try {
     const res = await AuthService.login({ username, password });
+    res.data.user.accessToken = res.data.accessToken;
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.user,
