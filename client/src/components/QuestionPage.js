@@ -4,11 +4,16 @@ import { Container, Row, Col } from "reactstrap";
 import QuestionDetails from "./QuestionDetails";
 import QuestionResults from "./QuestionResults";
 import Error from "./Error";
+import { useGetQuestionsQuery } from "../features/api/apiSlice";
 
 const QuestionPage = (props) => {
   const { id } = props.match.params;
   const userId = useSelector((state) => state.auth.user.id);
-  const question = useSelector((state) => state.questions[id]);
+  const { question } = useGetQuestionsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      question: data[id],
+    }),
+  });
 
   const answered =
     question &&
@@ -19,23 +24,27 @@ const QuestionPage = (props) => {
 
   const invalid = !question ? true : false;
 
+  let content;
+
   if (invalid) {
-    return <Error />;
+    content = <Error />;
   } else {
-    return (
+    content = (
       <Container>
         <Row className="justify-content-center">
           <Col md={10} lg={7}>
             {answered === false ? (
-              <QuestionDetails id={id} />
+              <QuestionDetails question={question} />
             ) : (
-              <QuestionResults id={id} />
+              <QuestionResults question={question} />
             )}
           </Col>
         </Row>
       </Container>
     );
   }
+
+  return <div>{content}</div>;
 };
 
 export default QuestionPage;

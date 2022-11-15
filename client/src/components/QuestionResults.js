@@ -15,9 +15,8 @@ import {
 import { calculatePercentage } from "../utils/helpers";
 import { avatars } from "../utils/avatars";
 
-const QuestionResults = (props) => {
+const QuestionResults = ({ question }) => {
   const authedUser = useSelector((state) => state.auth.user);
-  const question = useSelector((state) => state.questions[props.id]);
   const { author, optionOne, optionTwo } = question;
   const optionOneVotes = optionOne.votes.length;
   const optionTwoVotes = optionTwo.votes.length;

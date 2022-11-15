@@ -17,8 +17,7 @@ import {
 import { updateQuestion } from "../actions/questions";
 import { avatars } from "../utils/avatars.js";
 
-const QuestionDetails = (props) => {
-  const question = useSelector((state) => state.questions[props.id]);
+const QuestionDetails = ({ question }) => {
   const { author, optionOne, optionTwo } = question;
   const authedUser = useSelector((state) => state.auth.user.id);
   const [answer, setAnswer] = useState(null);
@@ -30,7 +29,7 @@ const QuestionDetails = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { id } = props;
+    const { id } = question;
 
     dispatch(updateQuestion(id, { id, authedUser, answer, question }));
   };
