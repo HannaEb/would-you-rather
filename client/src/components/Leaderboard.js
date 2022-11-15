@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { Row, Col, List } from "reactstrap";
 import Leader from "./Leader";
-import { receiveUsers } from "../actions/users";
+import { useGetUsersQuery } from "../features/api/apiSlice";
 
 const Leaderboard = () => {
-  const users = useSelector((state) => state.users);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(receiveUsers());
-  }, [dispatch]);
+  const { data: users = {} } = useGetUsersQuery();
 
   const sortedUsers = Object.values(users)
     .map((user) => ({
@@ -27,7 +21,7 @@ const Leaderboard = () => {
           <List type="unstyled">
             {sortedUsers.map((user) => (
               <li key={user.id}>
-                <Leader id={user.id} />
+                <Leader leader={user} />
               </li>
             ))}
           </List>

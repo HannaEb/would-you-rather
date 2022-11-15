@@ -16,10 +16,7 @@ import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";
 import { deleteQuestion } from "../actions/questions";
 
-const Question = (props) => {
-  const question = useSelector((state) =>
-    Object.values(state.questions).find((question) => question.id === props.id)
-  );
+const Question = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";

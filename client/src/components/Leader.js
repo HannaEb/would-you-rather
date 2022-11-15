@@ -12,8 +12,8 @@ import {
 import ScoreCard from "./ScoreCard";
 import { avatars } from "../utils/avatars.js";
 
-const Leader = (props) => {
-  const leader = useSelector((state) => state.users[props.id]);
+const Leader = ({ leader }) => {
+  // const leader = useSelector((state) => state.users[props.id]);
   const index = leader.avatar;
   const answeredQuestions = Object.keys(leader.answers).length;
   const createdQuestions = leader.questions.length;

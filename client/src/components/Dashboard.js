@@ -74,7 +74,7 @@ const Dashboard = () => {
                   <List type="unstyled">
                     {unansweredQuestions.map((question) => (
                       <li key={question.id}>
-                        <Question id={question.id} />
+                        <Question question={question} />
                       </li>
                     ))}
                   </List>
@@ -87,7 +87,7 @@ const Dashboard = () => {
                   <List type="unstyled">
                     {answeredQuestions.map((question) => (
                       <li key={question.id}>
-                        <Question id={question.id} />
+                        <Question question={question} />
                       </li>
                     ))}
                   </List>

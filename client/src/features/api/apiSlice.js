@@ -21,7 +21,15 @@ export const apiSlice = createApi({
           return acc;
         }, {}),
     }),
+    getUsers: builder.query({
+      query: () => "/users",
+      transformResponse: (response) =>
+        response.users.reduce((acc, curr) => {
+          acc[curr.id] = curr;
+          return acc;
+        }, {}),
+    }),
   }),
 });
 
-export const { useGetQuestionsQuery } = apiSlice;
+export const { useGetQuestionsQuery, useGetUsersQuery } = apiSlice;

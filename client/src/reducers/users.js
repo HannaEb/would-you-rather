@@ -1,20 +1,10 @@
 import produce from "immer";
-import {
-  RECEIVE_USERS,
-  UPDATE_USER_QUESTIONS,
-  UPDATE_USER_ANSWERS,
-} from "../actions/users";
+import { UPDATE_USER_QUESTIONS, UPDATE_USER_ANSWERS } from "../actions/users";
 
 const initialState = {};
 
 const users = (state = initialState, action) => {
   switch (action.type) {
-    case RECEIVE_USERS:
-      return produce(state, (draft) => {
-        action.payload.users.forEach((user) => {
-          draft[user.id] = user;
-        });
-      });
     case UPDATE_USER_QUESTIONS:
       return produce(state, (draft) => {
         draft[action.payload.author].questions = draft[
