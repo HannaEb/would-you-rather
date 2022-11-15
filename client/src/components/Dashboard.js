@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 import {
   Container,
   Nav,
@@ -13,21 +13,19 @@ import {
 } from "reactstrap";
 import Question from "./Question";
 import classnames from "classnames";
-import { receiveQuestions } from "../actions/questions";
+import { useGetQuestionsQuery } from "../features/api/apiSlice";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.auth.user);
-  const questions = useSelector((state) => state.questions);
   const [activeTab, setActiveTab] = useState("unanswered");
-  const dispatch = useDispatch();
+  const { data: questions = {} } = useGetQuestionsQuery();
 
-  useEffect(() => {
-    dispatch(receiveQuestions());
-  }, [dispatch]);
-
-  const sortedQuestions = Object.values(questions).sort(
-    (a, b) => b.timestamp - a.timestamp
-  );
+  const sortedQuestions = useMemo(() => {
+    const sortedQuestions = Object.values(questions).sort(
+      (a, b) => b.timestamp - a.timestamp
+    );
+    return sortedQuestions;
+  }, [questions]);
 
   const unansweredQuestions = sortedQuestions.filter(
     (question) =>

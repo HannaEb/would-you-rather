@@ -15,6 +15,11 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getQuestions: builder.query({
       query: () => "/questions",
+      transformResponse: (response) =>
+        response.questions.reduce((acc, curr) => {
+          acc[curr.id] = curr;
+          return acc;
+        }, {}),
     }),
   }),
 });
