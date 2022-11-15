@@ -11,11 +11,6 @@ const get = async (id) => {
   return res;
 };
 
-const getAll = async () => {
-  const res = await http.get("/questions", { headers: authHeader() });
-  return res;
-};
-
 const update = async (id, data) => {
   const res = await http.put(`/questions/${id}`, data, {
     headers: authHeader(),
@@ -31,7 +26,6 @@ const deleteOne = async (id) => {
 const QuestionService = {
   create,
   get,
-  getAll,
   update,
   deleteOne,
 };

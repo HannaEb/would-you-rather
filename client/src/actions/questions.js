@@ -1,23 +1,10 @@
 import { updateUserQuestions, updateUserAnswers } from "./users";
 import QuestionService from "../services/question.service";
 
-export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const CREATE_QUESTION = "CREATE_QUESTION";
 export const GET_QUESTION = "GET_QUESTION";
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
-
-export const receiveQuestions = () => async (dispatch) => {
-  try {
-    const res = await QuestionService.getAll();
-    dispatch({
-      type: RECEIVE_QUESTIONS,
-      payload: res.data,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const createQuestion =
   (optionOneText, optionTwoText) => async (dispatch, getState) => {
