@@ -12,6 +12,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Question"],
   endpoints: (builder) => ({
     getQuestions: builder.query({
       query: () => "/questions",
@@ -20,6 +21,7 @@ export const apiSlice = createApi({
           acc[curr.id] = curr;
           return acc;
         }, {}),
+      providesTags: ["Question"],
     }),
     addQuestion: builder.mutation({
       query: (initialQuestion) => ({
@@ -27,6 +29,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: initialQuestion,
       }),
+      invalidatesTags: ["Question"],
     }),
     getUsers: builder.query({
       query: () => "/users",
