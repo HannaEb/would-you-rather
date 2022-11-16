@@ -21,6 +21,13 @@ export const apiSlice = createApi({
           return acc;
         }, {}),
     }),
+    addQuestion: builder.mutation({
+      query: (initialQuestion) => ({
+        url: "/questions",
+        method: "POST",
+        body: initialQuestion,
+      }),
+    }),
     getUsers: builder.query({
       query: () => "/users",
       transformResponse: (response) =>
@@ -32,4 +39,8 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useGetQuestionsQuery, useGetUsersQuery } = apiSlice;
+export const {
+  useGetQuestionsQuery,
+  useAddQuestionMutation,
+  useGetUsersQuery,
+} = apiSlice;

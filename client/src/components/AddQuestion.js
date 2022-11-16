@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
   Container,
@@ -16,32 +16,35 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { createQuestion } from "../actions/questions";
+import { useAddQuestionMutation } from "../features/api/apiSlice";
 
 const AddQuestion = () => {
-  const dispatch = useDispatch();
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
   const [toHome, setToHome] = useState(false);
+  const authorId = useSelector((state) => state.auth.user.id);
+
+  const [addQuestion] = useAddQuestionMutation();
 
   const handleOptionOneChange = (event) => {
-    setOptionOneText(event.target.value);
+    setOptionOneText(event.target.value.toLowerCase());
   };
 
   const handleOptionTwoChange = (event) => {
-    setOptionTwoText(event.target.value);
+    setOptionTwoText(event.target.value.toLowerCase());
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    dispatch(
-      createQuestion(optionOneText.toLowerCase(), optionTwoText.toLowerCase())
-    );
-
-    setOptionOneText("");
-    setOptionTwoText("");
-    setToHome(true);
+    try {
+      await addQuestion({ authorId, optionOneText, optionTwoText }).unwrap();
+      setOptionOneText("");
+      setOptionTwoText("");
+      setToHome(true);
+    } catch (err) {
+      console.error("Failed to save question: ", err);
+    }
   };
 
   if (toHome === true) {
