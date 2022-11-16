@@ -1,32 +1,9 @@
-import { updateUserQuestions, updateUserAnswers } from "./users";
+import { updateUserAnswers } from "./users";
 import QuestionService from "../services/question.service";
 
-export const CREATE_QUESTION = "CREATE_QUESTION";
 export const GET_QUESTION = "GET_QUESTION";
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
-
-export const createQuestion =
-  (optionOneText, optionTwoText) => async (dispatch, getState) => {
-    const { auth } = getState();
-    const authorId = auth.user.id;
-    try {
-      const res = await QuestionService.create({
-        authorId,
-        optionOneText,
-        optionTwoText,
-      });
-      const question = res.data.question;
-      dispatch({
-        type: CREATE_QUESTION,
-        payload: question,
-      });
-      dispatch(updateUserQuestions(question.id, authorId));
-      return Promise.resolve(res.data);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  };
 
 export const getQuestion = (id) => async (dispatch) => {
   try {

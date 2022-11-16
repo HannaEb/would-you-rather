@@ -1,6 +1,5 @@
 import produce from "immer";
 import {
-  CREATE_QUESTION,
   GET_QUESTION,
   UPDATE_QUESTION,
   DELETE_QUESTION,
@@ -10,10 +9,6 @@ const initialState = {};
 
 const questions = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_QUESTION:
-      return produce(state, (draft) => {
-        draft[action.payload.id] = action.payload;
-      });
     case GET_QUESTION:
       return produce(state, (draft) => {
         draft[action.payload.id] = action.payload;

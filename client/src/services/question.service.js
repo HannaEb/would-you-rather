@@ -1,11 +1,6 @@
 import http from "../http-common";
 import authHeader from "./auth-header";
 
-const create = async (data) => {
-  const res = await http.post("/questions", data, { headers: authHeader() });
-  return res;
-};
-
 const get = async (id) => {
   const res = await http.get(`/questions/${id}`, { headers: authHeader() });
   return res;
@@ -24,7 +19,6 @@ const deleteOne = async (id) => {
 };
 
 const QuestionService = {
-  create,
   get,
   update,
   deleteOne,
