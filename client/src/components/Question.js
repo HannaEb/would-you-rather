@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -14,13 +14,13 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";
-import { deleteQuestion } from "../actions/questions";
+import { useDeleteQuestionMutation } from "../features/api/apiSlice";
 
 const Question = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;
   const authedUser = useSelector((state) => state.auth.user);
   const isAdmin = authedUser.role === "admin";
-  const dispatch = useDispatch();
+  const [deleteQuestion] = useDeleteQuestionMutation();
 
   return (
     <Card className="mt-4">
@@ -54,7 +54,7 @@ const Question = ({ question }) => {
             className="delete-button"
             color="link"
             size="sm"
-            onClick={() => dispatch(deleteQuestion(id))}
+            onClick={() => deleteQuestion(id)}
           >
             Delete Question
           </Button>

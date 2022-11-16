@@ -39,6 +39,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Question"],
     }),
+    deleteQuestion: builder.mutation({
+      query: (id) => ({
+        url: `/questions/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Question"],
+    }),
     getUsers: builder.query({
       query: () => "/users",
       transformResponse: (response) =>
@@ -54,5 +61,6 @@ export const {
   useGetQuestionsQuery,
   useAddQuestionMutation,
   useUpdateQuestionMutation,
+  useDeleteQuestionMutation,
   useGetUsersQuery,
 } = apiSlice;
