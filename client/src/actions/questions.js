@@ -1,4 +1,3 @@
-import { updateUserAnswers } from "./users";
 import QuestionService from "../services/question.service";
 
 export const GET_QUESTION = "GET_QUESTION";
