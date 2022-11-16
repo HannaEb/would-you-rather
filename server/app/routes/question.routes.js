@@ -12,7 +12,7 @@ router
 router
   .route("/:id")
   .get(auth.verifyToken, questions.getQuestion)
-  .put(auth.verifyToken, questions.updateQuestion)
+  .patch(auth.verifyToken, questions.updateQuestion)
   .delete(auth.verifyToken, auth.restrictTo("admin"), questions.deleteQuestion);
 
 module.exports = router;

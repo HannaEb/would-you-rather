@@ -16,18 +16,26 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getQuestions: builder.query({
       query: () => "/questions",
+      providesTags: ["Question"],
       transformResponse: (response) =>
         response.questions.reduce((acc, curr) => {
           acc[curr.id] = curr;
           return acc;
         }, {}),
-      providesTags: ["Question"],
     }),
     addQuestion: builder.mutation({
       query: (initialQuestion) => ({
         url: "/questions",
         method: "POST",
         body: initialQuestion,
+      }),
+      invalidatesTags: ["Question"],
+    }),
+    updateQuestion: builder.mutation({
+      query: (question) => ({
+        url: `/questions/${question.id}`,
+        method: "PATCH",
+        body: question,
       }),
       invalidatesTags: ["Question"],
     }),
@@ -45,5 +53,6 @@ export const apiSlice = createApi({
 export const {
   useGetQuestionsQuery,
   useAddQuestionMutation,
+  useUpdateQuestionMutation,
   useGetUsersQuery,
 } = apiSlice;

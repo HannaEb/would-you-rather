@@ -48,7 +48,7 @@ exports.getAllQuestions = catchAsync(async (req, res, next) => {
 
 exports.updateQuestion = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { authedUser, answer } = req.body.data;
+  const { authedUser, answer } = req.body;
 
   let questionUpdateBlock = {};
 

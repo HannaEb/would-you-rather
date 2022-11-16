@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -14,24 +14,22 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { updateQuestion } from "../actions/questions";
 import { avatars } from "../utils/avatars.js";
+import { useUpdateQuestionMutation } from "../features/api/apiSlice";
 
 const QuestionDetails = ({ question }) => {
-  const { author, optionOne, optionTwo } = question;
+  const { id, author, optionOne, optionTwo } = question;
   const authedUser = useSelector((state) => state.auth.user.id);
+  const [updateQuestion] = useUpdateQuestionMutation();
   const [answer, setAnswer] = useState(null);
-  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setAnswer(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { id } = question;
-
-    dispatch(updateQuestion(id, { id, authedUser, answer, question }));
+    await updateQuestion({ id, authedUser, answer });
   };
 
   return (
