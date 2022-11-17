@@ -1,5 +1,5 @@
 import produce from "immer";
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../actions/auth";
+import { LOGOUT } from "../actions/auth";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
@@ -8,16 +8,6 @@ const initialState = user
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
-      return produce(state, (draft) => {
-        draft.isLoggedIn = true;
-        draft.user = action.payload;
-      });
-    case LOGIN_FAIL:
-      return produce(state, (draft) => {
-        draft.isLoggedIn = false;
-        draft.user = null;
-      });
     case LOGOUT:
       return produce(state, (draft) => {
         draft.isLoggedIn = false;
