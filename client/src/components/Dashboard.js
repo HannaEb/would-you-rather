@@ -14,9 +14,10 @@ import {
 import Question from "./Question";
 import classnames from "classnames";
 import { useGetQuestionsQuery } from "../features/api/apiSlice";
+import { selectAuthedUser } from "../features/auth/authSlice";
 
 const Dashboard = () => {
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector(selectAuthedUser);
   const [activeTab, setActiveTab] = useState("unanswered");
   const { data: questions = {} } = useGetQuestionsQuery();
 

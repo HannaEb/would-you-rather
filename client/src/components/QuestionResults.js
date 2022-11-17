@@ -14,9 +14,10 @@ import {
 } from "reactstrap";
 import { calculatePercentage } from "../utils/helpers";
 import { avatars } from "../utils/avatars";
+import { selectAuthedUser } from "../features/auth/authSlice";
 
 const QuestionResults = ({ question }) => {
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector(selectAuthedUser);
   const { author, optionOne, optionTwo } = question;
   const optionOneVotes = optionOne.votes.length;
   const optionTwoVotes = optionTwo.votes.length;

@@ -10,15 +10,16 @@ import Leaderboard from "./components/Leaderboard";
 import QuestionPage from "./components/QuestionPage";
 import Error from "./components/Error";
 import LoadingBar from "react-redux-loading-bar";
+import { selectAuthedUser } from "./features/auth/authSlice";
 
 const App = () => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const authedUser = useSelector(selectAuthedUser);
   return (
     <Router>
       <Fragment>
         <LoadingBar style={{ backgroundColor: "#5BC0DE" }} />
         <div>
-          {!isLoggedIn ? (
+          {!authedUser ? (
             <div>
               <Switch>
                 <Route exact path={["/", "/login"]} component={Login} />
@@ -27,7 +28,7 @@ const App = () => {
             </div>
           ) : (
             <div>
-              {isLoggedIn && <Navigation />}
+              {authedUser && <Navigation />}
               <Switch>
                 <Route exact path={["/", "/questions"]} component={Dashboard} />
                 <Route exact path="/questions/add" component={AddQuestion} />

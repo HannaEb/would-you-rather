@@ -11,9 +11,10 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/auth";
 import { avatars } from "../utils/avatars.js";
+import { selectAuthedUser } from "../features/auth/authSlice";
 
 const Navigation = () => {
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector(selectAuthedUser);
   const index = authedUser.avatar;
   const dispatch = useDispatch();
 

@@ -15,10 +15,11 @@ import {
 import { Link } from "react-router-dom";
 import { avatars } from "../utils/avatars.js";
 import { useDeleteQuestionMutation } from "../features/api/apiSlice";
+import { selectAuthedUser } from "../features/auth/authSlice.js";
 
 const Question = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector(selectAuthedUser);
   const isAdmin = authedUser.role === "admin";
   const [deleteQuestion] = useDeleteQuestionMutation();
 
