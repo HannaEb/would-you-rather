@@ -17,12 +17,13 @@ import {
   Button,
 } from "reactstrap";
 import { useAddQuestionMutation } from "../features/api/apiSlice";
+import { selectAuthedUserId } from "../features/auth/authSlice";
 
 const AddQuestion = () => {
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
   const [toHome, setToHome] = useState(false);
-  const authorId = useSelector((state) => state.auth.user.id);
+  const authedUserId = useSelector(selectAuthedUserId);
 
   const [addQuestion] = useAddQuestionMutation();
 
@@ -38,7 +39,11 @@ const AddQuestion = () => {
     event.preventDefault();
 
     try {
-      await addQuestion({ authorId, optionOneText, optionTwoText }).unwrap();
+      await addQuestion({
+        authorId: authedUserId,
+        optionOneText,
+        optionTwoText,
+      }).unwrap();
       setOptionOneText("");
       setOptionTwoText("");
       setToHome(true);

@@ -5,20 +5,21 @@ import QuestionDetails from "./QuestionDetails";
 import QuestionResults from "./QuestionResults";
 import Error from "./Error";
 import { useGetQuestionsQuery } from "../features/api/apiSlice";
+import { selectAuthedUserId } from "../features/auth/authSlice";
 
 const QuestionPage = (props) => {
   const { id } = props.match.params;
-  const userId = useSelector((state) => state.auth.user.id);
   const { question } = useGetQuestionsQuery(undefined, {
     selectFromResult: ({ data }) => ({
       question: data[id],
     }),
   });
+  const authedUserId = useSelector(selectAuthedUserId);
 
   const answered =
     question &&
-    (question.optionOne.votes.includes(userId) ||
-      question.optionTwo.votes.includes(userId))
+    (question.optionOne.votes.includes(authedUserId) ||
+      question.optionTwo.votes.includes(authedUserId))
       ? true
       : false;
 

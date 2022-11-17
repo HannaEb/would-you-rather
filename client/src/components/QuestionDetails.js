@@ -16,10 +16,11 @@ import {
 } from "reactstrap";
 import { avatars } from "../utils/avatars.js";
 import { useUpdateQuestionMutation } from "../features/api/apiSlice";
+import { selectAuthedUserId } from "../features/auth/authSlice.js";
 
 const QuestionDetails = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;
-  const authedUser = useSelector((state) => state.auth.user.id);
+  const authedUserId = useSelector(selectAuthedUserId);
   const [updateQuestion] = useUpdateQuestionMutation();
   const [answer, setAnswer] = useState(null);
 
@@ -29,7 +30,7 @@ const QuestionDetails = ({ question }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await updateQuestion({ id, authedUser, answer });
+    await updateQuestion({ id, authedUser: authedUserId, answer });
   };
 
   return (
