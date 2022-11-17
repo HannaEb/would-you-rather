@@ -21,6 +21,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    loginUser: builder.mutation({
+      query: (credentials) => ({
+        url: "/auth/signin",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
     getQuestions: builder.query({
       query: () => "/questions",
       providesTags: ["Question"],
@@ -66,6 +73,7 @@ export const apiSlice = createApi({
 
 export const {
   useRegisterUserMutation,
+  useLoginUserMutation,
   useGetQuestionsQuery,
   useAddQuestionMutation,
   useUpdateQuestionMutation,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
   Container,
@@ -19,14 +19,16 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { login } from "../../actions/auth";
+import { useLoginUserMutation } from "../api/apiSlice";
+import { selectAuthedUser } from "../auth/authSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const authedUser = useSelector(selectAuthedUser);
   const { message } = useSelector((state) => state.message);
-  const dispatch = useDispatch();
+
+  const [loginUser] = useLoginUserMutation();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -36,13 +38,19 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    dispatch(login(username, password));
+    try {
+      await loginUser({ username, password }).unwrap();
+      setUsername("");
+      setPassword("");
+    } catch (err) {
+      console.error("Failed to login: ", err);
+    }
   };
 
-  if (isLoggedIn) {
+  if (authedUser) {
     return <Redirect to="/" />;
   }
 
