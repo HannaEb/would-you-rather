@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import logo from "../../images/logo.png";
@@ -16,7 +16,6 @@ import avatar9 from "../../images/avatar9.png";
 import avatar10 from "../../images/avatar10.png";
 import avatar11 from "../../images/avatar11.png";
 
-// import { register } from "../actions/auth";
 import { useRegisterUserMutation } from "../api/apiSlice";
 import {
   Container,
@@ -44,7 +43,6 @@ const Register = () => {
   const [avatar, setAvatar] = useState("");
   const [toHome, setToHome] = useState(false);
   const { message } = useSelector((state) => state.message);
-  // const dispatch = useDispatch();
 
   const [registerUser] = useRegisterUserMutation();
 
