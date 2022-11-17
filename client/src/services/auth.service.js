@@ -1,10 +1,5 @@
 import http from "../http-common";
 
-const register = async (data) => {
-  const res = await http.post("/auth/signup", data);
-  return res;
-};
-
 const login = async (data) => {
   const res = await http.post("/auth/signin", data);
   if (res.data.accessToken) {
@@ -18,6 +13,6 @@ const logout = async () => {
   localStorage.removeItem("user");
 };
 
-const AuthService = { register, login, logout };
+const AuthService = { login, logout };
 
 export default AuthService;

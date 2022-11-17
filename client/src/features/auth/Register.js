@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import logo from "../images/logo.png";
-import avatar0 from "../images/avatar0.png";
-import avatar1 from "../images/avatar1.png";
-import avatar2 from "../images/avatar2.png";
-import avatar3 from "../images/avatar3.png";
-import avatar4 from "../images/avatar4.png";
-import avatar5 from "../images/avatar5.png";
-import avatar6 from "../images/avatar6.png";
-import avatar7 from "../images/avatar7.png";
-import avatar8 from "../images/avatar8.png";
-import avatar9 from "../images/avatar9.png";
-import avatar10 from "../images/avatar10.png";
-import avatar11 from "../images/avatar11.png";
+import logo from "../../images/logo.png";
+import avatar0 from "../../images/avatar0.png";
+import avatar1 from "../../images/avatar1.png";
+import avatar2 from "../../images/avatar2.png";
+import avatar3 from "../../images/avatar3.png";
+import avatar4 from "../../images/avatar4.png";
+import avatar5 from "../../images/avatar5.png";
+import avatar6 from "../../images/avatar6.png";
+import avatar7 from "../../images/avatar7.png";
+import avatar8 from "../../images/avatar8.png";
+import avatar9 from "../../images/avatar9.png";
+import avatar10 from "../../images/avatar10.png";
+import avatar11 from "../../images/avatar11.png";
 
-import { register } from "../actions/auth";
+// import { register } from "../actions/auth";
+import { useRegisterUserMutation } from "../api/apiSlice";
 import {
   Container,
   Row,
@@ -43,7 +44,9 @@ const Register = () => {
   const [avatar, setAvatar] = useState("");
   const [toHome, setToHome] = useState(false);
   const { message } = useSelector((state) => state.message);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  const [registerUser] = useRegisterUserMutation();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -57,12 +60,18 @@ const Register = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    dispatch(register(username, avatar, password)).then(() => {
+    try {
+      await registerUser({ username, avatar, password }).unwrap();
+      setUsername("");
+      setPassword("");
+      setAvatar("");
       setToHome(true);
-    });
+    } catch (err) {
+      console.error("Failed to register: ", err);
+    }
   };
 
   if (toHome === true) {

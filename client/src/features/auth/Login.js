@@ -18,8 +18,8 @@ import {
   Alert,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import logo from "../images/logo.png";
-import { login } from "../actions/auth";
+import logo from "../../images/logo.png";
+import { login } from "../../actions/auth";
 
 const Login = () => {
   const [username, setUsername] = useState("");

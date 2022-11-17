@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.user.accessToken;
+      const token = getState().auth.accessToken;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -14,6 +14,13 @@ export const apiSlice = createApi({
   }),
   tagTypes: ["Question"],
   endpoints: (builder) => ({
+    registerUser: builder.mutation({
+      query: (data) => ({
+        url: "/auth/signup",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getQuestions: builder.query({
       query: () => "/questions",
       providesTags: ["Question"],
@@ -58,6 +65,7 @@ export const apiSlice = createApi({
 });
 
 export const {
+  useRegisterUserMutation,
   useGetQuestionsQuery,
   useAddQuestionMutation,
   useUpdateQuestionMutation,

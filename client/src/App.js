@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import Register from "./features/auth/Register";
+import Login from "./features/auth/Login";
 import Navigation from "./components/Navigation";
 import Dashboard from "./components/Dashboard";
 import AddQuestion from "./components/AddQuestion";
