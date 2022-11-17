@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   Card,
   CardImg,
@@ -13,7 +12,6 @@ import ScoreCard from "./ScoreCard";
 import { avatars } from "../utils/avatars.js";
 
 const Leader = ({ leader }) => {
-  // const leader = useSelector((state) => state.users[props.id]);
   const index = leader.avatar;
   const answeredQuestions = Object.keys(leader.answers).length;
   const createdQuestions = leader.questions.length;
