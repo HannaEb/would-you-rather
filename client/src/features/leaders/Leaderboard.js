@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, List } from "reactstrap";
 import Leader from "./Leader";
-import { useGetUsersQuery } from "../features/api/apiSlice";
+import { useGetUsersQuery } from "../api/apiSlice";
 
 const Leaderboard = () => {
   const { data: users = {} } = useGetUsersQuery();

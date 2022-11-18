@@ -12,9 +12,9 @@ import {
   Progress,
   Badge,
 } from "reactstrap";
-import { calculatePercentage } from "../utils/helpers";
-import { avatars } from "../utils/avatars";
-import { selectAuthedUser } from "../features/auth/authSlice";
+import { calculatePercentage } from "../../utils/helpers";
+import { avatars } from "../../utils/avatars";
+import { selectAuthedUser } from "../auth/authSlice";
 
 const QuestionResults = ({ question }) => {
   const authedUser = useSelector(selectAuthedUser);

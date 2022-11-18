@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import QuestionDetails from "./QuestionDetails";
 import QuestionResults from "./QuestionResults";
-import Error from "./Error";
-import { useGetQuestionsQuery } from "../features/api/apiSlice";
-import { selectAuthedUserId } from "../features/auth/authSlice";
+import Error from "../../components/Error";
+import { useGetQuestionsQuery } from "../api/apiSlice";
+import { selectAuthedUserId } from "../auth/authSlice";
 
 const QuestionPage = (props) => {
   const { id } = props.match.params;

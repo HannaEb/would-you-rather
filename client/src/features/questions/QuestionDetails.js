@@ -14,9 +14,9 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { avatars } from "../utils/avatars.js";
-import { useUpdateQuestionMutation } from "../features/api/apiSlice";
-import { selectAuthedUserId } from "../features/auth/authSlice.js";
+import { avatars } from "../../utils/avatars.js";
+import { useUpdateQuestionMutation } from "../api/apiSlice";
+import { selectAuthedUserId } from "../auth/authSlice.js";
 
 const QuestionDetails = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;

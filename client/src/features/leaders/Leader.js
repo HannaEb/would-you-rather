@@ -9,7 +9,7 @@ import {
   Row,
 } from "reactstrap";
 import ScoreCard from "./ScoreCard";
-import { avatars } from "../utils/avatars.js";
+import { avatars } from "../../utils/avatars.js";
 
 const Leader = ({ leader }) => {
   const index = leader.avatar;

@@ -16,8 +16,8 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { useAddQuestionMutation } from "../features/api/apiSlice";
-import { selectAuthedUserId } from "../features/auth/authSlice";
+import { useAddQuestionMutation } from "../../features/api/apiSlice";
+import { selectAuthedUserId } from "../../features/auth/authSlice";
 
 const AddQuestion = () => {
   const [optionOneText, setOptionOneText] = useState("");

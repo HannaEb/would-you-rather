@@ -13,9 +13,9 @@ import {
   Button,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { avatars } from "../utils/avatars.js";
-import { useDeleteQuestionMutation } from "../features/api/apiSlice";
-import { selectAuthedUser } from "../features/auth/authSlice.js";
+import { avatars } from "../../utils/avatars.js";
+import { useDeleteQuestionMutation } from "../api/apiSlice";
+import { selectAuthedUser } from "../auth/authSlice.js";
 
 const Question = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;

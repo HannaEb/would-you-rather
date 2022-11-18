@@ -13,8 +13,8 @@ import {
 } from "reactstrap";
 import Question from "./Question";
 import classnames from "classnames";
-import { useGetQuestionsQuery } from "../features/api/apiSlice";
-import { selectAuthedUser } from "../features/auth/authSlice";
+import { useGetQuestionsQuery } from "../api/apiSlice";
+import { selectAuthedUser } from "../auth/authSlice";
 
 const Dashboard = () => {
   const authedUser = useSelector(selectAuthedUser);
