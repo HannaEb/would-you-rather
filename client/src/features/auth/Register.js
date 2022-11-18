@@ -38,12 +38,11 @@ import {
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const { message } = useSelector((state) => state.message);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const [toHome, setToHome] = useState(false);
-  const { message } = useSelector((state) => state.message);
-
   const [registerUser] = useRegisterUserMutation();
 
   const handleUsernameChange = (event) => {
@@ -63,9 +62,6 @@ const Register = () => {
 
     try {
       await registerUser({ username, avatar, password }).unwrap();
-      setUsername("");
-      setPassword("");
-      setAvatar("");
       setToHome(true);
     } catch (err) {
       console.error("Failed to register: ", err);

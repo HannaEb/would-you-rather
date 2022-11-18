@@ -19,15 +19,14 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { useLoginUserMutation } from "../api/apiSlice";
 import { selectAuthedUser } from "../auth/authSlice";
+import { useLoginUserMutation } from "../api/apiSlice";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const authedUser = useSelector(selectAuthedUser);
   const { message } = useSelector((state) => state.message);
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loginUser] = useLoginUserMutation();
 
   const handleUsernameChange = (event) => {
@@ -43,8 +42,6 @@ const Login = () => {
 
     try {
       await loginUser({ username, password }).unwrap();
-      setUsername("");
-      setPassword("");
     } catch (err) {
       console.error("Failed to login: ", err);
     }
