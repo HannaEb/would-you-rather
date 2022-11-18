@@ -24,10 +24,9 @@ import { useLoginUserMutation } from "../api/apiSlice";
 
 const Login = () => {
   const authedUser = useSelector(selectAuthedUser);
-  const { message } = useSelector((state) => state.message);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isError, error }] = useLoginUserMutation();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -94,9 +93,9 @@ const Login = () => {
                     Login
                   </Button>
                 </FormGroup>
-                {message && (
+                {isError && (
                   <FormGroup className="text-center">
-                    <Alert color="danger">{message}</Alert>
+                    <Alert color="danger">{error.data.message}</Alert>
                   </FormGroup>
                 )}
                 <FormGroup className="text-center">

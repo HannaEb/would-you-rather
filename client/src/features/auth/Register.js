@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import logo from "../../images/logo.png";
@@ -38,12 +37,11 @@ import {
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const { message } = useSelector((state) => state.message);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const [toHome, setToHome] = useState(false);
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isError, error }] = useRegisterUserMutation();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -305,9 +303,9 @@ const Register = () => {
                     Sign Up
                   </Button>
                 </FormGroup>
-                {message && (
+                {isError && (
                   <FormGroup className="text-center">
-                    <Alert color="danger">{message}</Alert>
+                    <Alert color="danger">{error.data.message}</Alert>
                   </FormGroup>
                 )}
                 <FormGroup className="text-center">
