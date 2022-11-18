@@ -9,7 +9,6 @@ import AddQuestion from "./features/questions/AddQuestion";
 import Leaderboard from "./features/leaders/Leaderboard";
 import QuestionPage from "./features/questions/QuestionPage";
 import Error from "./components/Error";
-import LoadingBar from "react-redux-loading-bar";
 import { selectAuthedUser } from "./features/auth/authSlice";
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
   return (
     <Router>
       <Fragment>
-        <LoadingBar style={{ backgroundColor: "#5BC0DE" }} />
         <div>
           {!authedUser ? (
             <div>
