@@ -11,15 +11,16 @@ import {
   Col,
   List,
 } from "reactstrap";
-import Question from "./Question";
 import classnames from "classnames";
-import { useGetQuestionsQuery } from "../api/apiSlice";
+import Question from "./Question";
+import Loader from "../../components/Loader";
 import { selectAuthedUser } from "../auth/authSlice";
+import { useGetQuestionsQuery } from "../api/apiSlice";
 
 const Dashboard = () => {
   const authedUser = useSelector(selectAuthedUser);
   const [activeTab, setActiveTab] = useState("unanswered");
-  const { data: questions = {} } = useGetQuestionsQuery();
+  const { data: questions = {}, isLoading, isSuccess } = useGetQuestionsQuery();
 
   const sortedQuestions = useMemo(() => {
     const sortedQuestions = Object.values(questions).sort(
@@ -46,60 +47,68 @@ const Dashboard = () => {
     }
   };
 
-  return (
-    <Container>
-      <Row className="justify-content-center">
-        <Col md={8} lg={6}>
-          <Nav fill tabs>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "unanswered" })}
-                onClick={() => handleToggle("unanswered")}
-              >
-                Unanswered Questions
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "answered" })}
-                onClick={() => handleToggle("answered")}
-              >
-                Answered Questions
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={activeTab}>
-            <TabPane tabId="unanswered">
-              <Row>
-                <Col>
-                  <List type="unstyled">
-                    {unansweredQuestions.map((question) => (
-                      <li key={question.id}>
-                        <Question question={question} />
-                      </li>
-                    ))}
-                  </List>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tabId="answered">
-              <Row>
-                <Col>
-                  <List type="unstyled">
-                    {answeredQuestions.map((question) => (
-                      <li key={question.id}>
-                        <Question question={question} />
-                      </li>
-                    ))}
-                  </List>
-                </Col>
-              </Row>
-            </TabPane>
-          </TabContent>
-        </Col>
-      </Row>
-    </Container>
-  );
+  let content;
+
+  if (isLoading) {
+    content = <Loader />;
+  } else if (isSuccess) {
+    content = (
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={8} lg={6}>
+            <Nav fill tabs>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: activeTab === "unanswered" })}
+                  onClick={() => handleToggle("unanswered")}
+                >
+                  Unanswered Questions
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: activeTab === "answered" })}
+                  onClick={() => handleToggle("answered")}
+                >
+                  Answered Questions
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={activeTab}>
+              <TabPane tabId="unanswered">
+                <Row>
+                  <Col>
+                    <List type="unstyled">
+                      {unansweredQuestions.map((question) => (
+                        <li key={question.id}>
+                          <Question question={question} />
+                        </li>
+                      ))}
+                    </List>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="answered">
+                <Row>
+                  <Col>
+                    <List type="unstyled">
+                      {answeredQuestions.map((question) => (
+                        <li key={question.id}>
+                          <Question question={question} />
+                        </li>
+                      ))}
+                    </List>
+                  </Col>
+                </Row>
+              </TabPane>
+            </TabContent>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  return <div>{content}</div>;
 };
 
 export default Dashboard;
