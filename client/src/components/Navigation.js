@@ -9,9 +9,8 @@ import {
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../actions/auth";
 import { avatars } from "../utils/avatars.js";
-import { selectAuthedUser } from "../features/auth/authSlice";
+import { selectAuthedUser, logout } from "../features/auth/authSlice";
 
 const Navigation = () => {
   const authedUser = useSelector(selectAuthedUser);
