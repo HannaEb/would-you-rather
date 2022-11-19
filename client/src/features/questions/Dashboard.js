@@ -14,13 +14,20 @@ import {
 import classnames from "classnames";
 import Question from "./Question";
 import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 import { selectAuthedUser } from "../auth/authSlice";
 import { useGetQuestionsQuery } from "../api/apiSlice";
 
 const Dashboard = () => {
   const authedUser = useSelector(selectAuthedUser);
   const [activeTab, setActiveTab] = useState("unanswered");
-  const { data: questions = {}, isLoading, isSuccess } = useGetQuestionsQuery();
+  const {
+    data: questions = {},
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetQuestionsQuery();
 
   const sortedQuestions = useMemo(() => {
     const sortedQuestions = Object.values(questions).sort(
@@ -51,6 +58,8 @@ const Dashboard = () => {
 
   if (isLoading) {
     content = <Loader />;
+  } else if (isError) {
+    content = <Error code={error.status} message={error.data.message} />;
   } else if (isSuccess) {
     content = (
       <Container>

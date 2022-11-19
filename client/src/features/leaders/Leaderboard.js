@@ -2,10 +2,21 @@ import React from "react";
 import { Container, Row, Col, List } from "reactstrap";
 import Leader from "./Leader";
 import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 import { useGetUsersQuery } from "../api/apiSlice";
 
 const Leaderboard = () => {
-  const { data: users = {}, isLoading, isSuccess } = useGetUsersQuery();
+  const {
+    data: users = {},
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery();
+
+  if (isError) {
+    console.log("ERror", error);
+  }
 
   const sortedUsers = Object.values(users)
     .map((user) => ({
@@ -19,6 +30,8 @@ const Leaderboard = () => {
 
   if (isLoading) {
     content = <Loader />;
+  } else if (isError) {
+    content = <Error code={error.status} message={error.data.message} />;
   } else if (isSuccess) {
     content = (
       <Container>
