@@ -1,5 +1,10 @@
 import React, { Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 import Register from "./features/auth/Register";
 import Login from "./features/auth/Login";
@@ -22,6 +27,7 @@ const App = () => {
               <Switch>
                 <Route exact path={["/", "/login"]} component={Login} />
                 <Route path="/register" component={Register} />
+                <Redirect to="/" component={Login} />
               </Switch>
             </div>
           ) : (
