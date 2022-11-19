@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Nav,
@@ -7,8 +9,6 @@ import {
   NavbarBrand,
   NavbarText,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { avatars } from "../utils/avatars.js";
 import { selectAuthedUser, logout } from "../features/auth/authSlice";
 
