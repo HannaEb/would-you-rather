@@ -38,7 +38,12 @@ const App = () => {
                 <Route exact path="/questions/add" component={AddQuestion} />
                 <Route exact path="/leaderboard" component={Leaderboard} />
                 <Route path="/questions/:id" component={QuestionPage} />
-                <Route path="*" component={Error} />
+                <Route
+                  path="*"
+                  render={(props) => (
+                    <Error {...props} code={"404"} message={"Page not found"} />
+                  )}
+                />
               </Switch>
             </div>
           )}
