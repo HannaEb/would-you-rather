@@ -15,17 +15,17 @@ import {
   FormText,
   Input,
   Button,
+  Alert,
 } from "reactstrap";
-import { useAddQuestionMutation } from "../../features/api/apiSlice";
 import { selectAuthedUserId } from "../../features/auth/authSlice";
+import { useAddQuestionMutation } from "../../features/api/apiSlice";
 
 const AddQuestion = () => {
+  const authedUserId = useSelector(selectAuthedUserId);
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
   const [toHome, setToHome] = useState(false);
-  const authedUserId = useSelector(selectAuthedUserId);
-
-  const [addQuestion] = useAddQuestionMutation();
+  const [addQuestion, { isError, error }] = useAddQuestionMutation();
 
   const handleOptionOneChange = (event) => {
     setOptionOneText(event.target.value.toLowerCase());
@@ -94,6 +94,11 @@ const AddQuestion = () => {
                     Add
                   </Button>
                 </FormGroup>
+                {isError && (
+                  <FormGroup className="text-center">
+                    <Alert color="danger">{error.data.message}</Alert>
+                  </FormGroup>
+                )}
               </Form>
             </CardBody>
           </Card>
