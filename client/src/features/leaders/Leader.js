@@ -8,7 +8,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
-import ScoreCard from "./ScoreCard";
+import ScoreCard from "../../components/ScoreCard";
 import { avatars } from "../../utils/avatars.js";
 
 const Leader = ({ leader }) => {
