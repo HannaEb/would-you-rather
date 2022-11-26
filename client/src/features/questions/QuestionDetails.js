@@ -15,14 +15,14 @@ import {
   Button,
 } from "reactstrap";
 import { avatars } from "../../utils/avatars.js";
-import { useUpdateQuestionMutation } from "../api/apiSlice";
 import { selectAuthedUserId } from "../auth/authSlice.js";
+import { useUpdateQuestionMutation } from "../api/apiSlice";
 
 const QuestionDetails = ({ question }) => {
   const { id, author, optionOne, optionTwo } = question;
   const authedUserId = useSelector(selectAuthedUserId);
-  const [updateQuestion] = useUpdateQuestionMutation();
   const [answer, setAnswer] = useState(null);
+  const [updateQuestion] = useUpdateQuestionMutation();
 
   const handleChange = (event) => {
     setAnswer(event.target.value);
