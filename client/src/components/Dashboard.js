@@ -72,7 +72,7 @@ const Dashboard = () => {
             </NavItem>
           </Nav>
           <TabContent activeTab={activeTab}>
-            <TabPane tabId="unanswered" tab>
+            <TabPane tabId="unanswered">
               <Row>
                 <Col>
                   <List type="unstyled">
