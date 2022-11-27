@@ -30,6 +30,10 @@ img {
   margin-bottom: 30px;
 }
 
+.nav-link {
+  color: #495057;
+}
+
 .score-badge {
   font-size: 20px;
   border-radius: 50%;
