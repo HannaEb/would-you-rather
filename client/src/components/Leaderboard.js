@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, List } from "reactstrap";
+import { Row, Col, List, Container } from "reactstrap";
 import Leader from "./Leader";
 import { receiveUsers } from "../actions/users";
 
@@ -21,7 +21,7 @@ const Leaderboard = () => {
     .sort((a, b) => b.score - a.score);
 
   return (
-    <div className="container">
+    <Container>
       <Row className="justify-content-center">
         <Col md={10} xl={8}>
           <List type="unstyled">
@@ -33,7 +33,7 @@ const Leaderboard = () => {
           </List>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };
 
