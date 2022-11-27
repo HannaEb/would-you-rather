@@ -20,35 +20,33 @@ const App = () => {
   const authedUser = useSelector(selectAuthedUser);
   return (
     <Router>
-      <Fragment>
-        <div>
-          {!authedUser ? (
-            <div>
-              <Switch>
-                <Route exact path={["/", "/login"]} component={Login} />
-                <Route path="/register" component={Register} />
-                <Redirect to="/" component={Login} />
-              </Switch>
-            </div>
-          ) : (
-            <div>
-              {authedUser && <Navigation />}
-              <Switch>
-                <Route exact path={["/", "/questions"]} component={Dashboard} />
-                <Route exact path="/questions/add" component={AddQuestion} />
-                <Route exact path="/leaderboard" component={Leaderboard} />
-                <Route path="/questions/:id" component={QuestionPage} />
-                <Route
-                  path="*"
-                  render={(props) => (
-                    <Error {...props} code={"404"} message={"Page not found"} />
-                  )}
-                />
-              </Switch>
-            </div>
-          )}
-        </div>
-      </Fragment>
+      <>
+        {!authedUser ? (
+          <>
+            <Switch>
+              <Route exact path={["/", "/login"]} component={Login} />
+              <Route path="/register" component={Register} />
+              <Redirect to="/" component={Login} />
+            </Switch>
+          </>
+        ) : (
+          <>
+            {authedUser && <Navigation />}
+            <Switch>
+              <Route exact path={["/", "/questions"]} component={Dashboard} />
+              <Route exact path="/questions/add" component={AddQuestion} />
+              <Route exact path="/leaderboard" component={Leaderboard} />
+              <Route path="/questions/:id" component={QuestionPage} />
+              <Route
+                path="*"
+                render={(props) => (
+                  <Error {...props} code={"404"} message={"Page not found"} />
+                )}
+              />
+            </Switch>
+          </>
+        )}
+      </>
     </Router>
   );
 };
