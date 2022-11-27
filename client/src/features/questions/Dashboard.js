@@ -68,6 +68,7 @@ const Dashboard = () => {
             <Nav fill tabs>
               <NavItem>
                 <NavLink
+                  href="#"
                   className={classnames({ active: activeTab === "unanswered" })}
                   onClick={() => handleToggle("unanswered")}
                 >
@@ -76,6 +77,7 @@ const Dashboard = () => {
               </NavItem>
               <NavItem>
                 <NavLink
+                  href="#"
                   className={classnames({ active: activeTab === "answered" })}
                   onClick={() => handleToggle("answered")}
                 >
