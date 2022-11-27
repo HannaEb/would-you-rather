@@ -15,18 +15,18 @@ const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
     <Router>
-      <Fragment>
+      <>
         <LoadingBar style={{ backgroundColor: "#5BC0DE" }} />
-        <div>
+        <>
           {!isLoggedIn ? (
-            <div>
+            <>
               <Switch>
                 <Route exact path={["/", "/login"]} component={Login} />
                 <Route path="/register" component={Register} />
               </Switch>
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               {isLoggedIn && <Navigation />}
               <Switch>
                 <Route exact path={["/", "/questions"]} component={Dashboard} />
@@ -35,10 +35,10 @@ const App = () => {
                 <Route path="/questions/:id" component={QuestionPage} />
                 <Route path="*" component={Error} />
               </Switch>
-            </div>
+            </>
           )}
-        </div>
-      </Fragment>
+        </>
+      </>
     </Router>
   );
 };
