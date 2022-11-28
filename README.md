@@ -14,6 +14,8 @@ The frontend part of the project is part of [Udacity's React Nanodegree program]
 
 MERN. MongoDB, Express, Node, React, Redux, Reactstrap.
 
+An updated version using RTK Query is currently being developed on the rtk-query branch.
+
 ## Installation Instructions
 
 Ensure you have MongoDB installed locally and run:
@@ -27,7 +29,7 @@ In a separate terminal tab:
 ```
 $ git clone https://github.com/HannaEb/would-you-rather.git
 $ cd would-you-rather
-$ npm install
+$ npm run setup
 $ npm run dev
 ```
 
