@@ -13,7 +13,7 @@ import { logout } from "../actions/auth";
 import { avatars } from "../utils/avatars.js";
 
 const Navigation = () => {
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector((state) => state.auth.user.user);
   const index = authedUser.avatar;
   const dispatch = useDispatch();
 

@@ -16,7 +16,7 @@ import classnames from "classnames";
 import { receiveQuestions } from "../actions/questions";
 
 const Dashboard = () => {
-  const authedUser = useSelector((state) => state.auth.user);
+  const authedUser = useSelector((state) => state.auth.user.user);
   const questions = useSelector((state) => state.questions);
   const [activeTab, setActiveTab] = useState("unanswered");
   const dispatch = useDispatch();

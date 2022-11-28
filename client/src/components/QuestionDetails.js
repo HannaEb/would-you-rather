@@ -20,7 +20,7 @@ import { avatars } from "../utils/avatars.js";
 const QuestionDetails = (props) => {
   const question = useSelector((state) => state.questions[props.id]);
   const { author, optionOne, optionTwo } = question;
-  const authedUser = useSelector((state) => state.auth.user.id);
+  const authedUser = useSelector((state) => state.auth.user.user.id);
   const [answer, setAnswer] = useState(null);
   const dispatch = useDispatch();
 

@@ -22,7 +22,7 @@ export const receiveQuestions = () => async (dispatch) => {
 export const createQuestion =
   (optionOneText, optionTwoText) => async (dispatch, getState) => {
     const { auth } = getState();
-    const authorId = auth.user.id;
+    const authorId = auth.user.user.id;
     try {
       const res = await QuestionService.create({
         authorId,
@@ -57,7 +57,7 @@ export const getQuestion = (id) => async (dispatch) => {
 export const updateQuestion = (id, data) => async (dispatch, getState) => {
   const { auth } = getState();
   const answer = data.answer;
-  const authedUser = auth.user.id;
+  const authedUser = auth.user.user.id;
   try {
     const res = await QuestionService.update(id, { data });
     dispatch({

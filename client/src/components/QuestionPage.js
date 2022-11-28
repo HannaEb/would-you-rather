@@ -7,7 +7,7 @@ import Error from "./Error";
 
 const QuestionPage = (props) => {
   const { id } = props.match.params;
-  const userId = useSelector((state) => state.auth.user.id);
+  const userId = useSelector((state) => state.auth.user.user.id);
   const question = useSelector((state) => state.questions[id]);
 
   const answered =

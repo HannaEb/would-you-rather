@@ -36,7 +36,7 @@ export const login = (username, password) => async (dispatch) => {
     const res = await AuthService.login({ username, password });
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data.user,
+      payload: res.data,
     });
     dispatch({
       type: CLEAR_MESSAGE,
