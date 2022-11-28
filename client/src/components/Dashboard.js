@@ -14,6 +14,7 @@ import {
 import Question from "./Question";
 import classnames from "classnames";
 import { receiveQuestions } from "../actions/questions";
+import { receiveUsers } from "../actions/users";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.auth.user.user);
@@ -23,6 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(receiveQuestions());
+    dispatch(receiveUsers());
   }, [dispatch]);
 
   const sortedQuestions = Object.values(questions).sort(
