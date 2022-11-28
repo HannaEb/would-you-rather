@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
+const { DB_URL = `mongodb://localhost:27017/wouldyourather` } = process.env;
+
 mongoose
-  .connect(process.env.MONGODB_URI || process.env.URL, {
+  .connect(process.env.MONGODB_URI || DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

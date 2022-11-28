@@ -9,6 +9,14 @@ module.exports = (app) => {
   app.use("/api/users", userRouter);
   app.use("/api/questions", questionRouter);
 
+  app.get("*", (req, res) => {
+    if (process.env.NODE_ENV === "production") {
+      res.sendFile(
+        path.join(__dirname, "../../../client/", "build/index.html")
+      );
+    }
+  });
+
   app.all("*", (req, res, next) => {
     next(new AppError(`${req.originalUrl} not found`, 404));
   });
