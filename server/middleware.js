@@ -10,8 +10,10 @@ module.exports = (app) => {
   // Serve the client build directory for production
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/", "build")));
-    app.use(compression());
   }
+
+  // Compress all HTTP responses
+  app.use(compression());
 
   // Cors for cross origin allowance
   app.use(cors());
