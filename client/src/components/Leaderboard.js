@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Row, Col, List, Container } from "reactstrap";
 import Leader from "./Leader";
-import { receiveUsers } from "../actions/users";
 
 const Leaderboard = () => {
   const users = useSelector((state) => state.users);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(receiveUsers());
-  }, [dispatch]);
 
   const sortedUsers = Object.values(users)
     .map((user) => ({
