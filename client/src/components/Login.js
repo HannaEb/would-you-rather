@@ -59,6 +59,7 @@ const Login = () => {
               <CardImg
                 className="d-block mx-auto my-4 logo"
                 src={logo}
+                alt="Question mark"
               ></CardImg>
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
