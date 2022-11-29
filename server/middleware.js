@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const compression = require("compression");
 const cors = require("cors");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -9,6 +10,7 @@ module.exports = (app) => {
   // Serve the client build directory for production
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/", "build")));
+    app.use(compression());
   }
 
   // Cors for cross origin allowance
