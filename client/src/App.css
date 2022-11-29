@@ -12,6 +12,7 @@ img {
 
 .logo {
   max-width: 200px;
+  height: auto;
 }
 
 .card-avatar {
