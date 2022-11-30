@@ -9,6 +9,8 @@ module.exports = (app) => {
   app.use("/api/users", userRouter);
   app.use("/api/questions", questionRouter);
 
+  app.all("*", (req, res) => res.redirect("/"));
+
   app.get("*", (req, res) => {
     if (process.env.NODE_ENV === "production") {
       res.sendFile(
