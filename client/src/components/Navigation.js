@@ -38,7 +38,7 @@ const Navigation = () => {
           </NavItem>
         </Nav>
         <NavbarBrand className="ml-auto">
-          <img src={avatars[index]} alt="Avatar" width="50"></img>
+          <img src={avatars[index]} alt="Your chosen avatar" width="50"></img>
         </NavbarBrand>
         <Nav navbar>
           <NavbarText>Hello, {authedUser.username}!</NavbarText>

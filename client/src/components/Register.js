@@ -123,6 +123,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar0}
+                          alt="Female, long blond hair"
                         />
                       </Label>
                     </Col>
@@ -138,6 +139,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar1}
+                          alt="Male, bold, with beard"
                         />
                       </Label>
                     </Col>
@@ -153,6 +155,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar2}
+                          alt="Male, short black hair"
                         />
                       </Label>
                     </Col>
@@ -168,6 +171,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar3}
+                          alt="Female, long black hair"
                         />
                       </Label>
                     </Col>
@@ -183,6 +187,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar4}
+                          alt="Female, black hair, double top knots"
                         />
                       </Label>
                     </Col>
@@ -198,6 +203,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar5}
+                          alt="Male, dark hair, goatee, glasses"
                         />
                       </Label>
                     </Col>
@@ -213,6 +219,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar6}
+                          alt="Femail, short blond hair, glasses"
                         />
                       </Label>
                     </Col>
@@ -228,6 +235,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar7}
+                          alt="Male, light brown hair, goatee"
                         />
                       </Label>
                     </Col>
@@ -243,6 +251,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar8}
+                          alt="Femaile, long red hair, ponytail"
                         />
                       </Label>
                     </Col>
@@ -258,6 +267,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar9}
+                          alt="Female, long brown hair, pigtails, sunglasses"
                         />
                       </Label>
                     </Col>
@@ -273,6 +283,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar10}
+                          alt="Male, brown hair, goatee"
                         />
                       </Label>
                     </Col>
@@ -288,6 +299,7 @@ const Register = () => {
                         <CardImg
                           className="d-block m-auto signup-avatar"
                           src={avatar11}
+                          alt="Female, black hair, glasses"
                         />
                       </Label>
                     </Col>
