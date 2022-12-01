@@ -1,4 +1,5 @@
 const express = require("express");
+const expressStaticGzip = require("express-static-gzip");
 const path = require("path");
 const compression = require("compression");
 const cors = require("cors");
@@ -9,7 +10,13 @@ const xss = require("xss-clean");
 module.exports = (app) => {
   // Serve the client build directory for production
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/", "build")));
+    app.use(
+      "/",
+      expressStaticGzip(path.join(__dirname, "../client/", "build"), {
+        enableBrotli: true,
+        orderPreference: ["br"],
+      })
+    );
     // Compress all HTTP responses
     app.use(compression());
   }
