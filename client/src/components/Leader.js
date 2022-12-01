@@ -27,6 +27,8 @@ const Leader = (props) => {
             <CardImg
               className="d-block m-auto card-avatar"
               src={avatars[index]}
+              height="200"
+              width="200"
               alt="Avatar"
             ></CardImg>
           </Col>

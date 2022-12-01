@@ -18,11 +18,13 @@ img {
 .card-avatar {
   border-radius: 50%;
   max-width: 200px;
+  height: auto;
 }
 
 .signup-avatar {
   border-radius: 50%;
   max-width: 100px;
+  height: auto;
   position: relative;
   left: -10px;
 }

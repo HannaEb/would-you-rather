@@ -36,6 +36,8 @@ const QuestionResults = (props) => {
             <CardImg
               className="d-block m-auto card-avatar"
               src={avatars[author.avatar]}
+              height="200"
+              width="200"
               alt="Avatar"
             ></CardImg>
           </Col>
