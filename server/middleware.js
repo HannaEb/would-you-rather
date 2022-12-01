@@ -17,6 +17,7 @@ module.exports = (app) => {
         orderPreference: ["br"],
       })
     );
+    app.use(express.static(path.join(__dirname, "../client/", "build")));
     // Compress all HTTP responses
     app.use(compression());
   }
