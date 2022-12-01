@@ -82,6 +82,9 @@ const Register = () => {
               <CardImg
                 className="d-block mx-auto my-4 logo"
                 src={logo}
+                width="400"
+                height="600"
+                alt="Question mark"
               ></CardImg>
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
